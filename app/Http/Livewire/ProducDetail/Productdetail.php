@@ -19,7 +19,7 @@ class Productdetail extends Component
      $repo = new ProduitRepository;
       $this->data =  Produit::findOrFail($this->product_id);
       $this->entries = $repo->hystory_entrie($this->product_id);
-      $this->commandes = $repo->hystory_commandes($this->product_id);
+      //$this->commandes = $repo->hystory_commandes($this->product_id);
 
         return view('livewire.produc-detail.productdetail');
     }

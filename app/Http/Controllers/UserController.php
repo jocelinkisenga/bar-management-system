@@ -10,16 +10,19 @@ use App\Models\Role;
 
 class UserController extends Controller
 {
-    
+ protected $user_repo;
+
+    public function __construct()
+    {
+        $this->user_repo = new UserRepository;
+    }
     public function index(){
         return view('pages.users');
     }
 
     public function show($id){
         $data = User::find($id);
-
-        $user = new UserRepository;
-        $precommandes = $user->serveur_commandes($id);
+        $precommandes = $this->user_repo->serveur_commandes($id);
         return view('pages.userdetail',compact('data','precommandes'));
     }
 }

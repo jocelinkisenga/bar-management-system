@@ -10,4 +10,8 @@ class CommandeController extends Controller
         $id = $id;
         return view('pages.commandes',compact('id'));
     }
+
+    // public function show(int $id){
+    //     return view("Pages.CommandeDetail");
+    // }
 }

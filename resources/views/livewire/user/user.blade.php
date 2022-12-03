@@ -126,7 +126,7 @@
                                             {{ session('message') }}
                                         </div>
                                     @endif
-                                    <h4 class="card-title">Mes produits </h4><input type="text" id="myInput"
+                                    <h4 class="card-title">Le personnel </h4><input type="text" id="myInput"
                                         class="" onkeyup="myFunction()" placeholder="Search for names..">
                                     <p class="card-description">
                                     </p>

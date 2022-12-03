@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Enums\RoleEnum;
 use App\Http\Repositorie\CommandeRepositorie;
+use App\Http\Repositorie\ReductionRepositorie;
 use App\Models\Categorie;
 use App\Models\Commande;
 use App\Models\Precommande;
@@ -12,29 +13,40 @@ use App\Models\Serveur;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use SebastianBergmann\Type\NullType;
 
 class Home extends Component
 
 {
-    public $categories, $produits, $servers, $server_id, $last_commande,
-     $quantity_commande = 1, $produit_id, $commandes, $precommandes, $facture, $invoce;
-     protected $commande_repo;
+    public  $categories, $produits, $servers, 
+            $server_id, $last_commande = null,
+            $quantity_commande = 1, $produit_id, $commandes,
+           $precommandes, $facture, $invoce, $reductions;
 
-     public function __construct()
-     {
+    protected $commande_repo, $reduction_repo;
+
+    public function __construct()
+    {
         $this->commande_repo = new CommandeRepositorie;
-     }
+        $this->reduction_repo = new ReductionRepositorie;
+    }
 
 
     public function render()
     {
-        $this->last_commande = Precommande::latest('created_at')->with('reductions')->first();
-        $this->invoce =$this->commande_repo->facture($this->last_commande->id);
-        $this->commandes  = $this->commande_repo->all_commandes($this->last_commande->id);
+
+
+        if ($this->last_commande) {
+            $this->invoce = $this->commande_repo->facture($this->last_commande->id);
+            $this->commandes  = $this->commande_repo->all_commandes($this->last_commande->id);
+        }
+
         $this->categories = Categorie::all();
         $this->produits = Produit::all();
-        $this->precommandes =$this->commande_repo->all_precommandes();
-       // $this->facture =$this->commande_repo->facture($this->last_commande->id);
+        $this->precommandes = $this->commande_repo->all_precommandes();
+        $this->reductions = $this->reduction_repo->reductions();
+      
+     
 
         $this->serveurs = User::whereRole_id(RoleEnum::SERVER)->get();
 
@@ -51,19 +63,15 @@ class Home extends Component
             'user_id' => Auth::user()->id,
             'code' => $code
         ]);
+        session()->flash('message','commande créer  avec succès');
     }
 
-    public function reduction($commandeId){
-       dd( $this->commande_repo->reduction($commandeId));
-    }
-
-
-
-
-    private function reset_fields()
+    public function reduction($commandeId)
     {
-        $this->quantity_commande;
+        $this->reduction_repo->store($commandeId);
     }
+
+
 
     public function ajouter($produitId)
     {
@@ -71,7 +79,7 @@ class Home extends Component
 
         $this->produit_id = $produitId;
 
-        $produit =$this->commande_repo->produit_by_id($this->produit_id);
+        $produit = $this->commande_repo->produit_by_id($this->produit_id);
 
         if ($produit) {
 
@@ -79,10 +87,10 @@ class Home extends Component
 
             if (empty($comm)) {
 
-               $this->commande_repo->store_command($this->last_commande->id, $this->produit_id, $this->quantity_commande);
+                $this->commande_repo->store_command($this->last_commande->id, $this->produit_id, $this->quantity_commande);
             } else {
 
-               $this->commande_repo->update_quantity($this->last_commande->id, $this->produit_id, $this->quantity_commande);
+                $this->commande_repo->update_quantity($this->last_commande->id, $this->produit_id, $this->quantity_commande);
             }
         }
     }
@@ -102,7 +110,21 @@ class Home extends Component
         $result = $this->commande_repo->delete_commande($commandId, $produitId, $quantity);
     }
 
-    public function facture($commandeId){
-        $this->facture =$this->commande_repo->facture($commandeId);
+    public function facture($commandeId)
+    {
+        $this->facture = $this->commande_repo->facture($commandeId);
+    }
+
+    public function edit($id)
+    {
+
+
+        return $this->last_commande =  $this->commande_repo->last_commande($id);
+    }
+
+    public function confirmer(int $id)
+    {
+
+        $this->commande_repo->confirm($id);
     }
 }

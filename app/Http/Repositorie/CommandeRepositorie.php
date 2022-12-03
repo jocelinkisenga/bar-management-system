@@ -6,6 +6,7 @@ use App\Models\Produit;
 use App\Models\Precommande;
 use App\Models\Commande;
 use App\Models\Reduction;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class CommandeRepositorie
@@ -21,7 +22,7 @@ class CommandeRepositorie
         //returns all precommandes
         public function all_precommandes()
         {
-                return Precommande::whereStatus(false)->orderBy('created_at', 'desc')->get();
+                return Precommande::whereStatus(false)->orderBy('id', 'desc')->get();
         }
 
         //returns all 
@@ -140,7 +141,7 @@ class CommandeRepositorie
 
         public function facture($commandId)
         {
-              
+
                 return  DB::select("SELECT commandes.quantity_commande as qty,
                 produits.name, produits.price, precommandes.created_at, precommandes.id as pId 
                 FROM precommandes,commandes,produits 
@@ -149,9 +150,19 @@ class CommandeRepositorie
                 AND commandes.produit_id = produits.id ");
         }
 
-        public function reduction($commandeId){
-                Reduction::create([
-                        'precommande_id' => $commandeId
+
+
+        public function last_commande($id)
+        {
+
+                return   Precommande::whereId($id)->whereStatus(false)->whereUser_id(Auth::user()->id)->with('reductions')->first();
+        }
+
+        public function confirm(int $id)
+        {
+                $precommande = Precommande::where('id', '=', $id)->first();
+                $precommande->update([
+                        'status' => true
                 ]);
         }
 }

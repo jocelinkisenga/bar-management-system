@@ -18,6 +18,8 @@ class CreateCommandesTable extends Migration
             $table->foreignId('precomande_id');
             $table->foreignId('produit_id');
             $table->bigInteger('quantity_commande');
+            $table->boolean('status')->default(false);
+            $table->bigInteger('reduction')->nullable();
             $table->timestamps();
         });
     }

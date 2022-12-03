@@ -16,8 +16,9 @@ class CreateReductionsTable extends Migration
         Schema::create('reductions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('precommande_id')->nullable();
-            $table->bigInteger('prix_reduit')->nullable();
+            $table->bigInteger('pourcentage')->nullable();
             $table->boolean('status')->default(false);
+            $table->boolean('reduit')->default(false);
             $table->timestamps();
         });
     }

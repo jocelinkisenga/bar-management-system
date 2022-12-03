@@ -9,7 +9,7 @@ class Commande extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['precommande_id','produit_id','quantity_commande','status'];
+    protected $fillable = ['precommande_id','produit_id','quantity_commande','status','reduction'];
 
     public function produit(){
         return $this->belongsTo(Produit::class);

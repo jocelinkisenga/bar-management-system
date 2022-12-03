@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PrecommandeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RapportController;
+use App\Http\Controllers\ReductionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServerController;
 use App\Http\Controllers\StockController;
@@ -41,6 +42,8 @@ Route::get('/', [AuthenticatedSessionController::class, 'create'])->middleware('
 Route::middleware(['auth','admin'])->group(function(){
     Route::get('/dashboard',[HomeController::class,'index'])->name('dashboard');
     Route::get('/taux',[TauxController::class,'index'])->name('taux');
+    Route::get('/reduction',[ReductionController::class,'index'])->name('reductions');
+    Route::get('/detail-reduction/{id}',[ReductionController::class,'show'])->name('reduction-detail');
 });
 
 Route::middleware(['gerant','auth'])->group(function(){

@@ -10,8 +10,8 @@
     <div class="main-wrappers">
         <div class="header">
             <!-- Logo -->
-            <div class="header-left border-0 ">
-                <a href="index.html" class="logo">
+            <div class="border-0 header-left ">
+                <a href="" class="logo">
                     <img src="assets/img/logo.png" alt="">
                 </a>
                 <a href="index.html" class="logo-small">
@@ -44,33 +44,13 @@
                 <!-- /Search -->
 
                 <!-- Flag -->
-                <li class="nav-item dropdown has-arrow flag-nav">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="javascript:void(0);"
-                        role="button">
-                        <img src="assets/img/flags/us1.png" alt="" height="20">
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a href="javascript:void(0);" class="dropdown-item">
-                            <img src="assets/img/flags/us.png" alt="" height="16"> English
-                        </a>
-                        <a href="javascript:void(0);" class="dropdown-item">
-                            <img src="assets/img/flags/fr.png" alt="" height="16"> French
-                        </a>
-                        <a href="javascript:void(0);" class="dropdown-item">
-                            <img src="assets/img/flags/es.png" alt="" height="16"> Spanish
-                        </a>
-                        <a href="javascript:void(0);" class="dropdown-item">
-                            <img src="assets/img/flags/de.png" alt="" height="16"> German
-                        </a>
-                    </div>
-                </li>
                 <!-- /Flag -->
 
                 <!-- Notifications -->
                 <li class="nav-item dropdown">
                     <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                         <img src="assets/img/icons/notification-bing.svg" alt="img"> <span
-                            class="badge rounded-pill">4</span>
+                            class="badge rounded-pill"></span>
                     </a>
                     <div class="dropdown-menu notifications">
                         <div class="topnav-dropdown-header">
@@ -82,7 +62,7 @@
                                 <li class="notification-message">
                                     <a href="activities.html">
                                         <div class="media d-flex">
-                                            <span class="avatar flex-shrink-0">
+                                            <span class="flex-shrink-0 avatar">
                                                 <img alt="" src="assets/img/profiles/avatar-02.jpg">
                                             </span>
                                             <div class="media-body flex-grow-1">
@@ -115,31 +95,19 @@
                                 <span class="user-img"><img src="assets/img/profiles/avator1.jpg" alt="">
                                     <span class="status online"></span></span>
                                 <div class="profilesets">
-                                    <h6>John Doe</h6>
+                                    <h6>{{ Auth::user()->name }}</h6>
                                     <h5>Admin</h5>
                                 </div>
                             </div>
                             <hr class="m-0">
-                            <a class="dropdown-item" href="profile.html"> <svg xmlns="http://www.w3.org/2000/svg"
-                                    width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="feather feather-user me-2">
-                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="12" cy="7" r="4"></circle>
-                                </svg> My Profile</a>
-                            <a class="dropdown-item" href="generalsettings.html"><svg
-                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round"
-                                    class="feather feather-settings me-2">
-                                    <circle cx="12" cy="12" r="3"></circle>
-                                    <path
-                                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
-                                    </path>
-                                </svg>Settings</a>
-                            <hr class="m-0">
-                            <a class="dropdown-item logout pb-0" href="signin.html"><img
-                                    src="assets/img/icons/log-out.svg" class="me-2" alt="img">Logout</a>
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+
+                                <span class="dropdown-item logout"> <input type="submit" value="se deconnecter"
+                                        class="text-white bg-danger nav-link"></span>
+
+
+                            </form>
                         </div>
                     </div>
                 </li>
@@ -153,7 +121,14 @@
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="profile.html">My Profile</a>
                     <a class="dropdown-item" href="generalsettings.html">Settings</a>
-                    <a class="dropdown-item" href="signin.html">Logout</a>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+
+                        <span class="dropdown-item"> <input type="submit" value="se deconnecter"
+                                class="text-white bg-danger nav-link"></span>
+
+
+                    </form>
                 </div>
             </div>
             <!-- /Mobile Menu -->
@@ -166,6 +141,9 @@
                         <div class="page-header ">
 
                         </div>
+                        @if (session('message'))
+                            <a href="javascript:void(0);" class="deletebg confirm-text">{{ session('message') }}</a>
+                        @endif
                         @include('components.commande.categories')
 
                         {{-- @include('components.commande.products') --}}
@@ -177,36 +155,19 @@
                         </div>
                         <div class="order-list">
                             <div class="orderid">
-                                <h4>votre commande</h4>
-                                <h5>Code:
-                                    {{ $last_commande->code }}
-                                </h5>
+                                @if (!empty($last_commande))
+                                    <h4>votre commande</h4>
+                                    <h5>Code:
+
+                                        <span class="text-strong"> {{ $last_commande->code }} </span>
+
+                                    </h5>
+                                @else
+                                    <h5 class="text-lg font-bold text-bold">veuillez créer une commande</h5>
+                                @endif
                             </div>
                             <div class="actionproducts">
-                                <ul>
-                                    <li>
-                                        <a href="javascript:void(0);" class="deletebg confirm-text"><img
-                                                src="assets/img/icons/delete-2.svg" alt="img"></a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"
-                                            class="dropset">
-                                            <img src="assets/img/icons/ellipise1.svg" alt="img">
-                                        </a>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                                            data-popper-placement="bottom-end">
-                                            <li>
-                                                <a href="#" class="dropdown-item">Action</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="dropdown-item">Another Action</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="dropdown-item">Something Elses</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
+
                             </div>
                         </div>
                         <div class="card card-order">
@@ -215,7 +176,7 @@
                             </div>
                             <div class="split-card">
                             </div>
-                            <div class="card-body pt-0">
+                            <div class="pt-0 card-body">
 
                                 @if (!empty($commandes))
                                     <div class="totalitem">
@@ -258,9 +219,14 @@
                                                 <?php $total_item += $commande->quantity_commande * $commande->produit->price; ?>
                                                 <li>{{ $commande->quantity_commande * $commande->produit->price }} fc
                                                 </li>
-                                                <li><a class="confirm-text" wire:click.prevent="reduire({{ $last_commande->id }},{{ $commande->produit->id }})"><img
-                                                            src="assets/img/icons/delete-2.svg" alt="img"></a>
-                                                </li>
+                                                @if (!empty($last_commande))
+                                                    <li><a class="confirm"
+                                                            wire:click.prevent="reduire({{ $last_commande->id }},{{ $commande->produit->id }})"><img
+                                                                src="assets/img/icons/delete-2.svg"
+                                                                alt="img"></a>
+                                                    </li>
+                                                @endif
+
                                             </ul>
                                         @endforeach
 
@@ -271,47 +237,64 @@
                             </div>
                             <div class="split-card">
                             </div>
-                            <div class="card-body pt-0 pb-2">
+                            <div class="pt-0 pb-2 card-body">
                                 <div class="setvalue">
                                     <ul>
-
-                                        <li class="total-value">
-                                            <h5>Total </h5>
-                                            <h6><?= $total_item ?></h6>
-                                        </li>
+                                        @if (!empty($last_commande))
+                                            <li class="total-value">
+                                                <h5>Total </h5>
+                                                <h6><?= $total_item ?></h6>
+                                            </li>
+                                        @endif
                                     </ul>
                                 </div>
 
 
                                 <div class="setvaluecash">
                                     <ul>
-                                        <li>
-                                            <a class="paymentmethod" data-bs-toggle="modal"
-                                                data-bs-target="#facture">
-                                                <img src="assets/img/icons/purchase1.svg" alt="img"
-                                                    class="me-2">
-                                                FACTURE
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="paymentmethod">
-                                                <img src="assets/img/icons/purchase.svg" alt="img"
-                                                    class="me-2">
-                                                COUPON
-                                            </a>
-                                        </li>
-                                        @isset($last_commande->reductions[0]['precommande_id'])
-                                            @if ($last_commande->reductions[0]['precommande_id'] != $last_commande->id)
+                                        @if (!empty($last_commande))
+                                            <li>
+                                                <a class="paymentmethod" data-bs-toggle="modal"
+                                                    data-bs-target="#facture">
+                                                    <img src="assets/img/icons/purchase1.svg" alt="img"
+                                                        class="me-2">
+                                                    FACTURE
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a data-bs-toggle="modal"
+                                                    data-bs-target="#coupon"class="paymentmethod">
+                                                    <img src="assets/img/icons/purchase.svg" alt="img"
+                                                        class="me-2">
+                                                    COUPON
+                                                </a>
+                                            </li>
+                                            @if (isset($last_commande->reductions[0]['precommande_id']))
+                                                @if ($last_commande->reductions[0]['precommande_id'] != $last_commande->id)
+                                                    <li>
+                                                        <a wire:click="reduction({{ $last_commande->id }})"
+                                                            class="paymentmethod">
+                                                            <img src="assets/img/icons/return1.svg" alt="img"
+                                                                class="me-2">
+                                                            REDUIRE
+                                                        </a>
+                                                    </li>
+                                                @endif
+                                            @else
                                                 <li>
-                                                    <a wire:click="reduction({{ $last_commande->id }})"
-                                                        class="paymentmethod">
-                                                        <img src="assets/img/icons/return1.svg" alt="img"
-                                                            class="me-2">
-                                                        REDUCTION
-                                                    </a>
+                                                    @if ($last_commande)
+                                                        <a wire:click="reduction({{ $last_commande->id }})"
+                                                            class="paymentmethod">
+                                                            <img src="assets/img/icons/return1.svg" alt="img"
+                                                                class="me-2">
+                                                            REDUIRE
+                                                        </a>
+                                                    @endif
+
                                                 </li>
                                             @endif
-                                        @endisset
+
+                                        @endif
 
 
 
@@ -330,22 +313,25 @@
                                                 COMMANDES
                                             </a>
                                         </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="paymentmethod">
-                                                <img src="assets/img/icons/debitcard.svg" alt="img"
-                                                    class="me-2">
-                                                CONFIRMER
-                                            </a>
-                                        </li>
+                                        @if (!empty($last_commande))
+                                            <li>
+                                                <a class="paymentmethod"
+                                                    wire:click="confirmer({{ $last_commande->id }})">
+                                                    <img src="assets/img/icons/debitcard.svg" alt="img"
+                                                        class="me-2">
+                                                    CONFIRMER
+                                                </a>
+                                            </li>
+                                        @endif
                                         <li>
                                             <a href="javascript:void(0);" class="paymentmethod">
                                                 <img src="assets/img/icons/scan.svg" alt="img" class="me-2">
-                                                Scan
+                                                REDUCTIONS
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="btn-pos">
+                                {{-- <div class="btn-pos">
                                     <ul>
                                         <li>
                                             <a class="btn"><img src="assets/img/icons/pause1.svg" alt="img"
@@ -369,7 +355,7 @@
                                                     class="me-1"> Transaction</a>
                                         </li>
                                     </ul>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -563,7 +549,7 @@
 
                     </div>
                     <div class="col-lg-12">
-                        <a class="btn btn-submit me-2" wire:click.prevent="store()">créer la commande</a>
+                        <a class="btn btn-submit me-2 " wire:click.prevent="store()">créer la commande</a>
                     </div>
                 </div>
             </div>
@@ -582,10 +568,10 @@
                     <div class="delete-order">
                         <img src="assets/img/icons/close-circle1.svg" alt="img">
                     </div>
-                    <div class="para-set text-center">
+                    <div class="text-center para-set">
                         <p>The current order will be deleted as no payment has been <br> made so far.</p>
                     </div>
-                    <div class="col-lg-12 text-center">
+                    <div class="text-center col-lg-12">
                         <a class="btn btn-danger me-2">Yes</a>
                         <a class="btn btn-cancel" data-bs-dismiss="modal">No</a>
                     </div>
@@ -596,7 +582,7 @@
 
     {{-- Recent commande --}}
 
-    <div class="modal fade" id="recents" tabindex="-1" aria-hidden="true">
+    <div wire:ignore.self class="modal fade" id="recents" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -617,6 +603,9 @@
                                                     src="assets/img/icons/search-white.svg" alt="img"></a>
                                         </div>
                                     </div>
+                                    {{-- @if (session('message'))
+                                     <div class="text-success">{{session('message')}}</div>
+                                    @endif --}}
                                     <div class="wordset">
                                         <ul>
                                             <li>
@@ -660,9 +649,23 @@
                                                             wire:click="facture({{ $item->id }})">
                                                             <img src="assets/img/icons/eye.svg" alt="img">
                                                         </a>
-                                                        <a class="me-3" href="javascript:void(0);">
+                                                        <a class="me-3" wire:click="edit({{ $item->id }})">
                                                             <img src="assets/img/icons/edit.svg" alt="img">
                                                         </a>
+
+                                                        {{-- <form>
+                                                            <input type="submit" value="success"
+                                                                wire:click.prevent="confirmer({{ $item->id }})"
+                                                                class="btn btn-danger btn-sm">
+                                                        </form> --}}
+
+                                                        {{-- <a class="me-3"  wire:click="confirmer({{ $item->id }})">
+                                                            <img src="assets/img/icons/cash.svg" alt="img">
+                                                        </a> --}}
+                                                        {{--                                                         
+                                                        {{-- <a class="me-3"  wire:click="confirmer({{ $item->id }})">
+                                                            <img src="assets/img/icons/cash.svg" alt="img">
+                                                        </a> --}}
                                                         <a class="me-3 confirm-text" href="javascript:void(0);">
                                                             <img src="assets/img/icons/delete.svg" alt="img">
                                                         </a>
@@ -686,10 +689,10 @@
 
     <div wire:ignore.self class="modal fade" id="facture" tabindex="-1" aria-labelledby="facture"
         aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Create</h5>
+                    <h5 class="modal-title">Facture</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -702,8 +705,8 @@
                                 aria-selected="true" role="tab">imprimer</button>
                         </li>
                     </ul>
-                    <div class="row justify-center">
-                        <div class="wrapper ml-9 mt-4 col-12">
+                    <div class="justify-center row">
+                        <div class="mt-4 wrapper ml-9 col-12">
                             <div id="printdivcontent">
                                 <div class="card">
                                     <div class="card-header ">
@@ -714,7 +717,7 @@
                                         </div>
                                     </div>
                                     <div class="card-body" id="elem">
-                                        <div class="row mb-4">
+                                        <div class="mb-4 row">
                                         </div>
                                         <div class="table-responsive-sm">
                                             <table class="table table-striped">
@@ -727,7 +730,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @if ($invoce != null)
+                                                    @if (!empty($invoce))
                                                         @foreach ($invoce as $item)
                                                             <tr>
 
@@ -751,7 +754,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-footer bg-white">
+                                <div class="bg-white card-footer">
                                     <p class="mb-0"><span class="text-uppercase font-weight-bold">Total :
                                             {{ $facture_total }}
                                             fc</span></p>
@@ -765,6 +768,88 @@
     </div>
 
     {{-- end facture component --}}
+
+    {{-- coupon  --}}
+    <div wire:ignore.self class="modal fade" id="coupon" tabindex="-1" aria-labelledby="coupon"
+        aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">coupon</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul class="nav nav-tabs" id="myTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="purchase-tab" data-bs-toggle="tab"
+                                data-bs-target="#purchase" type="button" aria-controls="purchase"
+                                aria-selected="true" role="tab">imprimer</button>
+                        </li>
+                    </ul>
+                    <div class="justify-center row">
+                        <div class="mt-4 wrapper ml-9 col-12">
+                            <div id="printdivcontent">
+                                <div class="card">
+                                    <div class="card-header ">
+                                        <a class="pt-2 ">The king</a>
+                                        <div class="float-right">
+                                            <h3 class="mb-0"></h3>
+                                            Date: <?= date('Y/m/d') ?>
+                                        </div>
+                                    </div>
+                                    <div class="card-body" id="elem">
+                                        <div class="mb-4 row">
+                                        </div>
+                                        <div class="table-responsive-sm">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+
+                                                        <th>produit</th>
+                                                        <th class="right">quantité</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if ($invoce != null)
+                                                        @foreach ($invoce as $item)
+                                                            <tr>
+
+                                                                <td class="left strong text-uppercase">
+                                                                    {{ $item->name }}
+                                                                </td>
+                                                                <td class="right">{{ $item->qty }}</td>
+                                                                </td>
+                                                                <?php $facture_total += $item->qty * $item->price; ?>
+
+                                                            </tr>
+                                                        @endforeach
+
+
+                                                    @endif
+
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white card-footer">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- end coupon --}}
+
+
+
 
     {{-- commande facture --}}
     <div wire:ignore.self class="modal fade" id="commandeFacture" tabindex="-1" aria-labelledby="commandeFacture"
@@ -785,8 +870,8 @@
                                 aria-selected="true" role="tab">imprimer</button>
                         </li>
                     </ul>
-                    <div class="row justify-center">
-                        <div class="wrapper ml-9 mt-4 col-12">
+                    <div class="justify-center row">
+                        <div class="mt-4 wrapper ml-9 col-12">
                             <div id="printdivcontent">
                                 <div class="card">
                                     <div class="card-header ">
@@ -797,7 +882,7 @@
                                         </div>
                                     </div>
                                     <div class="card-body" id="elem">
-                                        <div class="row mb-4">
+                                        <div class="mb-4 row">
                                         </div>
                                         <div class="table-responsive-sm">
                                             <table class="table table-striped">
@@ -811,6 +896,7 @@
                                                 </thead>
                                                 <tbody>
                                                     @if ($facture != null)
+
                                                         @foreach ($facture as $item)
                                                             <tr>
 
@@ -834,7 +920,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-footer bg-white">
+                                <div class="bg-white card-footer">
                                     <p class="mb-0"><span class="text-uppercase font-weight-bold">Total :
                                             {{ $facture_total }}
                                             fc</span></p>
@@ -855,25 +941,41 @@
 
 
 <script>
-    function myFunction() {
-        // Declare variables
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("myInput");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("myTable");
-        tr = table.getElementsByTagName("tr");
+filterSelection("all")
+function filterSelection(c) {
+  var x, i;
+  x = document.getElementsByClassName("filterDiv");
+  if (c == "all") c = "";
+  // Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
+  for (i = 0; i < x.length; i++) {
+    w3RemoveClass(x[i], "show");
+    if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+  }
+}
 
-        // Loop through all table rows, and hide those who don't match the search query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[0];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
+// Show filtered elements
+function w3AddClass(element, name) {
+  var i, arr1, arr2;
+  arr1 = element.className.split(" ");
+  arr2 = name.split(" ");
+  for (i = 0; i < arr2.length; i++) {
+    if (arr1.indexOf(arr2[i]) == -1) {
+      element.className += " " + arr2[i];
     }
+  }
+}
+
+// Hide elements that are not selected
+function w3RemoveClass(element, name) {
+  var i, arr1, arr2;
+  arr1 = element.className.split(" ");
+  arr2 = name.split(" ");
+  for (i = 0; i < arr2.length; i++) {
+    while (arr1.indexOf(arr2[i]) > -1) {
+      arr1.splice(arr1.indexOf(arr2[i]), 1);
+    }
+  }
+  element.className = arr1.join(" ");
+}
 </script>
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>

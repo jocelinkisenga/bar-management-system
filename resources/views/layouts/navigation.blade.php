@@ -23,19 +23,27 @@
 
       <li class="nav-item nav-profile dropdown">
         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-          TAUX <span class="text-danger">{{$notifications->count()}} </span>
+          <i class="icon-bell"></i> <span class="text-danger">
+            @isset($notifications)
+            {{$notifications->count()}} 
+            @endisset
+
+          </span>
         </a>
         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
           <a class="dropdown-item">
             <i class="ti-edit text-primary"></i>
             toutes les reductions
           </a>
-        @foreach ($notifications as $item)
-        <a class="dropdown-item">
-          <i class="ti-edit text-primary"></i>
-          {{$item->precommande->code}}
-        </a>
-        @endforeach
+          @isset($notifications)
+          @foreach ($notifications as $item)
+          <a class="dropdown-item">
+            <i class="ti-edit text-primary"></i>
+            {{$item->precommande->code}}
+          </a>
+          @endforeach
+          @endisset
+
 
 
 
@@ -79,7 +87,7 @@
   <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
       <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="/dashboard">
           <i class="icon-grid menu-icon"></i>
           <span class="menu-title">Dashboard</span>
         </a>
@@ -92,19 +100,19 @@
         </a>
        
       </li>
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a class="nav-link" href="{{route('tables')}}"  >
           <i class="icon-layout menu-icon"></i>
           <span class="menu-title">tables</span> 
         </a> 
-      </li>
+      </li> --}}
       
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a class="nav-link" href="{{route('commandes')}}"  >
           <i class="icon-layout menu-icon"></i>
           <span class="menu-title">commandes</span> 
         </a> 
-      </li>
+      </li> --}}
 @if (Auth::user()->role_id == 1)
 <li class="nav-item">
   <a class="nav-link" href="{{route('categories')}}"  >
@@ -131,6 +139,15 @@
   <a class="nav-link" href="{{route('users')}}"  >
     <i class="icon-layout menu-icon"></i>
     <span class="menu-title">personnel</span> 
+  </a> 
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="{{route('reductions')}}"  >
+    <i class="icon-layout menu-icon"><span class="text-danger">
+      @isset ($notifications)
+      {{$notifications->count()}}
+    @endisset </span></i>
+    <span class="menu-title">reduction</span> 
   </a> 
 </li>
 
