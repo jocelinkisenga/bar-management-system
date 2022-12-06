@@ -30,6 +30,13 @@ class ReductionRepositorie
     ]);
     }
 
+    public function confirm(int $id){
+        $reduction = Reduction::findOrFail($id);
+        $reduction->update([
+            'status'=>true
+        ]);
+    }
+
     private function reduction_commande($id,$reduction){
         $commande = Commande::wherePrecommande_id($id)->first();
         $commande->update([

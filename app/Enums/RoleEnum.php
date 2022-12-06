@@ -10,5 +10,8 @@ enum RoleEnum: int
 
     const GERANT = 2;
 
+    const RECEPTEUR = 3;
+
     const SERVER = 4;
+    
 }

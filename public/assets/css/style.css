@@ -6584,7 +6584,7 @@ span.select2-container.select2-container--default.select2-container--open {
 }
 @media (max-width: 991px) {
   .productset .productsetimg img {
-    max-height: 150px;
+    max-height: 100px;
   }
 }
 .productset .productsetimg h6 {

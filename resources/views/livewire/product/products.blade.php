@@ -36,6 +36,10 @@
                                                 <input type="text" wire:model="price" class="form-control" 
                                                     id="recipient-name">
                                             </div>
+                                            <div class="form-group">
+                                                <label for="my-input">photo</label>
+                                                <input id="my-input" class="form-control" type="file" wire:model="photo">
+                                            </div>
 
 
                                             <div class="form-group">

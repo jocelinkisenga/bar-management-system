@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnRoleIdToUserTable extends Migration
+class AddPathToProduitsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class AddColumnRoleIdToUserTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->integer("phone")->nullable();
-            $table->string('sexe')->nullable();
+        Schema::table('produits', function (Blueprint $table) {
+            $table->string('path')->nullable();
         });
     }
 
@@ -26,7 +25,7 @@ class AddColumnRoleIdToUserTable extends Migration
      */
     public function down()
     {
-        Schema::table('user', function (Blueprint $table) {
+        Schema::table('produits', function (Blueprint $table) {
             //
         });
     }

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Produit extends Model
 {
     use HasFactory;
-    protected $fillable = ['categorie_id','name','price','quantity'];
+    protected $fillable = ['categorie_id','name','price','quantity','path'];
 
     public function hystories(){
         return $this->hasMany(HystoryProduct::class);

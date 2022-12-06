@@ -1,11 +1,10 @@
 <div>
     @php
+        use App\Models\produit;
         global $total_item;
         global $facture_total;
+        global $pourcentage;
     @endphp
-    {{-- <div id="global-loader">
-        <div class="whirly-loader"> </div>
-    </div> --}}
 
     <div class="main-wrappers">
         <div class="header">
@@ -50,7 +49,7 @@
                 <li class="nav-item dropdown">
                     <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                         <img src="assets/img/icons/notification-bing.svg" alt="img"> <span
-                            class="badge rounded-pill"></span>
+                            class="badge rounded-pill">{{ $reductions->count() }}</span>
                     </a>
                     <div class="dropdown-menu notifications">
                         <div class="topnav-dropdown-header">
@@ -59,22 +58,29 @@
                         </div>
                         <div class="noti-content">
                             <ul class="notification-list">
-                                <li class="notification-message">
-                                    <a href="activities.html">
-                                        <div class="media d-flex">
-                                            <span class="flex-shrink-0 avatar">
-                                                <img alt="" src="assets/img/profiles/avatar-02.jpg">
-                                            </span>
-                                            <div class="media-body flex-grow-1">
-                                                <p class="noti-details"><span class="noti-title">John Doe</span> added
-                                                    new task <span class="noti-title">Patient appointment
-                                                        booking</span></p>
-                                                <p class="noti-time"><span class="notification-time">4 mins ago</span>
-                                                </p>
+
+                                @foreach ($reductions as $item)
+                                    <li class="notification-message">
+                                        <a>
+                                            <div class="media d-flex">
+                                                <div class="media-body flex-grow-1">
+                                                    <p class="noti-details"><span
+                                                            class="noti-title">{{ $item->precommande->code }}</span>
+                                                        <span class="noti-title"> <strong>{{ $item->pourcentage }}
+                                                                %</strong> reduction
+                                                            <button class="btn btn-success btn-sm"
+                                                                data-bs-toggle="modal" data-bs-target="#commandeFacture"
+                                                                wire:click="facture({{ $item->precommande->id }})">voir
+                                                                plus</button> </span>
+                                                    </p>
+                                                    <p class="noti-time"><span class="notification-time"></span>
+                                                    </p>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </a>
-                                </li>
+                                        </a>
+                                    </li>
+                                @endforeach
+
                             </ul>
                         </div>
                         <div class="topnav-dropdown-footer">
@@ -139,19 +145,146 @@
                 <div class="row">
                     <div class="col-lg-8 col-sm-12 tabs_wrapper">
                         <div class="page-header ">
+                            <div class="page-title">
+                                <h4>Categories</h4>
+                                <h6>Manage your purchases</h6>
+                            </div>
+                        </div>
+                        <ul class="border-0 tabs owl-carousel owl-theme owl-product" wire:ignore>
+                            @foreach ($categories as $item)
+                                <li class="" id="{{ $item->id }}">
+                                    <div class="product-details ">
+                                        <img src="assets/img/product/product62.png" alt="img">
+                                        <h6>{{ $item->name }}</h6>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                        <div class="tabs_container">
+
+                            @foreach ($categories as $item)
+                                <div class="tab_content active" data-tab="{{ $item->id }}">
+                                    <div class="row ">
+                                        @foreach (Produit::whereCategorie_id($item->id)->get() as $produit)
+                                            <div class="col-lg-3 col-sm-6 d-flex"
+                                                wire:click.prevent="ajouter( {{ $produit->id }})">
+                                                <div class="productset flex-fill ">
+                                                    <div class="productsetimg">
+                                                        <img src="{{ asset('storage/uploads/' . $produit->path) }}"
+                                                            alt="img">
+                                                        <h6>Qty: {{ $produit->quantity }}</h6>
+                                                        <div class="check-product">
+                                                            <i class="fa fa-check"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="productsetcontent">
+                                                        <h5>{{ $produit->categorie->name }}</h5>
+                                                        <h4>{{ $produit->name }}</h4>
+                                                        <h6>{{ $produit->price }} $</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+
+                                    </div>
+                                </div>
+                            @endforeach
+
 
                         </div>
-                        @if (session('message'))
-                            <a href="javascript:void(0);" class="deletebg confirm-text">{{ session('message') }}</a>
-                        @endif
-                        @include('components.commande.categories')
-
-                        {{-- @include('components.commande.products') --}}
                     </div>
                     <div class="col-lg-4 col-sm-12 ">
                         <div class="col-12">
                             <a href="javascript:void(0);" class="btn btn-adds" data-bs-toggle="modal"
                                 data-bs-target="#create"><i class="fa fa-plus me-2"></i>créer une commande</a>
+                        </div>
+                        <div class="setvaluecash">
+
+                            <ul>
+                                <li>
+                                    <a data-bs-toggle="modal" data-bs-target="#recents"
+                                        class="paymentmethod">
+                                        <img src="assets/img/icons/sales1.svg" alt="img" class="me-2">
+                                        COMMANDES
+                                    </a>
+                                </li>
+                                @if (!empty($last_commande))
+                                    {{-- <li>
+                                        <a class="paymentmethod"
+                                            wire:click="confirmer({{ $last_commande->id }})">
+                                            <img src="assets/img/icons/debitcard.svg" alt="img"
+                                                class="me-2">
+                                            CONFIRMER
+                                        </a>
+                                    </li> --}}
+                                @endif
+                                <li>
+                                    <a data-bs-toggle="modal" data-bs-target="#reductions"
+                                        class="paymentmethod">
+                                        <img src="assets/img/icons/scan.svg" alt="img" class="me-2">
+                                        REDUCTIONS
+                                    </a>
+                                </li>
+                            </ul>
+
+
+                            <div class="btn-totallabel">
+                                <h5></h5>
+                                <h6></h6>
+                            </div>
+
+                            <ul>
+                                @if (!empty($last_commande))
+                                    <li>
+                                        <a class="paymentmethod" data-bs-toggle="modal"
+                                            data-bs-target="#facture">
+                                            <img src="assets/img/icons/purchase1.svg" alt="img"
+                                                class="me-2">
+                                            FACTURE
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-bs-toggle="modal"
+                                            data-bs-target="#coupon"class="paymentmethod">
+                                            <img src="assets/img/icons/purchase.svg" alt="img"
+                                                class="me-2">
+                                            COUPON
+                                        </a>
+                                    </li>
+                                    @if (isset($last_commande->reductions[0]['precommande_id']))
+                                        @if ($last_commande->reductions[0]['precommande_id'] != $last_commande->id)
+                                            <li>
+                                                <a wire:click="reduction({{ $last_commande->id }})"
+                                                    class="paymentmethod">
+                                                    <img src="assets/img/icons/return1.svg" alt="img"
+                                                        class="me-2">
+                                                    REDUIRE
+                                                </a>
+                                            </li>
+                                        @endif
+                                    @else
+                                        <li>
+                                            @if ($last_commande)
+                                                <a wire:click="reduction({{ $last_commande->id }})"
+                                                    class="paymentmethod">
+                                                    <img src="assets/img/icons/return1.svg" alt="img"
+                                                        class="me-2">
+                                                    REDUIRE
+                                                </a>
+                                            @endif
+
+                                        </li>
+                                    @endif
+
+                                @endif
+
+
+
+
+
+                            </ul>
+
+
                         </div>
                         <div class="order-list">
                             <div class="orderid">
@@ -242,120 +375,28 @@
                                     <ul>
                                         @if (!empty($last_commande))
                                             <li class="total-value">
+                                                <h5>sous total </h5>
+                                                <h6><?= $total_item ?> $</h6>
+                                            </li>
+                                            <li class="total-value">
+                                                <h5>TVA </h5>
+                                                <h6>{{ ($total_item / 100) * 16 }} $</h6>
+                                            </li>
+                                            <li class="total-value">
                                                 <h5>Total </h5>
-                                                <h6><?= $total_item ?></h6>
+                                                <h6><?= $total_item + ($total_item / 100) * 16 ?> $</h6>
                                             </li>
                                         @endif
                                     </ul>
                                 </div>
 
 
-                                <div class="setvaluecash">
-                                    <ul>
-                                        @if (!empty($last_commande))
-                                            <li>
-                                                <a class="paymentmethod" data-bs-toggle="modal"
-                                                    data-bs-target="#facture">
-                                                    <img src="assets/img/icons/purchase1.svg" alt="img"
-                                                        class="me-2">
-                                                    FACTURE
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a data-bs-toggle="modal"
-                                                    data-bs-target="#coupon"class="paymentmethod">
-                                                    <img src="assets/img/icons/purchase.svg" alt="img"
-                                                        class="me-2">
-                                                    COUPON
-                                                </a>
-                                            </li>
-                                            @if (isset($last_commande->reductions[0]['precommande_id']))
-                                                @if ($last_commande->reductions[0]['precommande_id'] != $last_commande->id)
-                                                    <li>
-                                                        <a wire:click="reduction({{ $last_commande->id }})"
-                                                            class="paymentmethod">
-                                                            <img src="assets/img/icons/return1.svg" alt="img"
-                                                                class="me-2">
-                                                            REDUIRE
-                                                        </a>
-                                                    </li>
-                                                @endif
-                                            @else
-                                                <li>
-                                                    @if ($last_commande)
-                                                        <a wire:click="reduction({{ $last_commande->id }})"
-                                                            class="paymentmethod">
-                                                            <img src="assets/img/icons/return1.svg" alt="img"
-                                                                class="me-2">
-                                                            REDUIRE
-                                                        </a>
-                                                    @endif
-
-                                                </li>
-                                            @endif
-
-                                        @endif
 
 
 
 
 
-                                    </ul>
-                                    <div class="btn-totallabel">
-                                        <h5></h5>
-                                        <h6></h6>
-                                    </div>
-                                    <ul>
-                                        <li>
-                                            <a data-bs-toggle="modal" data-bs-target="#recents"
-                                                class="paymentmethod">
-                                                <img src="assets/img/icons/sales1.svg" alt="img" class="me-2">
-                                                COMMANDES
-                                            </a>
-                                        </li>
-                                        @if (!empty($last_commande))
-                                            <li>
-                                                <a class="paymentmethod"
-                                                    wire:click="confirmer({{ $last_commande->id }})">
-                                                    <img src="assets/img/icons/debitcard.svg" alt="img"
-                                                        class="me-2">
-                                                    CONFIRMER
-                                                </a>
-                                            </li>
-                                        @endif
-                                        <li>
-                                            <a href="javascript:void(0);" class="paymentmethod">
-                                                <img src="assets/img/icons/scan.svg" alt="img" class="me-2">
-                                                REDUCTIONS
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                {{-- <div class="btn-pos">
-                                    <ul>
-                                        <li>
-                                            <a class="btn"><img src="assets/img/icons/pause1.svg" alt="img"
-                                                    class="me-1">Hold</a>
-                                        </li>
-                                        <li>
-                                            <a class="btn"><img src="assets/img/icons/edit-6.svg" alt="img"
-                                                    class="me-1">Quotation</a>
-                                        </li>
-                                        <li>
-                                            <a class="btn"><img src="assets/img/icons/trash12.svg" alt="img"
-                                                    class="me-1">Void</a>
-                                        </li>
-                                        <li>
-                                            <a class="btn"><img src="assets/img/icons/wallet1.svg" alt="img"
-                                                    class="me-1">Payment</a>
-                                        </li>
-                                        <li>
-                                            <a class="btn" data-bs-toggle="modal" data-bs-target="#recents"><img
-                                                    src="assets/img/icons/transcation.svg" alt="img"
-                                                    class="me-1"> Transaction</a>
-                                        </li>
-                                    </ul>
-                                </div> --}}
+
                             </div>
                         </div>
                     </div>
@@ -549,7 +590,13 @@
 
                     </div>
                     <div class="col-lg-12">
-                        <a class="btn btn-submit me-2 " wire:click.prevent="store()">créer la commande</a>
+                        <a class="btn btn-submit me-2 "
+                            onclick="Swal.fire(
+                            'Good job!',
+                            'commande créée  avec succés! clicker sur le bouton commandes pour ajouter vos produits',
+                            'success'
+                          )"
+                            wire:click.prevent="store()">créer la commande</a>
                     </div>
                 </div>
             </div>
@@ -582,7 +629,7 @@
 
     {{-- Recent commande --}}
 
-    <div wire:ignore.self class="modal fade" id="recents" tabindex="-1" aria-hidden="true">
+    <div wire:ignore class="modal fade" id="recents" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -603,9 +650,6 @@
                                                     src="assets/img/icons/search-white.svg" alt="img"></a>
                                         </div>
                                     </div>
-                                    {{-- @if (session('message'))
-                                     <div class="text-success">{{session('message')}}</div>
-                                    @endif --}}
                                     <div class="wordset">
                                         <ul>
                                             <li>
@@ -649,23 +693,15 @@
                                                             wire:click="facture({{ $item->id }})">
                                                             <img src="assets/img/icons/eye.svg" alt="img">
                                                         </a>
-                                                        <a class="me-3" wire:click="edit({{ $item->id }})">
+                                                        <a class="me-3"
+                                                            onclick="Swal.fire(
+                                                            'Good job!',
+                                                            'vous venez de selectionner la commande {{ $item->code }} , veillez fermer le modal pour ajouter des produits',
+                                                            'success'
+                                                          )"
+                                                            wire:click="edit({{ $item->id }})">
                                                             <img src="assets/img/icons/edit.svg" alt="img">
                                                         </a>
-
-                                                        {{-- <form>
-                                                            <input type="submit" value="success"
-                                                                wire:click.prevent="confirmer({{ $item->id }})"
-                                                                class="btn btn-danger btn-sm">
-                                                        </form> --}}
-
-                                                        {{-- <a class="me-3"  wire:click="confirmer({{ $item->id }})">
-                                                            <img src="assets/img/icons/cash.svg" alt="img">
-                                                        </a> --}}
-                                                        {{--                                                         
-                                                        {{-- <a class="me-3"  wire:click="confirmer({{ $item->id }})">
-                                                            <img src="assets/img/icons/cash.svg" alt="img">
-                                                        </a> --}}
                                                         <a class="me-3 confirm-text" href="javascript:void(0);">
                                                             <img src="assets/img/icons/delete.svg" alt="img">
                                                         </a>
@@ -712,8 +748,15 @@
                                     <div class="card-header ">
                                         <a class="pt-2 ">The king</a>
                                         <div class="float-right">
+                                            <strong> Fax:</strong> 2233455 <br>
+                                            <strong>avenue :</strong> square 23,67 <br>
+                                            <strong>contact :</strong> +243 994 445 56 <br>
                                             <h3 class="mb-0"></h3>
-                                            Date: <?= date('Y/m/d') ?>
+
+
+                                        </div>
+                                        <div class="float-right">
+                                            <strong>Date:</strong> <?= date('Y/m/d') ?>
                                         </div>
                                     </div>
                                     <div class="card-body" id="elem">
@@ -741,6 +784,9 @@
                                                                 <td class="right">{{ $item->qty * $item->price }} fc
                                                                 </td>
                                                                 <?php $facture_total += $item->qty * $item->price; ?>
+                                                                @php
+                                                                    $pourcentage = $item->reduction;
+                                                                @endphp
 
                                                             </tr>
                                                         @endforeach
@@ -754,11 +800,20 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="bg-white card-footer">
+                                    <p class="mb-0"><span class="text-uppercase font-weight-bold">reduction :
+                                            @if ($invoce != null)
+                                                {{ ($facture_total / 100) * $invoce[0]->reduction }} %
+                                            @endif
+                                        </span></p>
+                                </div>
                                 <div class="bg-white card-footer">
                                     <p class="mb-0"><span class="text-uppercase font-weight-bold">Total :
                                             {{ $facture_total }}
-                                            fc</span></p>
+                                            $</span></p>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -854,10 +909,10 @@
     {{-- commande facture --}}
     <div wire:ignore.self class="modal fade" id="commandeFacture" tabindex="-1" aria-labelledby="commandeFacture"
         aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Create</h5>
+                    <h5 class="modal-title">facture</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -895,7 +950,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @if ($facture != null)
+                                                    @if (!empty($facture))
 
                                                         @foreach ($facture as $item)
                                                             <tr>
@@ -906,8 +961,11 @@
                                                                 <td class="right">{{ $item->qty }}</td>
                                                                 <td class="right">{{ $item->qty * $item->price }} fc
                                                                 </td>
-                                                                <?php $facture_total += $item->qty * $item->price; ?>
-
+                                                                <?php ?>
+                                                                @php
+                                                                    $facture_total += $item->qty * $item->price;
+                                                                    $pourcentage = $item->reduction;
+                                                                @endphp
                                                             </tr>
                                                         @endforeach
 
@@ -920,11 +978,21 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="bg-white card-footer">
+                                    <p class="mb-0"><span class="text-uppercase font-weight-bold">reduction :
+                                            @if (!empty($facture))
+                                                {{ $facture[0]->reduction }}
+                                            @endif
+                                            %
+                                        </span></p>
+                                </div>
                                 <div class="bg-white card-footer">
                                     <p class="mb-0"><span class="text-uppercase font-weight-bold">Total :
                                             {{ $facture_total }}
                                             fc</span></p>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -934,48 +1002,90 @@
     </div>
     {{-- end commande facture --}}
 
+    {{-- reduction component --}}
+    <div wire:ignore.self class="modal fade" id="reductions" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Les reductions</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="tabs-sets">
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="purchase" role="tabpanel"
+                                aria-labelledby="purchase-tab">
+                                <div class="table-top">
+                                    <div class="search-set">
+                                        <div class="search-input">
+                                            <a onkeyup="myFunction()" id="myinput" class="btn btn-searchset"><img
+                                                    src="assets/img/icons/search-white.svg" alt="img"></a>
+                                        </div>
+                                    </div>
+                                    <div class="wordset">
+                                        <ul>
+                                            <li>
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="pdf"><img src="assets/img/icons/pdf.svg"
+                                                        alt="img"></a>
+                                            </li>
+                                            <li>
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="excel"><img src="assets/img/icons/excel.svg"
+                                                        alt="img"></a>
+                                            </li>
+                                            <li>
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="print"><img src="assets/img/icons/printer.svg"
+                                                        alt="img"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table datanew" id="myTable">
+                                        <thead>
+                                            <tr>
+                                                <th>code</th>
+                                                <th>pourcentage</th>
+                                                <th class="text-end">Action</th>
+                                        </thead>
+                                        <tbody>
+
+                                            @foreach ($reductions as $item)
+                                                <tr>
+                                                    <td>{{ $item->precommande->code }}</td>
+                                                    <td>{{ $item->pourcentage }} %</td>
+                                                    <td>
+                                                        <a class="me-3" data-bs-toggle="modal"
+                                                            data-bs-target="#commandeFacture"
+                                                            wire:click="facture({{ $item->precommande->id }})">
+                                                            <img src="assets/img/icons/eye.svg" alt="img">
+                                                        </a>
+                                                        <a class="me-3 "
+                                                            onclick="Swal.fire(
+                                                            'bon boulot!',
+                                                            'reduction confirmée avec succés!',
+                                                            'success'
+                                                          )"
+                                                            wire:click="confirm_reduction({{ $item->id }})">
+                                                            <img src="assets/img/icons/delete.svg" alt="img">
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- end reduction component --}}
+
 </div>
-
-
-
-
-
-<script>
-filterSelection("all")
-function filterSelection(c) {
-  var x, i;
-  x = document.getElementsByClassName("filterDiv");
-  if (c == "all") c = "";
-  // Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
-  for (i = 0; i < x.length; i++) {
-    w3RemoveClass(x[i], "show");
-    if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
-  }
-}
-
-// Show filtered elements
-function w3AddClass(element, name) {
-  var i, arr1, arr2;
-  arr1 = element.className.split(" ");
-  arr2 = name.split(" ");
-  for (i = 0; i < arr2.length; i++) {
-    if (arr1.indexOf(arr2[i]) == -1) {
-      element.className += " " + arr2[i];
-    }
-  }
-}
-
-// Hide elements that are not selected
-function w3RemoveClass(element, name) {
-  var i, arr1, arr2;
-  arr1 = element.className.split(" ");
-  arr2 = name.split(" ");
-  for (i = 0; i < arr2.length; i++) {
-    while (arr1.indexOf(arr2[i]) > -1) {
-      arr1.splice(arr1.indexOf(arr2[i]), 1);
-    }
-  }
-  element.className = arr1.join(" ");
-}
-</script>
-<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>

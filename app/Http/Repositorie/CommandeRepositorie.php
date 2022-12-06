@@ -22,7 +22,7 @@ class CommandeRepositorie
         //returns all precommandes
         public function all_precommandes()
         {
-                return Precommande::whereStatus(false)->orderBy('id', 'desc')->get();
+                return Precommande::orderBy('id','desc')->whereStatus(false)->get();
         }
 
         //returns all 
@@ -142,7 +142,7 @@ class CommandeRepositorie
         public function facture($commandId)
         {
 
-                return  DB::select("SELECT commandes.quantity_commande as qty,
+                return  DB::select("SELECT commandes.quantity_commande as qty, commandes.reduction,
                 produits.name, produits.price, precommandes.created_at, precommandes.id as pId 
                 FROM precommandes,commandes,produits 
                 WHERE commandes.precommande_id = precommandes.id 

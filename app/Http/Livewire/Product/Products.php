@@ -2,14 +2,18 @@
 
 namespace App\Http\Livewire\Product;
 
+
 use App\Models\Categorie;
 use App\Models\HystoryProduct;
 use App\Models\Produit;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Products extends Component
 {
-    public $data, $name,$categorie_id, $categories, $produit_id, $produit_quantity,$product_price, $price, $prix_achat,$prix_vente;
+    use WithFileUploads;
+    
+    public $data, $name,$categorie_id, $categories, $produit_id, $produit_quantity,$product_price, $price, $prix_achat,$prix_vente,$photo;
 
     public function render()
     {
@@ -33,14 +37,24 @@ class Products extends Component
 
     public function store()
     {
+        $fileName= time().'.'.$this->photo->getClientOriginalName();
+        
+        $path=$this->photo->storeAs('uploads', $fileName, 'public');
 
-        $valide = $this->validate([
-            'categorie_id' => "required",
-            'name' => "required",
-            'price' => "required"
+        
+        // $valide = $this->validate([
+        //     'categorie_id' => "required",
+        //     'name' => "required",
+        //     'price' => "required",
+        //     'path'=>'require'
+        // ]);
+
+        Produit::create([
+            'categorie_id'=>$this->categorie_id,
+            'name'=>$this->name,
+            'price'=>$this->price,
+            'path'=>$fileName
         ]);
-
-        Produit::create($valide);
         session()->flash('message', 'produit ajouté avec succès');
     }
 

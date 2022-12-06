@@ -41,7 +41,7 @@ class Home extends Component
             $this->commandes  = $this->commande_repo->all_commandes($this->last_commande->id);
         }
 
-        $this->categories = Categorie::all();
+        $this->categories = Categorie::with('produits')->get();
         $this->produits = Produit::all();
         $this->precommandes = $this->commande_repo->all_precommandes();
         $this->reductions = $this->reduction_repo->reductions();
@@ -126,5 +126,9 @@ class Home extends Component
     {
 
         $this->commande_repo->confirm($id);
+    }
+
+    public function confirm_reduction(int $id){
+        $this->reduction_repo->confirm($id);
     }
 }
