@@ -22,7 +22,7 @@ class CommandeRepositorie
         //returns all precommandes
         public function all_precommandes()
         {
-                return Precommande::orderBy('id','desc')->whereStatus(false)->get();
+                return Precommande::latest()->whereStatus(false)->get();
         }
 
         //returns all 
@@ -96,6 +96,7 @@ class CommandeRepositorie
                 }
         }
 
+        // diminue la quatinté des produits d'une commande
         public function reduire_quantity(int $commandId, int $produitId)
         {
                 $result =  Commande::where('precommande_id', '=', $commandId)->where('produit_id', '=', $produitId)->first();
@@ -108,7 +109,7 @@ class CommandeRepositorie
                 }
         }
 
-
+        //annule une commande
         public function delete_commande(int $commandId, int $produitId, $qty)
         {
                 $result =  Commande::where('precommande_id', '=', $commandId)->where('produit_id', '=', $produitId)->first();
@@ -118,6 +119,7 @@ class CommandeRepositorie
                 }
         }
 
+        // mets à jour la quantité des produits après reduction ou annulation de la commande
         public function  restore_product($productId, $quantity)
         {
                 $result =  Produit::where('id', '=', $productId)->first();
@@ -133,12 +135,14 @@ class CommandeRepositorie
                 }
         }
 
+        // retourne la quantité des produits
         public function product_qty($productId)
         {
                 $produit =  Produit::whereId($productId)->first();
                 return $produit->quantity;
         }
 
+        //retourne la facture
         public function facture($commandId)
         {
 
@@ -151,13 +155,14 @@ class CommandeRepositorie
         }
 
 
-
+        // retourne la dernière commande
         public function last_commande($id)
         {
 
                 return   Precommande::whereId($id)->whereStatus(false)->whereUser_id(Auth::user()->id)->with('reductions')->first();
         }
 
+        // confirme la commande
         public function confirm(int $id)
         {
                 $precommande = Precommande::where('id', '=', $id)->first();
