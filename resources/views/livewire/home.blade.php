@@ -699,7 +699,11 @@
                                                             wire:click="edit({{ $item->id }})">
                                                             <img src="assets/img/icons/edit.svg" alt="img">
                                                         </a>
-                                                        <a class="me-3 confirm-text" href="javascript:void(0);">
+                                                        <a class="me-3" wire:click="confirmer({{ $item->id }})"                                                             onclick="Swal.fire(
+                                                            'Good job!',
+                                                            'commande confirmée avec succès',
+                                                            'success'
+                                                          )">
                                                             <img src="assets/img/icons/delete.svg" alt="img">
                                                         </a>
                                                     </td>

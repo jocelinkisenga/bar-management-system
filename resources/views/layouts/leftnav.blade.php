@@ -3,7 +3,7 @@
     <div id="sidebar-menu" class="sidebar-menu">
       <ul>
         <li class="active">
-          <a href="index.html" ><img src="{{asset('assets/img/icons/dashboard.svg')}}" alt="img"><span> Dashboard</span> </a>
+          <a href="{{route('dashboard')}}" ><img src="{{asset('assets/img/icons/dashboard.svg')}}" alt="img"><span> Dashboard</span> </a>
         </li>
         <li class="submenu">
           <a><img src="{{asset('assets/img/icons/product.svg')}}" alt="img"><span> catégories</span></a>
