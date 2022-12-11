@@ -1,196 +1,146 @@
-<div class="main-panel">
-    <div class="content-wrapper">
-
-        <button type="button" class="ml-4  btn btn-success text-uppercase " data-toggle="modal" data-target="#exampleModal"
-            data-whatever="@mdo">Ajouter la quantité</button>
-            <button type="button" class="ml-4  btn btn-success text-uppercase " data-toggle="modal" data-target="#quantite"
-            data-whatever="@mdo">modifier le prix de vente</button>
-
-        <div wire:ignore.self class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-            aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ajouter la quantité</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="">
 
 
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">prix d'achat:</label>
-                                <input type="text" wire:model="prix_achat" class="form-control" id="recipient-name">
-                            </div>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">quantité :</label>
-                                <input type="number" wire:model="produit_quantity" class="form-control"
-                                    id="recipient-name">
-                            </div>
-
-
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-success"
-                                    wire:click.prevent="ajouter({{ $data->id }})">ajouter</button>
-                            </div>
-                        </form>
-                    </div>
-
-                </div>
+<div class="page-wrapper">
+    <div class="content">
+        <div class="page-header">
+            <div class="page-title">
+                <h4>Produit detail</h4>
+            </div>
+            
+            <div class="page-btn">
+                <a data-bs-toggle="modal" data-bs-target="#quantity" class="btn btn-success"><img src="{{asset('assets/img/icons/plus.svg')}}" alt="img" class="me-1">MàJ de la quantité</a>
+            </div>
+            <div class="page-btn">
+                <a data-bs-toggle="modal" data-bs-target="#price" class="btn btn-added"><img src="{{asset('assets/img/icons/plus.svg')}}" alt="img" class="me-1">Màj du prix de vente</a>
             </div>
         </div>
-        <div wire:ignore.self class="modal fade" id="quantite" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    @if (Auth::user()->role_id != 1)
-                    <h5 class="modal-title" id="exampleModalLabel">Ajouter la quantité</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    @endif
-
-                </div>
-                <div class="modal-body">
-                    <form action="">
-
-
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">prix d'achat:</label>
-                            <input type="text" wire:model="prix" class="form-control" id="recipient-name">
-                        </div>
-
-
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-success"
-                                wire:click.prevent="modifier_prix({{ $data->id }})">modifier</button>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div>
-        @if (session('message'))
-          <p class="text-success">{{session('message')}}</p>
-        @endif
-    </div>
-
-        <div class="row mt-3">
-            <div class="col-lg-4 grid-margin stretch-card">
-                <div class="card bg-green">
-                    <div class="card-body">
-                        <h4 class="card-title">Fiche du produit</h4>
-                        <p class="card-description">
-
-                        </p>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr class="text-bold text-uppercase">
-                                        <th>#</th>
-                                        <th>valeur</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="text-bold">nom</td>
-                                        <td>{{ $data->name }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bold">categorie</td>
-                                        <td>{{ $data->categorie->name }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bold">quantité</td>
-                                        <td>{{ $data->quantity }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bold">prix de vente</td>
-                                        <td>{{ $data->price }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- /add -->
         <div class="row">
-            <div class="col-lg-6 grid-margin stretch-card">
+            <div class="col-lg-8 col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Historique d'entréé du jour</h4>
-                        <p class="card-description">
-
-                        </p>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Quantité</th>
-                                        <th>prix d'achat.</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($entries as $key => $item)
-                                    <tr>
-                                        <td>{{$key+1}}</td>
-                                        <td>{{$item->qte}}</td>
-                                        <td>{{$item->achat}}</td>
-                                    </tr>
-                                    @endforeach
-
-                                </tbody>
-                            </table>
+                        <div class="bar-code-view">
+                            <img src="{{asset('assets/img/barcode1.png')}}" alt="barcode">
+                            <a class="printimg">
+                                <img src="{{asset('assets/img/icons/printer.svg')}}" alt="print">
+                            </a>
+                        </div>
+                        <div class="productdetails">
+                            <ul class="product-bar">
+                                <li>
+                                    <h4>produit</h4>
+                                    <h6>{{ $data->name }}	</h6>
+                                </li>
+                                <li>
+                                    <h4>categorie</h4>
+                                    <h6>{{ $data->categorie->name }}</h6>
+                                </li>
+                                <li>
+                                    <h4>prix</h4>
+                                    <h6>{{ $data->price }}</h6>
+                                </li>
+                                <li>
+                                    <h4>quantité</h4>
+                                    <h6>{{ $data->quantity }}</h6>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 grid-margin stretch-card">
+            <div class="col-lg-4 col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Historique des commandes du jour</h4>
-                        <p class="card-description">
-
-                        </p>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Table</th>
-                                        <th>quantité</th>
-                                        <th>serveur</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if (!empty($commandes))
-                                        
-                                 
-                                    @foreach ($commandes as $key => $item)
-                                    <tr>
-                                        <td>{{$key+1}}</td>
-                                        <td>{{$item->name}}</td>
-                                        <td>{{$item->quantity_commande}}</td>
-                                        <td>{{$item->serveur}}</td>
-                                       
-                                    </tr>
-                                    @endforeach
-                                    @endif
-                                </tbody>
-                            </table>
+                        <div class="slider-product-details">
+                            <div class="owl-carousel owl-theme product-slide">
+                                <div class="slider-product">
+                                    <img src="{{ asset('storage/uploads/' . $data->path) }}" alt="img">
+                                    <h4>{{$data->name}}</h4>
+                                   
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+            
+        <!-- /add -->
     </div>
+
+{{-- mise à jour de la quantité --}}
+
+<div wire:ignore.self class="modal fade" id="quantity" tabindex="-1" aria-labelledby="create"  aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                 <h5 class="modal-title" >Ajouter la quantité</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12 col-12">
+                        <div class="form-group">
+                            <label>prix d'achat</label>
+                            <input type="number" wire:model="prix_achat">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12 col-12">
+                        <div class="form-group">
+                            <label>quantité</label>
+                            <input type="number" wire:model="produit_quantity">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <a class="btn btn-submit me-2" wire:click.prevent="ajouter({{$data->id}})"     onclick="Swal.fire(
+                        'Good job!',
+                        'quantité ajouté avec succès',
+                        'success'
+                      )">ajouter</a>
+                    <a class="btn btn-cancel" data-bs-dismiss="modal">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- end mise à jour quantité --}}
+
+{{-- modifier prix --}}
+<div wire:ignore.self class="modal fade" id="price" tabindex="-1" aria-labelledby="create"  aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                 <h5 class="modal-title" >Modifier le prix</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12 col-12">
+                        <div class="form-group">
+                            <label>prix </label>
+                            <input type="number" wire:model="prix">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <a class="btn btn-submit me-2" wire:click.prevent="modifier_prix({{$data->id}})"     onclick="Swal.fire(
+                        'Good job!',
+                        'prix modifier avec succès',
+                        'success'
+                      )">modifier</a>
+                    <a class="btn btn-cancel" data-bs-dismiss="modal">annuler</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- end modifier prix --}}
+
 </div>

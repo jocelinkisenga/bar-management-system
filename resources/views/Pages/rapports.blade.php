@@ -127,7 +127,7 @@
                                                                 </td>
                                                                 <td>
                                                                     @if (($item->vente * $item->outputs) > 0)
-                                                                    {{ $item->vente * $item->outputs }} fc
+                                                                    {{ $item->vente * $item->outputs }} $
                                                                     @else
                                                                     --
                                                                     @endif

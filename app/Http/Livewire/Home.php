@@ -21,7 +21,7 @@ class Home extends Component
     public  $categories, $produits, $servers, 
             $server_id, $last_commande = null,
             $quantity_commande = 1, $produit_id, $commandes,
-           $precommandes, $facture, $invoce, $reductions;
+           $precommandes, $facture, $invoce, $reductions,$todays;
 
     protected $commande_repo, $reduction_repo;
 
@@ -45,6 +45,7 @@ class Home extends Component
         $this->produits = Produit::all();
         $this->precommandes = $this->commande_repo->all_precommandes();
         $this->reductions = $this->reduction_repo->reductions();
+        $this->todays = $this->commande_repo->todays();
       
      
 

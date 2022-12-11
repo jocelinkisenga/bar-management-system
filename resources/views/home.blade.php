@@ -35,6 +35,8 @@
     <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
 
+    <link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css">
+      
     <!-- Main CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
     @livewireStyles
@@ -47,7 +49,9 @@
 
     @livewireScripts
     <!-- jQuery -->
+    <script src="{{asset('js/printThis.js')}}"></script>
     <script src="assets/js/jquery-3.6.0.min.js"></script>
+    <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
 
     <!-- Feather Icon JS -->
     <script src="assets/js/feather.min.js"></script>
@@ -74,6 +78,28 @@
 
     <!-- Custom JS -->
     <script src="assets/js/script.js"></script>
+    <script>
+        $("#facture-commande").click(function(){
+                    $("#fac").printThis({
+                        debug: false,             
+                        importCSS: true,            
+                        importStyle: false,         
+                        printContainer: true,      
+                        loadCSS: "", 
+                        pageTitle: "UTOPIAN PRINT",             
+                        removeInline: false,    
+                        printDelay: 1,      
+                        header: null,        
+                        footer: null,            
+                        base: false ,              
+                        formValues: true,          
+                        canvas: false,              
+                        doctypeString: "",      
+                        removeScripts: false,       
+                        copyTagClasses: false  
+                    });
+                });    
+    </script>
 
 </body>
 

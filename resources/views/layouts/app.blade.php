@@ -1,43 +1,92 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<html lang="en">
 
-        <title>{{ config('app.name', 'the king') }}</title>
-        <link rel="stylesheet" href="{{asset('feather/feather.css')}}">
-        <link rel="stylesheet" href="{{asset('ti-icons/css/themify-icons.css')}}">
-        <link rel="stylesheet" href="{{asset('css/vendor.bundle.base.css')}}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name="description" content="POS - Bootstrap Admin Template">
+    <meta name="keywords"
+        content="admin, estimates, bootstrap, business, corporate, creative, invoice, html5, responsive, Projects">
+    <meta name="author" content="Dreamguys - Bootstrap Admin Template">
+    <meta name="robots" content="noindex, nofollow">
+    <title>the king</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
+
+    <!-- animation CSS -->
+    <link rel="stylesheet" href="{{asset('assets/css/animate.css')}}">
+
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" href="{{asset('assets/plugins/owlcarousel/owl.carousel.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/plugins/owlcarousel/owl.theme.default.min.css')}}">
+
+    <!-- Select2 CSS -->
+    <link rel="stylesheet" href="{{asset('assets/plugins/select2/css/select2.min.css')}}">
+
+    <!-- Datetimepicker CSS -->
+    <link rel="stylesheet" href="{{asset('assets/css/bootstrap-datetimepicker.min.css')}}">
+
+
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="{{asset('assets/plugins/fontawesome/css/fontawesome.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/plugins/fontawesome/css/all.min.css')}}">
+
+    <link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css')}}">
       
-        <script src="{{asset('assets/js/jquery.js')}}"></script>
-        
-        <!-- endinject -->
-        <!-- Plugin css for this page -->
-        <!-- End plugin css for this page -->
-        <!-- inject:css -->
-        <link rel="stylesheet" href="{{asset('css/vertical-layout-light/style.css')}}">
-        @livewireStyles
-    </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+    @livewireStyles
+
+</head>
+
+<body>
+		<div id="global-loader" >
+		</div>
+		<!-- Main Wrapper -->
+		<div class="main-wrapper">
+            @include("layouts.navigation")
+			<!-- Header -->
+			
+			<!-- Sidebar -->
+                @include('layouts.leftnav')
            
 
             @yield('content')
-            
-            @livewireScripts
-            <script src="{{asset('js/vendor.bundle.base.js')}}"></script>
-             <script src="{{asset('js/off-canvas.js')}}"></script>
-             <script src="{{asset('js/hoverable-collapse.js')}}"></script>
-             <script src="{{asset('js/template.js')}}"></script>
-             <script src="{{asset('js/printThis.js')}}"></script>
-             <script src="{{asset('js/settings.js')}}"></script>
-             <script src="{{asset('js/todolist.js')}}"></script>
-             <script src="{{asset('js/dashboard.js')}}"></script>
-                 <script src="{{asset('js/html2pdf.bundle.min.js')}}"></script>
-             
+			@livewireScripts
+    <!-- jQuery -->
+    <script src="{{asset('js/printThis.js')}}"></script>
+    <script src="{{asset('assets/js/jquery-3.6.0.min.js')}}"></script>
+    <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
 
-             <script src="{{asset('js/Chart.roundedBarCharts.js')}}"></script>
-    </body>
+    <!-- Feather Icon JS -->
+    <script src="{{asset('assets/js/feather.min.js')}}"></script>
+
+    <!-- Slimscroll JS -->
+    <script src="{{asset('assets/js/jquery.slimscroll.min.js')}}"></script>
+
+    <!-- Bootstrap Core JS -->
+    <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
+
+    <!-- Datatable JS -->
+    <script src="{{asset('assets/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('assets/js/dataTables.bootstrap4.min.js')}}"></script>
+
+    <!-- Select2 JS -->
+    <script src="{{asset('assets/plugins/select2/js/select2.min.js')}}"></script>
+
+    <!-- Owl JS -->
+    <script src="{{asset('assets/plugins/owlcarousel/owl.carousel.min.js')}}"></script>
+
+    <!-- Sweetalert 2 -->
+    <script src="{{asset('assets/plugins/sweetalert/sweetalert2.all.min.js')}}"></script>
+    <script src="{{asset('assets/plugins/sweetalert/sweetalerts.min.js')}}"></script>
+
+    <!-- Custom JS -->
+    <script src="{{asset('assets/js/script.js')}}"></script>
+		
+	</body>
 </html>

@@ -106,6 +106,8 @@
                                 </div>
                             </div>
                             <hr class="m-0">
+                            <span class="dropdown-item"><a data-bs-toggle="modal" data-bs-target="#allcommandes" class="text-white bg-success nav-link">rapport
+                                    des commandes</a></span>
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
 
@@ -150,6 +152,7 @@
                                 <h6>Manage your purchases</h6>
                             </div>
                         </div>
+                        
                         <ul class="border-0 tabs owl-carousel owl-theme owl-product" wire:ignore>
                             @foreach ($categories as $item)
                                 <li class="" id="{{ $item->id }}">
@@ -202,8 +205,7 @@
 
                             <ul>
                                 <li>
-                                    <a data-bs-toggle="modal" data-bs-target="#recents"
-                                        class="paymentmethod">
+                                    <a data-bs-toggle="modal" data-bs-target="#recents" class="paymentmethod">
                                         <img src="assets/img/icons/sales1.svg" alt="img" class="me-2">
                                         COMMANDES
                                     </a>
@@ -219,8 +221,7 @@
                                     </li> --}}
                                 @endif
                                 <li>
-                                    <a data-bs-toggle="modal" data-bs-target="#reductions"
-                                        class="paymentmethod">
+                                    <a data-bs-toggle="modal" data-bs-target="#reductions" class="paymentmethod">
                                         <img src="assets/img/icons/scan.svg" alt="img" class="me-2">
                                         REDUCTIONS
                                     </a>
@@ -236,18 +237,14 @@
                             <ul>
                                 @if (!empty($last_commande))
                                     <li>
-                                        <a class="paymentmethod" data-bs-toggle="modal"
-                                            data-bs-target="#facture">
-                                            <img src="assets/img/icons/purchase1.svg" alt="img"
-                                                class="me-2">
+                                        <a class="paymentmethod" data-bs-toggle="modal" data-bs-target="#facture">
+                                            <img src="assets/img/icons/purchase1.svg" alt="img" class="me-2">
                                             FACTURE
                                         </a>
                                     </li>
                                     <li>
-                                        <a data-bs-toggle="modal"
-                                            data-bs-target="#coupon"class="paymentmethod">
-                                            <img src="assets/img/icons/purchase.svg" alt="img"
-                                                class="me-2">
+                                        <a data-bs-toggle="modal" data-bs-target="#coupon"class="paymentmethod">
+                                            <img src="assets/img/icons/purchase.svg" alt="img" class="me-2">
                                             COUPON
                                         </a>
                                     </li>
@@ -688,11 +685,11 @@
                                                     <td>{{ $item->code }}</td>
                                                     <td>{{ $item->server->name }}</td>
                                                     <td>
-                                                        <a class="me-3" data-bs-toggle="modal"
+                                                        {{-- <a class="me-3" data-bs-toggle="modal"
                                                             data-bs-target="#commandeFacture"
                                                             wire:click="facture({{ $item->id }})">
                                                             <img src="assets/img/icons/eye.svg" alt="img">
-                                                        </a>
+                                                        </a> --}}
                                                         <a class="me-3"
                                                             onclick="Swal.fire(
                                                             'Good job!',
@@ -721,6 +718,81 @@
     {{-- end recent commande --}}
 
 
+    {{-- toutes les commandes --}}
+    <div wire:ignore class="modal fade" id="allcommandes" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">les commandes du jour</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="tabs-sets">
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="purchase" role="tabpanel"
+                                aria-labelledby="purchase-tab">
+                                <div class="table-top">
+                                    <div class="search-set">
+                                        <div class="search-input">
+                                            <a onkeyup="myFunction()" id="myinput" class="btn btn-searchset"><img
+                                                    src="assets/img/icons/search-white.svg" alt="img"></a>
+                                        </div>
+                                    </div>
+                                    <div class="wordset">
+                                        <ul>
+                                            <li>
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="pdf"><img src="assets/img/icons/pdf.svg"
+                                                        alt="img"></a>
+                                            </li>
+                                            <li>
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="excel"><img src="assets/img/icons/excel.svg"
+                                                        alt="img"></a>
+                                            </li>
+                                            <li>
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="print"><img src="assets/img/icons/printer.svg"
+                                                        alt="img"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table datanew" id="myTable">
+                                        <thead>
+                                            <tr>
+                                                <th>N°</th>
+                                                <th>produit</th>
+                                                <th>quantité</th>
+                                                <th>prix unitaire</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                       
+                                            @foreach ($todays as $key => $item)
+                                                <tr>
+                                                    <td>{{ $key+1 }}</td>
+                                                    <td>{{$item->name}}</td>
+                                                    <td>{{$item->quantity_commande}}</td>
+                                                    <td>{{$item->price}} $</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- end toutes les commandes --}}
+
+
     {{-- facture component --}}
 
     <div wire:ignore.self class="modal fade" id="facture" tabindex="-1" aria-labelledby="facture"
@@ -736,12 +808,13 @@
                 <div class="modal-body">
                     <ul class="nav nav-tabs" id="myTabs" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="purchase-tab" data-bs-toggle="tab"
-                                data-bs-target="#purchase" type="button" aria-controls="purchase"
-                                aria-selected="true" role="tab">imprimer</button>
+                            <button class="nav-link "
+                                onclick="printJS({printable:'fact', type: 'html', targetStyles: ['*']})"
+                                id="purchase-tab" data-bs-toggle="tab" data-bs-target="#purchase" type="button"
+                                aria-controls="purchase" aria-selected="true" role="tab">imprimer</button>
                         </li>
                     </ul>
-                    <div class="justify-center row">
+                    <div class="justify-center row" id="fact">
                         <div class="mt-4 wrapper ml-9 col-12">
                             <div id="printdivcontent">
                                 <div class="card">
@@ -751,6 +824,11 @@
                                             <strong> Fax:</strong> 2233455 <br>
                                             <strong>avenue :</strong> square 23,67 <br>
                                             <strong>contact :</strong> +243 994 445 56 <br>
+                                            <strong>code :</strong>
+                                            @if (!empty($invoce))
+                                                {{ $invoce[0]->code }}
+                                            @endif
+                                            <br>
                                             <h3 class="mb-0"></h3>
 
 
@@ -918,14 +996,15 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <ul class="nav nav-tabs" id="myTabs" role="tablist">
+                    <ul class="nav nav-tabs" id="myTabs " role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="purchase-tab" data-bs-toggle="tab"
-                                data-bs-target="#purchase" type="button" aria-controls="purchase"
-                                aria-selected="true" role="tab">imprimer</button>
+                            <button class="nav-link "
+                                onclick="printJS({printable:'facture-data', type: 'html', targetStyles: ['*']})"
+                                id="purchase-tab" data-bs-toggle="tab" data-bs-target="#purchase" type="button"
+                                aria-controls="purchase" aria-selected="true" role="tab">imprimer</button>
                         </li>
                     </ul>
-                    <div class="justify-center row">
+                    <div class="justify-center row" id="facture-data">
                         <div class="mt-4 wrapper ml-9 col-12">
                             <div id="printdivcontent">
                                 <div class="card">

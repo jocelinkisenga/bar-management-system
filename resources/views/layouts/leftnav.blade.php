@@ -1,86 +1,55 @@
-<nav class="sidebar sidebar-offcanvas" id="sidebar">
-    <ul class="nav">
-      <li class="nav-item">
-        <a class="nav-link" href="/">
-          <i class="icon-grid menu-icon"></i>
-          <span class="menu-title">Dashboard</span>
-        </a>
-      </li>
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-inner slimscroll">
+    <div id="sidebar-menu" class="sidebar-menu">
+      <ul>
+        <li class="active">
+          <a href="index.html" ><img src="{{asset('assets/img/icons/dashboard.svg')}}" alt="img"><span> Dashboard</span> </a>
+        </li>
+        <li class="submenu">
+          <a><img src="{{asset('assets/img/icons/product.svg')}}" alt="img"><span> catégories</span></a>
+          <ul>
+            <li><a href="{{route('categories')}}">liste des categories </a></li>
+          </ul>
 
-      <li class="nav-item">
-        <a class="nav-link"  href="commandes" >
-          <i class="icon-layout menu-icon"></i>
-          <span class="menu-title">commandes</span>
-          <i class="menu-arrow"></i>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="tables">
-          <i class="icon-columns menu-icon"></i>
-          <span class="menu-title">tables</span>
-          <i class="menu-arrow"></i>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link"  href="produits">
-          <i class="icon-bar-graph menu-icon"></i>
-          <span class="menu-title">produits</span>
-          <i class="menu-arrow"></i>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="categories" >
-          <i class="icon-grid-2 menu-icon"></i>
-          <span class="menu-title">categories</span>
-          <i class="menu-arrow"></i>
-        </a>
-
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="depenses" >
-          <i class="icon-grid-2 menu-icon"></i>
-          <span class="menu-title">depenses</span>
-          <i class="menu-arrow"></i>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="stock" >
-          <i class="icon-grid-2 menu-icon"></i>
-          <span class="menu-title">mouvent stock</span>
-          <i class="menu-arrow"></i>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="servers" >
-          <i class="icon-grid-2 menu-icon"></i>
-          <span class="menu-title">servants</span>
-          <i class="menu-arrow"></i>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="users" >
-          <i class="icon-grid-2 menu-icon"></i>
-          <span class="menu-title">utilisateurs</span>
-          <i class="menu-arrow"></i>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="rapports" >
-          <i class="icon-grid-2 menu-icon"></i>
-          <span class="menu-title">rapports</span>
-          <i class="menu-arrow"></i>
-        </a>
-      </li>
-
-
-<li class="nav-item">
-        <a class="nav-link" href="logout" >
-          <i class="icon-grid-2 menu-icon"></i>
-          <span class="menu-title">se deconnecter</span>
-          <i class="menu-arrow"></i>
-        </a>
-      </li>
-    </ul>
-  </nav>
+        </li>
+        
+        <li class="submenu">
+          <a ><img src="{{asset('assets/img/icons/product.svg')}}" alt="img"><span> produits</span> <span class="menu-arrow"></span></a>
+          <ul>
+            <li><a href="{{route('products')}}">liste des produits </a></li>
+          </ul>
+        </li>
+        <li class="submenu">
+          <a ><img src="{{asset('assets/img/icons/product.svg')}}" alt="img"><span> commandes</span> <span class="menu-arrow"></span></a>
+          <ul>
+            <li><a href="{{route('commandes')}}">liste des commandes </a></li>
+          </ul>
+        </li>
+        <li class="submenu">
+          <a ><img src="{{asset('assets/img/icons/product.svg')}}" alt="img"><span> depenses</span> <span class="menu-arrow"></span></a>
+          <ul>
+            <li><a href="{{route('depenses')}}">liste des depense </a></li>
+          </ul>
+        </li>
+        <li class="submenu">
+          <a href="javascript:void(0);"><img src="{{asset('assets/img/icons/product.svg')}}" alt="img"><span> reductions</span> <span class="menu-arrow"></span></a>
+          <ul>
+            <li><a href="{{route('reductions')}}">liste des reductions </a></li>
+          </ul>
+        </li>
+        <li class="submenu">
+          <a href="javascript:void(0);"><img src="{{asset('assets/img/icons/product.svg')}}" alt="img"><span> rapport</span> <span class="menu-arrow"></span></a>
+          <ul>
+            <li><a href="{{route('rapports')}}">rapport </a></li>
+          </ul>
+        </li>
+        <li class="submenu">
+          <a href="javascript:void(0);"><img src="{{asset('assets/img/icons/product.svg')}}" alt="img"><span> personnel</span> <span class="menu-arrow"></span></a>
+          <ul>
+            <li><a href="{{route('users')}}">liste du personnel </a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

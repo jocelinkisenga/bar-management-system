@@ -45,7 +45,7 @@
                                                           <select class="form-control" wire:model="percent">
                                                             <option selected> selectionner un pourcentage</option>
                                                             @foreach (PercentEnum::PERCENT as $percent)
-                                                            <option value="{{$percent}}">{{$percent}}</option>
+                                                            <option value="{{$percent}}">{{$percent}} %</option>
                                                             @endforeach
                                                            
                                                           </select>
@@ -97,7 +97,7 @@
                                                     {{$item->qty}}
                                                 </td>
                                                 <td>
-                                                    {{ $item->qty * $item->price }} fc
+                                                    {{ $item->qty * $item->price }} $
                                                 </td>
                                                 @php
                                                     $total += $item->qty * $item->price; 
