@@ -14,4 +14,12 @@ class Commande extends Model
     public function produit(){
         return $this->belongsTo(Produit::class);
     }
+
+    public function precommande(){
+        return $this->belongsTo(Precommande::class);
+    }
+
+    public function reduction(){
+        return $this->belongsTo(Reduction::class,'precommande_id');
+    }
 }

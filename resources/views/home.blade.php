@@ -48,10 +48,12 @@
     <livewire:home>
 
     @livewireScripts
+
     <!-- jQuery -->
-    <script src="{{asset('js/printThis.js')}}"></script>
-    <script src="assets/js/jquery-3.6.0.min.js"></script>
+ 
+    <script src="{{asset('assets/js/jquery-3.6.0.min.js')}}"></script>
     <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+    <script src="{{asset('js/printThis.js')}}"></script>
 
     <!-- Feather Icon JS -->
     <script src="assets/js/feather.min.js"></script>
@@ -78,6 +80,13 @@
 
     <!-- Custom JS -->
     <script src="assets/js/script.js"></script>
+    <script>
+        Livewire.on('closeModal', () =>{
+            // $("#recents").modal('hide');
+            // console.log("ok")
+            alert('jocelin');
+        })
+    </script>
     <script>
         $("#facture-commande").click(function(){
                     $("#fac").printThis({

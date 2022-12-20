@@ -150,10 +150,10 @@ class CommandeRepositorie
         public function facture($commandId)
         {
 
-                return  DB::select("SELECT commandes.quantity_commande as qty, commandes.reduction,
+                return  DB::select("SELECT commandes.quantity_commande as qty,
                 produits.name, produits.price, precommandes.created_at, precommandes.id as pId, precommandes.code 
                 FROM precommandes,commandes,produits 
-                WHERE commandes.precommande_id = precommandes.id 
+                WHERE commandes.precommande_id = '$commandId' 
                 AND precommandes.id = '$commandId' 
                 AND commandes.produit_id = produits.id ");
         }

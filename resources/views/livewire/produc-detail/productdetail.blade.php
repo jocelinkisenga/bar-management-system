@@ -48,7 +48,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-sm-12">
+            <div class="col-lg-4 col-sm-12" wire:ignore>
                 <div class="card">
                     <div class="card-body">
                         <div class="slider-product-details">

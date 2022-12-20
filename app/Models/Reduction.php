@@ -19,4 +19,8 @@ class Reduction extends Model
     public function user(){
         return $this->belongsTo(User::class,'user_id');
     }
+
+    public function commandes(){
+        return $this->hasManyThrough(Commande::class,'precommande_id');
+    }
 }

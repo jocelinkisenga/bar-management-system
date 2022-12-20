@@ -18,19 +18,26 @@ use SebastianBergmann\Type\NullType;
 class Home extends Component
 
 {
-    public  $categories, $produits, $servers, 
-            $server_id, $last_commande = null,
-            $quantity_commande = 1, $produit_id, $commandes,
-           $precommandes, $facture, $invoce, $reductions,$todays;
-
+    public  $categories;
+    public  $produits;
+    public  $servers; 
+    public  $server_id;
+    public  $last_commande = null;
+    public  $quantity_commande = 1;
+    public  $produit_id;
+    public  $commandes;
+    public  $precommandes;
+    public  $facture;
+    public  $invoce, $reductions;
+    public  $todays;
     protected $commande_repo, $reduction_repo;
+
 
     public function __construct()
     {
         $this->commande_repo = new CommandeRepositorie;
         $this->reduction_repo = new ReductionRepositorie;
     }
-
 
     public function render()
     {
@@ -121,6 +128,8 @@ class Home extends Component
 
 
         return $this->last_commande =  $this->commande_repo->last_commande($id);
+          $this->dispatchBrowserEvent('closeModal');
+         
     }
 
     public function confirmer(int $id)

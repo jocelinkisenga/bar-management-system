@@ -33,4 +33,13 @@ class StockRepositorie {
 return $result;
     }
 
+public function commandes(){
+    //code, somme de la quantité, somme du prix, reduction, $prix total, date de la precommande
+    DB::statement("SET SQL_MODE=''");
+    return Db::select("SELECT precommandes.code, precommandes.created_at, 
+                        (SELECT SUM(quantity_commande) FROM commandes WHERE precommandes.id = commandes.precommande_id) as quantity_commande, (SELECT SUM(produits.price) FROM produits WHERE produits.id = commandes.produit_id) as price
+    , commandes.reduction FROM commandes, produits, precommandes WHERE precommandes.id = commandes.id AND commandes.produit_id = produits.id GROUP BY precommandes.code ORDER bY precommandes.created_at DESC");
+}
+
+
 } 

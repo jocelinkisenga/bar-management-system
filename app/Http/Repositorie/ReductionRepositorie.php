@@ -21,7 +21,7 @@ class ReductionRepositorie
             'pourcentage'=>$percent,
             'reduit'=>true
         ]);
-        $this->reduction_commande($reduction->precommande_id, $percent);
+       // $this->reduction_commande($reduction->precommande_id, $percent);
     }
 
     public function store(int $commandeId){

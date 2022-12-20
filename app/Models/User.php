@@ -33,6 +33,10 @@ class User extends Authenticatable
     public function reductions(){
         return $this->hasMany(Reduction::class,'user_id');
     }
+
+    public function depenses(){
+        return $this->hasMany(Depense::class);
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

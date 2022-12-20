@@ -39,11 +39,15 @@ Route::get('/', [AuthenticatedSessionController::class, 'create'])->middleware('
 //     return view('login');
 // });
 
-Route::middleware(['auth','admin'])->group(function(){
+Route::middleware(['auth'])->group(function(){
     Route::get('/dashboard',[HomeController::class,'index'])->name('dashboard');
     Route::get('/taux',[TauxController::class,'index'])->name('taux');
     Route::get('/reduction',[ReductionController::class,'index'])->name('reductions');
     Route::get('/detail-reduction/{id}',[ReductionController::class,'show'])->name('reduction-detail');
+    Route::get('/commandes',[CommandeController::class,'admin_commande'])->name('admin-commande');
+    Route::get('/produits',[ProductController::class,'index'])->name('products');
+    Route::get('/categories',[CategorieController::class,'index'])->name('categories');
+    Route::get('/depenses',[DepenseController::class,'index'])->name('depenses');
 });
 
 Route::middleware(['gerant','auth'])->group(function(){
@@ -54,10 +58,9 @@ Route::middleware(['gerant','auth'])->group(function(){
     Route::get('/produit-detail/{id}',[ProductController::class,'show'])->name('product-detail');
 });
 
-Route::middleware(['admin','auth'])->group(function(){
-    Route::get('/produits',[ProductController::class,'index'])->name('products');
-    Route::get('/categories',[CategorieController::class,'index'])->name('categories');
+Route::middleware(['admin','auth','gerant'])->group(function(){
 
+    
 
     Route::get("/rapports",[RapportController::class,'index'])->name('rapports');
     Route::get("/dailyRapport",[RapportController::class,'daily'])->name('daily-rapport');
@@ -70,7 +73,7 @@ Route::middleware(['admin','auth'])->group(function(){
     Route::get('/monthStock',[StockController::class,'monthly'])->name("monthly-stock");
     
 
-    Route::get('/depenses',[DepenseController::class,'index'])->name('depenses');
+  
     Route::get('/roles',[RoleController::class,'index'])->name('roles');
     Route::get('/users',[UserController::class,'index'])->name('users');
     Route::get('/users-detail/{id}',[UserController::class,'show'])->name('user-detail');

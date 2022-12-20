@@ -6576,6 +6576,8 @@ span.select2-container.select2-container--default.select2-container--open {
 }
 .productset .productsetimg {
   position: relative;
+  height: 12rem;
+  object-fit: cover !important;
   overflow: hidden;
 }
 .productset .productsetimg img {
@@ -6748,4 +6750,8 @@ span.select2-container.select2-container--default.select2-container--open {
   right: 10px;
 }
 
+.rounded-2xl 
+{
+  border-radius: 1rem;
+}
 /*# sourceMappingURL=style.css.map */

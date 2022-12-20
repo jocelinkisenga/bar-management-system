@@ -14,6 +14,10 @@ public function server(){
     return $this->belongsTo(User::class,'server_id');
 }
 
+public function commandes(){
+    return $this->hasMany(Commande::class);
+}
+
 public function reductions(){
     return $this->hasMany(Reduction::class);
 }

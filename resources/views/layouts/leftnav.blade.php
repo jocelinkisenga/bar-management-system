@@ -1,3 +1,6 @@
+@php
+  use App\Enums\RoleEnum;
+@endphp
 <div class="sidebar" id="sidebar">
   <div class="sidebar-inner slimscroll">
     <div id="sidebar-menu" class="sidebar-menu">
@@ -22,7 +25,7 @@
         <li class="submenu">
           <a ><img src="{{asset('assets/img/icons/product.svg')}}" alt="img"><span> commandes</span> <span class="menu-arrow"></span></a>
           <ul>
-            <li><a href="{{route('commandes')}}">liste des commandes </a></li>
+            <li><a href="{{route('admin-commande')}}">liste des commandes </a></li>
           </ul>
         </li>
         <li class="submenu">
@@ -31,6 +34,7 @@
             <li><a href="{{route('depenses')}}">liste des depense </a></li>
           </ul>
         </li>
+        @if (Auth::user()->role_id == RoleEnum::ADMIN)
         <li class="submenu">
           <a href="javascript:void(0);"><img src="{{asset('assets/img/icons/product.svg')}}" alt="img"><span> reductions</span> <span class="menu-arrow"></span></a>
           <ul>
@@ -49,6 +53,14 @@
             <li><a href="{{route('users')}}">liste du personnel </a></li>
           </ul>
         </li>
+        @else
+        <li class="text-white bg-warning">
+          <a href="{{route('commandes')}}" ><img src="{{asset('assets/img/icons/dashboard.svg')}}" alt="img"><span> rentrer à l'acceuil</span> </a>
+        </li>
+        @endif
+        
+
+        
       </ul>
     </div>
   </div>
