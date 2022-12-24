@@ -89,7 +89,7 @@ class Home extends Component
 
         $produit = $this->commande_repo->produit_by_id($this->produit_id);
 
-        if ($produit) {
+        if ($produit and $this->last_commande != null) {
 
             $comm = $this->commande_repo->commande_by_id($this->last_commande->id, $this->produit_id);
 

@@ -190,7 +190,7 @@
                     </div>
                 </div>
                 <!-- /Filter -->
-                <div class="mb-0 card" id="filter_inputs">
+                {{-- <div class="mb-0 card" id="filter_inputs">
                     <div class="pb-0 card-body">
                         <div class="row">
                             <div class="col-lg-12 col-sm-12">
@@ -246,7 +246,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <!-- /Filter -->
                 <div class="table-responsive">
                     <table class="table datanew">

@@ -160,7 +160,7 @@
                     <h4></h4>
                     <h6></h6>
                 </div>
-                <div class="card">
+                {{-- <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">filtrer par date</h4>
                         <div class="template-demo">
@@ -182,7 +182,8 @@
                             </form>
                         </div>
                     </div>
-                </div>
+                </div> --}}
+
                 <div class="page-btn">
                     {{-- <a data-bs-toggle="modal" data-bs-target="#create" class="btn btn-added"><img
                             src="assets/img/icons/plus.svg" alt="img" class="me-1">Ajouter un produit</a> --}}
@@ -194,94 +195,63 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-top">
-                        <div class="search-set">
-                            <div class="search-path">
-                                <a class="btn btn-filter" id="filter_search">
-                                    <img src="assets/img/icons/filter.svg" alt="img">
-                                    <span><img src="assets/img/icons/closes.svg" alt="img"></span>
-                                </a>
-                            </div>
-                            <div class="search-input">
-                                <a class="btn btn-searchset"><img src="assets/img/icons/search-white.svg"
-                                        alt="img"></a>
-                            </div>
-                        </div>
+                 
                         <div class="wordset">
                             <ul>
                                 <li>
-                                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
-                                            src="assets/img/icons/pdf.svg" alt="img"></a>
+                                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img src="assets/img/icons/pdf.svg" alt="img"></a>
                                 </li>
                                 <li>
-                                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img
-                                            src="assets/img/icons/excel.svg" alt="img"></a>
+                                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img src="assets/img/icons/excel.svg" alt="img"></a>
                                 </li>
                                 <li>
-                                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img
-                                            src="assets/img/icons/printer.svg" alt="img"></a>
+                                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img src="assets/img/icons/printer.svg" alt="img"></a>
                                 </li>
                             </ul>
                         </div>
+                        <div id="example1_wrapper"></div>
                     </div>
                     <!-- /Filter -->
-                    <div class="mb-0 card" id="filter_inputs">
-                        <div class="pb-0 card-body">
+                    <div class="card" id="">
+                        <div class="card-body pb-0">
+                            <form action="{{ route('search') }}" method="POST">
+                                @csrf
                             <div class="row">
-                                <div class="col-lg-12 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-lg col-sm-6 col-12">
-                                            <div class="form-group">
-                                                <select class="select">
-                                                    <option>Choose Product</option>
-                                                    <option>Macbook pro</option>
-                                                    <option>Orange</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg col-sm-6 col-12">
-                                            <div class="form-group">
-                                                <select class="select">
-                                                    <option>Choose Category</option>
-                                                    <option>Computers</option>
-                                                    <option>Fruits</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg col-sm-6 col-12">
-                                            <div class="form-group">
-                                                <select class="select">
-                                                    <option>Choose Sub Category</option>
-                                                    <option>Computer</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg col-sm-6 col-12">
-                                            <div class="form-group">
-                                                <select class="select">
-                                                    <option>Brand</option>
-                                                    <option>N/D</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg col-sm-6 col-12 ">
-                                            <div class="form-group">
-                                                <select class="select">
-                                                    <option>Price</option>
-                                                    <option>150.00</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-1 col-sm-6 col-12">
-                                            <div class="form-group">
-                                                <a class="btn btn-filters ms-auto"><img
-                                                        src="assets/img/icons/search-whites.svg" alt="img"></a>
-                                            </div>
+
+                                <div class="col-lg-2 col-sm-6 col-12">
+
+                                    <div class="form-group">
+                                        <div class="input-groupicon">
+                                            <input type="date" name="date_from" placeholder="From Date" >
+                                            {{-- <div class="addonset">
+                                                <img src="assets/img/icons/calendars.svg" alt="img">
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-lg-2 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <div class="input-groupicon">
+                                            <input type="date" name="date_to" placeholder="To Date" >
+                                            {{-- <div class="addonset">
+                                                <img src="assets/img/icons/calendars.svg" alt="img">
+                                            </div> --}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-1 col-sm-6 col-12 ms-auto">
+                                    <div class="form-group">
+                                        <button class="btn btn-filters ms-auto" type="submit" wire:click.prevent="search()"><img src="assets/img/icons/search-whites.svg" alt="img"></button>
+                                    </div>
+                                </div>
+                           
                             </div>
+                        </form>
+                        </div>
                         </div>
                     </div>
+                    <!-- /Filter -->
+
                     <!-- /Filter -->
                     <div class="table-responsive">
                         <table class="table datanew">
@@ -394,4 +364,23 @@
             printWindow.print();
         }
     </script>
+
+
+<script>
+    $(function () {
+      $("#example1").DataTable({
+        "responsive": true, "lengthChange": false, "autoWidth": false,
+        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+      $('#example2').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+      });
+    });
+  </script>
 @endsection

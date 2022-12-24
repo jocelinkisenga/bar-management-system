@@ -25,7 +25,8 @@ class CommandeRepositorie
                 return Precommande::latest()->whereStatus(false)->get();
         }
 
-        public function today_commandes(){
+        public function today_commandes()
+        {
                 return Precommande::where();
         }
 
@@ -150,9 +151,10 @@ class CommandeRepositorie
         public function facture($commandId)
         {
 
-                return  DB::select("SELECT commandes.quantity_commande as qty,
+                return  DB::select("SELECT commandes.quantity_commande as qty,reductions.pourcentage,
                 produits.name, produits.price, precommandes.created_at, precommandes.id as pId, precommandes.code 
                 FROM precommandes,commandes,produits 
+                LEFT JOIN reductions on reductions.precommande_id = $commandId
                 WHERE commandes.precommande_id = '$commandId' 
                 AND precommandes.id = '$commandId' 
                 AND commandes.produit_id = produits.id ");
@@ -175,15 +177,16 @@ class CommandeRepositorie
                 ]);
         }
 
-        
-    public function todays(){
-        // commandes, quantity, produits, group by products
-        DB::statement("SET SQL_MODE=''");
-        return DB::select("SELECT commandes.*, precommandes.code, produits.name, produits.price
+
+        public function todays()
+        {
+                // commandes, quantity, produits, group by products
+                DB::statement("SET SQL_MODE=''");
+                return DB::select("SELECT commandes.*, precommandes.code, produits.name, produits.price
          FROM commandes,produits, precommandes
           WHERE DATE(commandes.created_at) = DATE(now()) 
           AND produits.id = commandes.produit_id
           AND precommandes.id = precommande_id
          GROUP BY produit_id");
-    }
+        }
 }

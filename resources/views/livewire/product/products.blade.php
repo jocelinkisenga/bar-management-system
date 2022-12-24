@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <!-- /Filter -->
-                <div class="mb-0 card" id="filter_inputs">
+                {{-- <div class="mb-0 card" id="filter_inputs">
                     <div class="pb-0 card-body">
                         <div class="row">
                             <div class="col-lg-12 col-sm-12">
@@ -99,7 +99,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <!-- /Filter -->
                 <div class="table-responsive">
                     <table class="table datanew">
@@ -124,8 +124,8 @@
                                     {{$item->name}}
                                 </td>
                                 <td>{{$item->categorie->name}}</td>
-                                <th>{{$item->quantity}}</th>
-                                <th>{{$item->price}} $</th>
+                                <td ><span class="bg-warning text-white p-1 rounded-pill">{{$item->quantity}}</span></td>
+                                <td>{{$item->price}} $</td>
                                 <td>
                                     <a class="me-3" href="{{route('product-detail',['id'=>$item->id])}}">
                                         <img src="assets/img/icons/eye.svg" alt="img">

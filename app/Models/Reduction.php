@@ -20,7 +20,7 @@ class Reduction extends Model
         return $this->belongsTo(User::class,'user_id');
     }
 
-    public function commandes(){
-        return $this->hasManyThrough(Commande::class,'precommande_id');
+    public function commande(){
+        return $this->belongsTo(Commande::class,'precommande_id');
     }
 }

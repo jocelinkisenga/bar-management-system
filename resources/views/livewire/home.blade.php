@@ -181,11 +181,14 @@
                                     <div class="row ">
                                         @foreach (Produit::whereCategorie_id($item->id)->get() as $produit)
                                             <div class="col-lg-3 col-sm-6 d-flex"
-                                                wire:click.prevent="ajouter( {{ $produit->id }})"@if ($produit->quantity <= 0) onClick="Swal.fire(
+                                            
+                                                wire:click.prevent="ajouter( {{ $produit->id }})"
+                                                    @if ($produit->quantity <= 0) onClick="Swal.fire(
                                                     'oups !!',
                                                     'la quantité ne suffit pas pour ajouter à la commande!',
                                                     'danger'
-                                                  )" @endif>
+                                                  )"
+                                                   @endif>
                                                 <div class="productset flex-fill ">
                                                     <div class="productsetimg">
                                                         <img src="{{ asset('storage/uploads/' . $produit->path) }}"
@@ -877,7 +880,7 @@
                                                                     {{ $item->name }}
                                                                 </td>
                                                                 <td class="right">{{ $item->qty }}</td>
-                                                                <td class="right">{{ $item->qty * $item->price }} fc
+                                                                <td class="right">{{ $item->qty * $item->price }} $
                                                                 </td>
                                                                 <?php $facture_total += $item->qty * $item->price; ?>
                                                                 @php
@@ -899,15 +902,22 @@
 
                                 <div class="bg-white card-footer">
                                     <p class="mb-0"><span class="text-uppercase font-weight-bold">reduction :
-                                            {{-- @if ($invoce != null)
-                                                {{ ($facture_total / 100) * $invoce[0]->reduction }} %
-                                            @endif --}}
+                                            @if ($invoce != null)
+                                              {{ ($facture_total / 100) * $invoce[0]->pourcentage }} $
+                                            @endif
                                         </span></p>
                                 </div>
                                 <div class="bg-white card-footer">
                                     <p class="mb-0"><span class="text-uppercase font-weight-bold">Total :
-                                            {{ $facture_total }}
-                                            $</span></p>
+                                        @if ($invoce != null and $invoce[0]->pourcentage != 0)
+                                         
+                                        
+                                             <?= $facture_total - ($facture_total / 100) * $invoce[0]->pourcentage; ?> $
+                                            
+                                        @else
+                                            {{$facture_total }}
+                                        @endif
+                                            </span></p>
                                 </div>
 
                             </div>
@@ -1055,7 +1065,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @if (!empty($facture))
+                                                    @if (!empty($facture) and $facture != null)
 
                                                         @foreach ($facture as $item)
                                                             <tr>
@@ -1069,7 +1079,7 @@
                                                                 <?php ?>
                                                                 @php
                                                                     $facture_total += $item->qty * $item->price;
-                                                                    $pourcentage = $item->reduction;
+                                                                    $pourcentage = $item->pourcentage;
                                                                 @endphp
                                                             </tr>
                                                         @endforeach
@@ -1087,7 +1097,7 @@
                                 <div class="bg-white card-footer">
                                     <p class="mb-0"><span class="text-uppercase font-weight-bold">reduction :
                                             @if (!empty($facture))
-                                                {{ $facture[0]->reduction }}
+                                                {{ $facture[0]->pourcentage }}
                                             @endif
                                             %
                                         </span></p>

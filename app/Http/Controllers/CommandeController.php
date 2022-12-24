@@ -20,7 +20,8 @@ class CommandeController extends Controller
 
 
         DB::statement("SET SQL_MODE=''");
-        $commandes = Commande::latest()->with('precommande')->groupBy('precommande_id')->get();
+        $commandes = Commande::latest()->with('precommande')->with('reduction')->groupBy('precommande_id')->get();
+        dd($commandes);
         return view('Pages.adminCommandes',compact('commandes'));
     }
     // public function show(int $id){

@@ -35,8 +35,7 @@
     <link rel="stylesheet" href="{{asset('assets/plugins/fontawesome/css/fontawesome.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/plugins/fontawesome/css/all.min.css')}}">
 
-    <link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css')}}">
-      
+    <link rel="stylesheet" href="{{asset('css/buttons.bootstrap4.min.css')}}">
     <!-- Main CSS -->
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
     @livewireStyles
@@ -58,12 +57,13 @@
             @yield('content')
 			@livewireScripts
     <!-- jQuery -->
-    <script src="{{asset('js/printThis.js')}}"></script>
+    
     <script src="{{asset('assets/js/jquery-3.6.0.min.js')}}"></script>
     <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
-
+    <script src="{{asset('js/printThis.js')}}"></script>
     <!-- Feather Icon JS -->
     <script src="{{asset('assets/js/feather.min.js')}}"></script>
+    <script src="{{asset('js/buttons.print.min.js')}}"></script>
 
     <!-- Slimscroll JS -->
     <script src="{{asset('assets/js/jquery.slimscroll.min.js')}}"></script>
@@ -80,7 +80,8 @@
 
     <!-- Owl JS -->
     <script src="{{asset('assets/plugins/owlcarousel/owl.carousel.min.js')}}"></script>
-
+    <script src="{{asset('assets/js/moment.min.js')}}"></script>
+    <script src="{{asset('assets/js/bootstrap-datetimepicker.min.js')}}"></script>
     <!-- Sweetalert 2 -->
     <script src="{{asset('assets/plugins/sweetalert/sweetalert2.all.min.js')}}"></script>
     <script src="{{asset('assets/plugins/sweetalert/sweetalerts.min.js')}}"></script>

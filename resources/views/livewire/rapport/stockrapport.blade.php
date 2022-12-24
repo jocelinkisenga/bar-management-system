@@ -1,6 +1,6 @@
 <div class="row">
 
-    <div class="col-md-6 grid-margin stretch-card">
+    {{-- <div class="col-md-6 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">filtrer par date</h4>
@@ -23,7 +23,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 
 </div>
@@ -49,6 +49,7 @@
 
                                 <p class="card-description">
                                 </p>
+                                
                                 <div class="pt-3 table-responsive">
                                     <table class="table table-bordered">
                                         <thead>

@@ -20,6 +20,7 @@ class Commande extends Model
     }
 
     public function reduction(){
-        return $this->belongsTo(Reduction::class,'precommande_id');
+        return $this->hasOneThrough(Reduction::class,Precommande::class,'id','precommande_id');
+        
     }
 }

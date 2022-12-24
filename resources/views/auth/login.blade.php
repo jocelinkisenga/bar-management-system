@@ -12,13 +12,19 @@
               <form class="pt-3" method="POST" action="{{route('login')}}">
                 @csrf
                 <div class="form-group">
-                  <input type="email" name="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username">
+                  <input type="email" name="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="email">
                 </div>
-                <small class="ml-5 text-red-800 " id="emailError"></small>
-                <div class="form-group">
+                 @error('email')
+                 <small class="mb-5 ml-5 text-danger  " id="emailError">email invalide</small>
+                 @enderror
+                
+                <div class="form-group mt-5">
                   <input type="password" name="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">
                 </div>
-                <small class="ml-5 text-red-800 " id="passwordError"></small>
+                @error('password')
+                <small class="ml-5 text-danger " id="passwordError"> mot de passe invalide</small>
+                @enderror
+                
                 <div class="mt-3">
                   <input class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit" name="login">
                 </div>
