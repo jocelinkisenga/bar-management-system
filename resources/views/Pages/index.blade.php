@@ -13,7 +13,7 @@
 									<h5>PRODUITS</h5>
 								</div>
 								<div class="dash-imgs">
-									<i data-feather="user"></i> 
+									<i data-feather="file-text"></i> 
 								</div>
 							</div>
 						</div>
@@ -24,18 +24,7 @@
 									<h5>CATEGORIES</h5>
 								</div>
 								<div class="dash-imgs">
-									<i data-feather="user-check"></i> 
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-3 col-sm-6 col-12 d-flex">
-							<div class="dash-count das2">
-								<div class="dash-counts">
-									<h4>{{App\Models\user::count()}}</h4>
-									<h5>PERSONNEL</h5>
-								</div>
-								<div class="dash-imgs">
-									<i data-feather="file-text"></i>
+									<i data-feather="file-text"></i> 
 								</div>
 							</div>
 						</div>
@@ -47,6 +36,18 @@
 								</div>
 								<div class="dash-imgs">
 									<i data-feather="file"></i>  
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-lg-3 col-sm-6 col-12 d-flex">
+							<div class="dash-count das2">
+								<div class="dash-counts">
+									<h4>{{App\Models\user::count()}}</h4>
+									<h5>PERSONNEL</h5>
+								</div>
+								<div class="dash-imgs">
+									<i data-feather="user-check"></i>
 								</div>
 							</div>
 						</div>
@@ -75,7 +76,7 @@
 											<td>{{$key+1}}</td>
 											<td class="productimgname">
 												<a class="product-img" href="productlist.html">
-													<img src="assets/img/product/product2.jpg" alt="product">
+													<img src="{{ asset('storage/uploads/' . $item->path) }}" alt="product">
 												</a>
 												<a href="productlist.html">{{$item->name}}</a>
 											</td>

@@ -165,7 +165,7 @@ class CommandeRepositorie
         public function last_commande($id)
         {
 
-                return   Precommande::whereId($id)->whereStatus(false)->whereUser_id(Auth::user()->id)->with('reductions')->first();
+                return   Precommande::whereId($id)->whereStatus(false)->with('reductions')->first();
         }
 
         // confirme la commande

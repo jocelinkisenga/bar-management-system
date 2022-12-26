@@ -24,6 +24,7 @@ class Depenses extends Component
 
             ModelsDepense::create($valide);
             $this->reset_fields();
+            $this->dispatchBrowserEvent('close-modal');
     }
 
     private function reset_fields(){

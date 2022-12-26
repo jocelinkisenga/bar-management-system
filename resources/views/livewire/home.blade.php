@@ -6,7 +6,7 @@
         global $pourcentage;
     @endphp
 
-    <div class="main-wrappers">
+    <div class="main-wrappers" style="background-color: #f6f1f1;">
         <div class="header">
             <!-- Logo -->
             <div class="border-0 header-left ">
@@ -661,7 +661,7 @@
 
     {{-- Recent commande --}}
 
-    <div wire:ignore class="modal fade" id="recents" tabindex="-1" aria-hidden="true">
+    <div wire:ignore.self class="modal fade" id="recents" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -673,7 +673,7 @@
                 <div class="modal-body">
                     <div class="tabs-sets">
                         <div class="tab-content">
-                            <div class="tab-pane fade show active" id="purchase" role="tabpanel"
+                            <div class="tab-pane fade show active"  role="tabpanel"
                                 aria-labelledby="purchase-tab">
                                 <div class="table-top">
                                     <div class="search-set">
@@ -703,7 +703,7 @@
                                     </div>
                                 </div>
                                 <div class="table-responsive">
-                                    <table class="table datanew" id="myTable">
+                                    <table class="table" id="myTable">
                                         <thead>
                                             <tr>
 
@@ -716,9 +716,12 @@
 
                                             @foreach ($precommandes as $item)
                                                 <tr>
-
-                                                    <td><button class="btn btn-success"
-                                                            wire:click="edit({{ $item->id }})">{{ $item->code }}</button>
+                                                   
+                                                    <td>
+                                                        <form>
+                                                        <button type="submit" class="btn  btn-success"
+                                                          wire:click.prevent="edit({{ $item->id }})" >{{ $item->code }}</button>
+                                                        </form>
                                                     </td>
                                                     <td>{{ $item->server->name }}</td>
                                                     <td><button class="btn btn-warning btn-sm"
@@ -736,11 +739,14 @@
             </div>
         </div>
     </div>
+
+
+
     {{-- end recent commande --}}
 
 
     {{-- toutes les commandes --}}
-    <div wire:ignore.self class="modal fade" id="allcommandes" tabindex="-1" aria-hidden="true">
+    {{-- <div wire:ignore class="modal fade" id="allcommandes" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -810,7 +816,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     {{-- end toutes les commandes --}}
 
 

@@ -3,3 +3,5 @@
 
     <livewire:commande.commande :commande_id="$id">
 @endsection
+
+@endsection

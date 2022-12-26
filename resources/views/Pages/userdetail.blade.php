@@ -121,9 +121,9 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="bar-code-view">
-                            <img src="" alt="barcode">
+                           
                             <a class="printimg">
-                                <img src="" alt="print">
+                              
                             </a>
                         </div>
                         <div class="productdetails">
@@ -163,7 +163,9 @@
                         <div class="slider-product-details">
                             <div class="owl-carousel owl-theme product-slide">
                                 <div class="slider-product">
-                                    <img src="{{ asset('storage/uploads/' . $data->path) }}" alt="img">
+                                    <div class="dash-imgs">
+                                        <i data-feather="user-check"></i>
+                                    </div>
                                     <h4>{{$data->name}}</h4>
                                    
                                 </div>

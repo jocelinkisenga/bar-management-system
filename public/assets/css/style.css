@@ -107,6 +107,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 body {
   overflow-x: hidden;
+  
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -120,6 +121,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 
 body {
   line-height: 1;
+  
 }
 
 ol, ul {

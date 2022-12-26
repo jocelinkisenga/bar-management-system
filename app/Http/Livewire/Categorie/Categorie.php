@@ -28,6 +28,7 @@ class Categorie extends Component
             session()->flash('message','categorie created successfully');
             $this->reset_fields();
             $this->emit('categorieStore');
+            $this->dispatchBrowserEvent("close-modal");
     }
 
     public function modifier ($id){

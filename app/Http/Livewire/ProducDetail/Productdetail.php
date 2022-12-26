@@ -45,6 +45,7 @@ class Productdetail extends Component
             ]);
             $this->reset_fields();
             session()->flash('message', 'quantite ajouté avec succès');
+            $this->dispatchBrowserEvent('close-modal');
         }
     }
 
@@ -68,6 +69,8 @@ class Productdetail extends Component
        ]);
        $this->reset_fields();
      session()->flash('message','prix modifier avec succès');
+     $this->reset_fields();
+     $this->dispatchBrowserEvent('close-modal');
         
     }
 

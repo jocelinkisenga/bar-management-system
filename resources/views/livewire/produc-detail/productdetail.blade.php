@@ -70,7 +70,7 @@
 
 {{-- mise à jour de la quantité --}}
 
-<div wire:ignore.self class="modal fade" id="quantity" tabindex="-1" aria-labelledby="create"  aria-hidden="true">
+<div wire:ignore.self class="modal fade" id="quantity" tabindex="-1" aria-labelledby="quantity"  aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -110,7 +110,7 @@
 {{-- end mise à jour quantité --}}
 
 {{-- modifier prix --}}
-<div wire:ignore.self class="modal fade" id="price" tabindex="-1" aria-labelledby="create"  aria-hidden="true">
+<div wire:ignore.self class="modal fade" id="price" tabindex="-1" aria-labelledby="price"  aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">

@@ -56,6 +56,8 @@ class Products extends Component
             'path'=>$fileName
         ]);
         session()->flash('message', 'produit ajouté avec succès');
+        $this->reset_fields();
+        $this->dispatchBrowserEvent('close-modal');
     }
 
 

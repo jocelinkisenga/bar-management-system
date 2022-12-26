@@ -423,7 +423,7 @@
                                     <td>{{ $item->role }}</td>
                                     <td>
                                         <a class="me-3" href="{{route('user-detail',['id'=>$item->id])}}">
-                                            <img src="assets/img/icons/edit.svg" alt="img">
+                                            <img src="assets/img/icons/eye.svg" alt="img">
                                         </a>
                                     </td>
                                 </tr>

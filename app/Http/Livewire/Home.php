@@ -72,6 +72,7 @@ class Home extends Component
             'code' => $code
         ]);
         session()->flash('message','commande créer  avec succès');
+        $this->dispatchBrowserEvent('close-modal');
     }
 
     public function reduction($commandeId)
@@ -128,7 +129,8 @@ class Home extends Component
 
 
         return $this->last_commande =  $this->commande_repo->last_commande($id);
-          $this->dispatchBrowserEvent('closeModal');
+       // $this->emit('categorieStore');
+        $this->dispatchBrowserEvent('close-modal');
          
     }
 

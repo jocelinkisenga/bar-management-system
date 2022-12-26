@@ -48,6 +48,7 @@ class User extends Component
                 "email" => $this->email
             ]);
             $this->reset_fieds();
+            $this->dispatchBrowserEvent("close-modal");
         } else {
             ModelsUser::create([
                 "name" => $this->name,
@@ -56,6 +57,7 @@ class User extends Component
                 "role_id" => $this->role_id,
             ]);
             $this->reset_fieds();
+            $this->dispatchBrowserEvent('close-modal');
         }
     }
 
