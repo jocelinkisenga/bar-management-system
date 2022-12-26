@@ -1,158 +1,5 @@
-@extends('layouts.app')
+@extends('layouts.new')
 @section('content')
-    {{-- <div class="main-panel" id="page">
-        <div class="content-wrapper">
-
-
-            <div class="row">
-
-                <div class="col-md-6 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">filtrer par date</h4>
-                            <div class="template-demo">
-                                <form action="{{ route('search') }}" method="POST">
-                                    @csrf
-                                    <div class="input-group input-daterange">
-                                        <input name="date_from" type="date" class="mr-2 form-control datepicker"
-                                            placeholder="Due Date" autocomplete="off" data-provide="datepicker"
-                                            data-date-autoclose="true" data-date-format="yyyy/mm/dd"
-                                            data-date-today-highlight="true">
-                                        <div class="uppercase input-group-addon">Au</div>
-                                        <input name="date_to" type="date" class="ml-2 form-control datepicker"
-                                            placeholder="Due Date" autocomplete="off" data-provide="datepicker"
-                                            data-date-autoclose="true" data-date-format="yyyy/mm/dd"
-                                            data-date-today-highlight="true">
-                                        <button type="submit" class="ml-2 btn btn-success btn-sm"
-                                            wire:click.prevent="search()"><i class="icon-search"></i></button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-
-
-            <div class="row">
-                <div class="col-lg-12 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title"></h4>
-                            <p class="card-description">
-                                <button type="button" class="btn btn-success" onclick="generatePDF()" data-toggle="modal"
-                                    data-target="#exampleModal" data-whatever="@mdo">Télécharger le rapport</button>
-                                    <button type="button" class="btn btn-primary" onclick="printDiv()" data-toggle="modal"
-                                    data-target="#exampleModal" data-whatever="@mdo">Imprimer le rapport</button>
-                            </p>
-
-                            <div id="printdivcontent">
-
-                                <div class="col-lg-12 stretch-card">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Rapport de stock</h4>
-                                            <p class="card-description">
-                                            </p>
-                                            <div class="pt-3 table-responsive">
-                                                <table class="table table-bordered">
-                                                    <thead>
-                                                        <tr class="table-info">
-                                                            <th>
-                                                                #
-                                                            </th>
-                                                            <th>
-                                                                produit
-                                                            </th>
-                                                            <th>
-                                                                Entées
-                                                            </th>
-                                                            <th>
-                                                                Sorties
-                                                            </th>
-                                                            <th>
-                                                                solde
-                                                            </th>
-
-                                                            <th>
-                                                                PV
-                                                            </th>
-                                                            <th>
-                                                                vente total
-                                                            </th>
-
-
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach ($data as $key => $item)
-                                                            <tr>
-                                                                <td>
-                                                                    {{ $key + 1 }}
-                                                                </td>
-                                                                <td>
-                                                                    {{ $item->name }}
-                                                                </td>
-                                                                <td>
-                                                                    @if (!empty($item->entries))
-                                                                        {{ $item->entries }}
-                                                                    @else
-                                                                        --
-                                                                    @endif
-
-
-                                                                </td>
-                                                                <td>
-                                                                    @if (!empty($item->outputs))
-                                                                        {{ $item->outputs }}
-                                                                    @else
-                                                                        --
-                                                                    @endif
-
-
-                                                                </td>
-                                                                <td>
-                                                                   @if ($item->solde + $item->entries - $item->outputs > 0)
-                                                                   {{ $item->solde + $item->entries - $item->outputs }}
-                                                                   @else
-                                                                     --  
-                                                                   @endif
-                                                                   
-                                                                </td>
-
-                                                                <td>
-                                                                    {{ $item->vente }} fc
-                                                                </td>
-                                                                <td>
-                                                                    @if ($item->vente * $item->outputs > 0)
-                                                                    {{ $item->vente * $item->outputs }} $
-                                                                    @else
-                                                                    --
-                                                                    @endif
-                                                                </td>
-                                                            </tr>
-                                                        @endforeach
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
-
-
-
     <div class="page-wrapper">
         <div class="content">
             <div class="page-header">
@@ -160,33 +7,8 @@
                     <h4></h4>
                     <h6></h6>
                 </div>
-                {{-- <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">filtrer par date</h4>
-                        <div class="template-demo">
-                            <form action="{{ route('search') }}" method="POST">
-                                @csrf
-                                <div class="input-group input-daterange">
-                                    <input name="date_from" type="date" class="mr-2 form-control datepicker"
-                                        placeholder="Due Date" autocomplete="off" data-provide="datepicker"
-                                        data-date-autoclose="true" data-date-format="yyyy/mm/dd"
-                                        data-date-today-highlight="true">
-                                    <div class="uppercase input-group-addon">Au</div>
-                                    <input name="date_to" type="date" class="ml-2 form-control datepicker"
-                                        placeholder="Due Date" autocomplete="off" data-provide="datepicker"
-                                        data-date-autoclose="true" data-date-format="yyyy/mm/dd"
-                                        data-date-today-highlight="true">
-                                    <button type="submit" class="ml-2 btn btn-success btn-sm"
-                                        wire:click.prevent="search()"><i class="icon-search"></i></button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div> --}}
 
                 <div class="page-btn">
-                    {{-- <a data-bs-toggle="modal" data-bs-target="#create" class="btn btn-added"><img
-                            src="assets/img/icons/plus.svg" alt="img" class="me-1">Ajouter un produit</a> --}}
                 </div>
             </div>
 
@@ -195,65 +17,58 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-top">
-                 
-                        <div class="wordset">
-                            <ul>
-                                <li>
-                                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img src="assets/img/icons/pdf.svg" alt="img"></a>
-                                </li>
-                                <li>
-                                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img src="assets/img/icons/excel.svg" alt="img"></a>
-                                </li>
-                                <li>
-                                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img src="assets/img/icons/printer.svg" alt="img"></a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div id="example1_wrapper"></div>
+                       <h2> filtrer par date</h2>
+
+                        {{-- <div id="example1_wrapper"></div> --}}
                     </div>
                     <!-- /Filter -->
                     <div class="card" id="">
                         <div class="card-body pb-0">
                             <form action="{{ route('search') }}" method="POST">
                                 @csrf
-                            <div class="row">
+                                <div class="row">
 
-                                <div class="col-lg-2 col-sm-6 col-12">
+                                    <div class="col-lg-2 col-sm-6 col-12">
 
-                                    <div class="form-group">
-                                        <div class="input-groupicon">
-                                            <input type="date" name="date_from" placeholder="From Date" >
-                                            {{-- <div class="addonset">
+                                        <div class="form-group">
+                                            <div class="input-groupicon">
+                                                <input type="date" name="date_from" placeholder="From Date">
+                                                {{-- <div class="addonset">
                                                 <img src="assets/img/icons/calendars.svg" alt="img">
                                             </div> --}}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-2 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <div class="input-groupicon">
-                                            <input type="date" name="date_to" placeholder="To Date" >
-                                            {{-- <div class="addonset">
+                                    <div class="col-lg-2 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <div class="input-groupicon">
+                                                <input type="date" name="date_to" placeholder="To Date">
+                                                {{-- <div class="addonset">
                                                 <img src="assets/img/icons/calendars.svg" alt="img">
                                             </div> --}}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-1 col-sm-6 col-12 ms-auto">
-                                    <div class="form-group">
-                                        <button class="btn btn-filters ms-auto" type="submit" wire:click.prevent="search()"><img src="assets/img/icons/search-whites.svg" alt="img"></button>
+                                    <div class="col-lg-1 col-sm-6 col-12 ms-auto">
+                                        <div class="form-group">
+                                            <button class="btn btn-filters ms-auto" type="submit"
+                                                wire:click.prevent="search()"><img src="assets/img/icons/search-whites.svg"
+                                                    alt="img"></button>
+                                        </div>
                                     </div>
+
                                 </div>
-                           
-                            </div>
-                        </form>
-                        </div>
+                            </form>
                         </div>
                     </div>
-                    <!-- /Filter -->
+                </div>
+                <!-- /Filter -->
 
-                    <!-- /Filter -->
-                    <div class="table-responsive">
+                <!-- /Filter -->
+
+
+
+                {{-- <div class="table-responsive">
                         <table class="table datanew">
                             <thead>
                                 <tr>
@@ -311,76 +126,115 @@
                                 @endforeach
                             </tbody>
                         </table>
-                    </div>
-                </div>
+                    </div> --}}
+
+
+
             </div>
-            <!-- /product list -->
         </div>
+        <!-- /product list -->
 
-        {{-- modal create --}}
 
-        {{-- end modal create --}}
+
+
+
+        <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+               
+                  <!-- /.card -->
+      
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title">rapport du </h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                      <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                          <tr>
+                          </th>
+                          <th>N°</th>
+                          <th>produit</th>
+                          <th>entrées</th>
+                          <th>sorties</th>
+                          <th>solde</th>
+                          <th>prix de vente</th>
+                          <th>vente total</th>
+                      </tr>
+                        </thead>
+                        <tbody>
+                          @foreach ($data as $key => $item)
+                          <tr>
+                              <td>
+                                  {{ $key + 1 }}
+                              </td>
+                              <td>
+                                  {{ $item->name }}
+                              </td>
+                              <td>
+                                  @if (!empty($item->entries))
+                                      {{ $item->entries }}
+                                  @else
+                                      --
+                                  @endif
+      
+                              </td>
+                              <td>
+                                  @if (!empty($item->outputs))
+                                      {{ $item->outputs }}
+                                  @else
+                                      --
+                                  @endif
+      
+                              </td>
+                              <td>
+                                  @if ($item->solde + $item->entries - $item->outputs > 0)
+                                      {{ $item->solde + $item->entries - $item->outputs }}
+                                  @else
+                                      --
+                                  @endif
+                              </td>
+                              <td>{{ $item->vente }} $</td>
+                              <td>
+                                  @if ($item->vente * $item->outputs > 0)
+                                      {{ $item->vente * $item->outputs }} $
+                                  @else
+                                      --
+                                  @endif
+                              </td>
+                          </tr>
+                      @endforeach
+      
+                        </tbody>
+                      </table>
+                    </div>
+                    <!-- /.card-body -->
+                  </div>
+                  <!-- /.card -->
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+          </section>
+      
     </div>
 
-
+    
+@endsection
+@section('scripto')
     <script>
-        function generatePDF() {
-            //nom du fichier | file name
-            var nom_fichier = prompt("Nom du fichier PDF :");
-            //generer le pdf
-            var element = document.getElementById('text');
-            var opt = {
-                margin: 0.5,
-                filename: `${nom_fichier}.pdf`,
-                image: {
-                    type: 'jpeg',
-                    quality: 1
-                },
-                html2canvas: {
-                    scale: 2
-                },
-                jsPDF: {
-                    unit: 'in',
-                    format: 'letter',
-                    orientation: 'portrait'
-                }
-            };
-            if (nom_fichier != null) {
-                html2pdf().set(opt).from(element).save()
-            } else {
-                alert("Veuillez choisir un nom ")
-            }
-        }
-    </script>
-    <script type="text/javascript">
-        function printDiv() {
-            var divContents = document.getElementById("printdivcontent").innerHTML;
-            var printWindow = window.open('', '', 'height=200,width=400');
-            printWindow.document.write('<html><head><title>rapport</title>');
-            printWindow.document.write('</head><body >');
-            printWindow.document.write(divContents);
-            printWindow.document.write('</body></html>');
-            printWindow.document.close();
-            printWindow.print();
-        }
-    </script>
+        $(function() {
+            $("#example1").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["csv", "excel", "pdf", "print"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
-
-<script>
-    $(function () {
-      $("#example1").DataTable({
-        "responsive": true, "lengthChange": false, "autoWidth": false,
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-      $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
-      });
-    });
-  </script>
+        });
+    </script>
 @endsection

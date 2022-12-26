@@ -29,17 +29,7 @@
                         </div>
                     </div>
                     <div class="wordset">
-                        <ul>
-                            <li>
-                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img src="assets/img/icons/pdf.svg" alt="img"></a>
-                            </li>
-                            <li>
-                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img src="assets/img/icons/excel.svg" alt="img"></a>
-                            </li>
-                            <li>
-                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img src="assets/img/icons/printer.svg" alt="img"></a>
-                            </li>
-                        </ul>
+
                     </div>
                 </div>
                 <!-- /Filter -->
@@ -102,7 +92,7 @@
                 </div> --}}
                 <!-- /Filter -->
                 <div class="table-responsive">
-                    <table class="table datanew">
+                    <table class="table ">
                         <thead>
                             <tr>
                                 </th>
