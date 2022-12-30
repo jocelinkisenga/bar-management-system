@@ -18,6 +18,10 @@ class Stockrapport extends Component
        
     }
 
+    /**
+     * Summary of render
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function render()
     {
         

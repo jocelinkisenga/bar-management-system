@@ -10,10 +10,19 @@ use Livewire\Component;
 class Precommande extends Component
 {
     public $tables, $table_id, $precommande, $serveurs, $user_id;
+
+    /**
+     * Summary of reset_fields
+     * @return void
+     */
     public function reset_fields(){
         $this->table_id = "";
     }
 
+    /**
+     * Summary of render
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function render()
     {
         $this->tables = Table::all();
@@ -25,6 +34,11 @@ class Precommande extends Component
         return view('livewire.precommande.precommande');
     }
 
+
+    /**
+     * Summary of store
+     * @return void
+     */
     public function store(){
 
         $valide = $this->validate([
@@ -37,6 +51,12 @@ class Precommande extends Component
 
     }
 
+
+    /**
+     * Summary of confirmer
+     * @param int $id
+     * @return void
+     */
     public function confirmer(int $id){
         $precommande = ModelsPrecommande::find($id);
         $precommande->update([

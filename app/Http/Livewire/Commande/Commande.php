@@ -13,16 +13,27 @@ class Commande extends Component
 
 
 
+    /**
+     * Summary of reset_fields
+     * @return void
+     */
     private function reset_fields()
     {
         $this->quantity_commande;
     }
 
+
+    /**
+     * Summary of ajouter
+     * @param mixed $commandeId
+     * @return void
+     */
     public function ajouter( $commandeId)
     {
         $validate = $this->validate([
             'quantity_commande'=>'required'
         ]);
+
         $commande = new  CommandeRepositorie;
         $this->precommande_id = $commandeId;
         
@@ -43,6 +54,13 @@ class Commande extends Component
         }
     }
 
+
+    /**
+     * Summary of reduire
+     * @param mixed $commandId
+     * @param mixed $produitId
+     * @return void
+     */
     public function reduire($commandId, $produitId)
     {
        
@@ -52,6 +70,14 @@ class Commande extends Component
       
     }
 
+
+         /**
+          * Summary of annuler
+          * @param mixed $commandId
+          * @param mixed $produitId
+          * @param mixed $quantity
+          * @return void
+          */
     
     public function annuler($commandId, $produitId,$quantity)
     {
@@ -62,6 +88,11 @@ class Commande extends Component
       
     }
 
+
+    /**
+     * Summary of render
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function render()
     {
         $commande = new  CommandeRepositorie;

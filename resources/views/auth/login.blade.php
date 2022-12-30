@@ -15,14 +15,14 @@
                   <input type="email" name="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="email">
                 </div>
                  @error('email')
-                 <small class="mb-5 ml-5 text-danger  " id="emailError">{{error('message')}}</small>
+                 <small class="mb-5 ml-5 text-danger  " id="emailError">{{$message}}</small>
                  @enderror
                 
                 <div class="form-group mt-5">
                   <input type="password" name="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">
                 </div>
                 @error('password')
-                <small class="ml-5 text-danger " id="passwordError">{{error('message')}}</small>
+                <small class="ml-5 text-danger " id="passwordError">{{$message}}</small>
                 @enderror
                 
                 <div class="mt-3">

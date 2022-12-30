@@ -12,8 +12,11 @@ class Productdetail extends Component
     public $data, $product_id, $prix_achat, $produit_quantity, $prix, $commandes, $entries ;
 
 
+    /**
+     * Summary of render
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
  
-
     public function render()
     {
      $repo = new ProduitRepository;
@@ -25,7 +28,12 @@ class Productdetail extends Component
     }
 
     
-    public function ajouter($produitI)
+    /**
+     * Summary of ajouter
+     * @param int $produitI
+     * @return void
+     */
+    public function ajouter(int $produitI)
     {
      
         $produit = Produit::find($produitI);
@@ -49,6 +57,11 @@ class Productdetail extends Component
         }
     }
 
+
+    /**
+     * Summary of reset_fields
+     * @return void
+     */
     public function reset_fields()
     {
         $this->name = "";
@@ -62,7 +75,13 @@ class Productdetail extends Component
         $this->prix = "";
     }
 
-    public function modifier_prix($id){
+
+    /**
+     * Summary of modifier_prix
+     * @param int $id
+     * @return void
+     */
+    public function modifier_prix(int $id){
        $produit =  Produit::find($id);
        $produit->update([
         "price"=>$this->prix

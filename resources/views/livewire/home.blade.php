@@ -319,7 +319,7 @@
 
                                     </h5>
                                 @else
-                                    <h5 class="text-lg font-bold text-red text-bold">veuillez créer une commande ou selectionnez une</h5>
+                                    <h3 class="text-lg font-bold text-red font-size-8">veuillez créer une commande ou selectionnez une</h3>
                                 @endif
                             </div>
                             <div class="actionproducts">

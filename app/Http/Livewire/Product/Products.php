@@ -15,6 +15,11 @@ class Products extends Component
     
     public $data, $name,$categorie_id, $categories, $produit_id, $produit_quantity,$product_price, $price, $prix_achat,$prix_vente,$photo;
 
+
+    /**
+     * Summary of render
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function render()
     {
         $this->categories = Categorie::all();
@@ -23,6 +28,11 @@ class Products extends Component
         return view('livewire.product.products');
     }
 
+
+    /**
+     * Summary of reset_fields
+     * @return void
+     */
     public function reset_fields()
     {
         $this->name = "";
@@ -35,6 +45,11 @@ class Products extends Component
         $this->prix_vente = "";
     }
 
+
+    /**
+     * Summary of store
+     * @return void
+     */
     public function store()
     {
         $fileName= time().'.'.$this->photo->getClientOriginalName();
@@ -61,7 +76,12 @@ class Products extends Component
     }
 
 
-    public function modifier_prix($produitId)
+    /**
+     * Summary of modifier_prix
+     * @param int $produitId
+     * @return void
+     */
+    public function modifier_prix(int $produitId)
     {
 
         $produit = Produit::find($produitId);

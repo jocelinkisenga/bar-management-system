@@ -37,11 +37,11 @@
                                 </li>
                                 <li>
                                     <h4>prix</h4>
-                                    <h6>{{ $data->price }}</h6>
+                                    <h6>{{ $data->price }} $</h6>
                                 </li>
                                 <li>
                                     <h4>quantité</h4>
-                                    <h6>{{ $data->quantity }}</h6>
+                                    <h6>{{ $data->quantity }} pcs</h6>
                                 </li>
                             </ul>
                         </div>
