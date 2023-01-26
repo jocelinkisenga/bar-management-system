@@ -49,7 +49,7 @@
                 <li class="nav-item dropdown">
                     <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                         <img src="assets/img/icons/notification-bing.svg" alt="img"> <span
-                            class="badge rounded-pill">{{ $reductions->count() }}</span>
+                            class="badge rounded-pill"><livewire:components.reduced></span>
                     </a>
                     <div class="dropdown-menu notifications">
                         <div class="topnav-dropdown-header">
@@ -70,7 +70,7 @@
                                                                 %</strong> reduction
                                                             <button class="btn btn-success btn-sm"
                                                                 data-bs-toggle="modal" data-bs-target="#commandeFacture"
-                                                                wire:click="facture({{ $item->precommande->id }})">voir
+                                                                wire:click="reduction_facture({{ $item->precommande->id }})">voir
                                                                 plus</button> </span>
                                                     </p>
                                                     <p class="noti-time"><span class="notification-time"></span>
@@ -215,7 +215,7 @@
 
                         </div>
                     </div>
-                    <div class="col-lg-4 col-sm-12 bg-white p-3 shadow-sm rounded-2xl ">
+                    <div class="p-3 bg-white shadow-sm col-lg-4 col-sm-12 rounded-2xl ">
 
 
                         <div class="col-12">
@@ -686,18 +686,15 @@
                                         <ul>
                                             <li>
                                                 <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    title="pdf"><img src="assets/img/icons/pdf.svg"
-                                                        alt="img"></a>
+                                                    title="pdf"></a>
                                             </li>
                                             <li>
                                                 <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    title="excel"><img src="assets/img/icons/excel.svg"
-                                                        alt="img"></a>
+                                                    title="excel"></a>
                                             </li>
                                             <li>
                                                 <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    title="print"><img src="assets/img/icons/printer.svg"
-                                                        alt="img"></a>
+                                                    title="print"></a>
                                             </li>
                                         </ul>
                                     </div>
@@ -719,7 +716,7 @@
                                                    
                                                     <td>
                                                         <form>
-                                                        <button type="submit" class="btn  btn-success"
+                                                        <button type="submit" class="btn btn-success"
                                                           wire:click.prevent="edit({{ $item->id }})" >{{ $item->code }}</button>
                                                         </form>
                                                     </td>
@@ -836,12 +833,12 @@
                     <ul class="nav nav-tabs" id="myTabs" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link "
-                                onclick="printJS({printable:'fact', type: 'html', targetStyles: ['*']})"
+                                onclick="printDiv()"
                                 id="purchase-tab" data-bs-toggle="tab" data-bs-target="#purchase" type="button"
                                 aria-controls="purchase" aria-selected="true" role="tab">imprimer</button>
                         </li>
                     </ul>
-                    <div class="justify-center row" id="fact">
+                    <div class="justify-center row" id="printDiv">
                         <div class="mt-4 wrapper ml-9 col-12">
                             <div id="printdivcontent">
                                 <div class="card">
@@ -905,14 +902,15 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                @if ($invoce != null and $invoce[0]->pourcentage > 0)
                                 <div class="bg-white card-footer">
                                     <p class="mb-0"><span class="text-uppercase font-weight-bold">reduction :
-                                            @if ($invoce != null)
+                                           
                                               {{ ($facture_total / 100) * $invoce[0]->pourcentage }} $
-                                            @endif
+                                            
                                         </span></p>
                                 </div>
+                                @endif
                                 <div class="bg-white card-footer">
                                     <p class="mb-0"><span class="text-uppercase font-weight-bold">Total :
                                         @if ($invoce != null and $invoce[0]->pourcentage != 0)
@@ -921,7 +919,7 @@
                                              <?= $facture_total - ($facture_total / 100) * $invoce[0]->pourcentage; ?> $
                                             
                                         @else
-                                            {{$facture_total }}
+                                            {{$facture_total }} $
                                         @endif
                                             </span></p>
                                 </div>
@@ -952,10 +950,10 @@
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="purchase-tab" data-bs-toggle="tab"
                                 data-bs-target="#purchase" type="button" aria-controls="purchase"
-                                aria-selected="true" role="tab">imprimer</button>
+                                aria-selected="true" role="tab" onclick="printCoupon()">imprimer</button>
                         </li>
                     </ul>
-                    <div class="justify-center row">
+                    <div class="justify-center row" id="printCoupon">
                         <div class="mt-4 wrapper ml-9 col-12">
                             <div id="printdivcontent">
                                 <div class="card">
@@ -1027,7 +1025,7 @@
 
 
     {{-- commande facture --}}
-    <div wire:ignore class="modal fade" id="commandeFacture" tabindex="-1" aria-labelledby="commandeFacture"
+    {{-- <div wire:ignore class="modal fade" id="commandeFacture" tabindex="-1" aria-labelledby="commandeFacture"
         aria-hidden="true">
         <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -1041,12 +1039,12 @@
                     <ul class="nav nav-tabs" id="myTabs " role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link "
-                                onclick="printJS({printable:'facture-data', type: 'html', targetStyles: ['*']})"
+                                onclick="printDiv()"
                                 id="purchase-tab" data-bs-toggle="tab" data-bs-target="#purchase" type="button"
                                 aria-controls="purchase" aria-selected="true" role="tab">imprimer</button>
                         </li>
                     </ul>
-                    <div class="justify-center row" id="facture-data">
+                    <div class="justify-center row" id="printdiv>
                         <div class="mt-4 wrapper ml-9 col-12">
                             <div id="printdivcontent">
                                 <div class="card">
@@ -1120,8 +1118,125 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     {{-- end commande facture --}}
+
+
+{{-- reduction facture --}}
+
+<div wire:ignore.self class="modal fade" id="commandeFacture" tabindex="-1" aria-labelledby="facture" role="dialog"
+aria-hidden="true">
+<div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Facture</h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <ul class="nav nav-tabs" id="myTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link "
+                        onclick="printDiv()"
+                        id="purchase-tab" data-bs-toggle="tab" data-bs-target="#purchase" type="button"
+                        aria-controls="purchase" aria-selected="true" role="tab">imprimer</button>
+                </li>
+            </ul>
+            <div class="justify-center row" id="printDiv">
+                <div class="mt-4 wrapper ml-9 col-12">
+                    <div id="printdivcontent">
+                        <div class="card">
+                            <div class="card-header ">
+                                <a class="pt-2 ">The king</a>
+                                <div class="float-right">
+                                    <strong> Fax:</strong> 2233455 <br>
+                                    <strong>avenue :</strong> square 23,67 <br>
+                                    <strong>contact :</strong> +243 994 445 56 <br>
+                                    <strong>code :</strong>
+                                    @if (!empty($facture))
+                                        {{ $facture[0]->code }}
+                                    @endif
+                                    <br>
+                                    <h3 class="mb-0"></h3>
+
+
+                                </div>
+                                <div class="float-right">
+                                    <strong>Date:</strong> <?= date('Y/m/d') ?>
+                                </div>
+                            </div>
+                            <div class="card-body" id="elem">
+                                <div class="mb-4 row">
+                                </div>
+                                <div class="table-responsive-sm">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+
+                                                <th>produit</th>
+                                                <th class="right">quantité</th>
+                                                <th class="right">sous-total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (!empty($facture))
+                                                @foreach ($facture as $item)
+                                                    <tr>
+
+                                                        <td class="left strong text-uppercase">
+                                                            {{ $item->name }}
+                                                        </td>
+                                                        <td class="right">{{ $item->qty }}</td>
+                                                        <td class="right">{{ $item->qty * $item->price }} $
+                                                        </td>
+                                                        <?php $facture_total += $item->qty * $item->price; ?>
+                                                        @php
+                                                            // $pourcentage = $item->reduction;
+                                                        @endphp
+
+                                                    </tr>
+                                                @endforeach
+
+
+                                            @endif
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white card-footer">
+                            <p class="mb-0"><span class="text-uppercase font-weight-bold">reduction :
+                                    @if ($facture != null)
+                                      {{ ($facture_total / 100) * $facture[0]->pourcentage }} $
+                                    @endif
+                                </span></p>
+                        </div>
+                        <div class="bg-white card-footer">
+                            <p class="mb-0"><span class="text-uppercase font-weight-bold">Total :
+                                @if ($facture != null and $facture[0]->pourcentage != 0)
+                                 
+                                
+                                     <?= $facture_total - ($facture_total / 100) * $facture[0]->pourcentage; ?> $
+                                    
+                                @else
+                                    {{$facture_total }} $
+                                @endif
+                                    </span></p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{{-- end reduction facture  --}}
 
     {{-- reduction component --}}
     <div wire:ignore.self class="modal fade" id="reductions" tabindex="-1" aria-hidden="true">
@@ -1149,18 +1264,15 @@
                                         <ul>
                                             <li>
                                                 <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    title="pdf"><img src="assets/img/icons/pdf.svg"
-                                                        alt="img"></a>
+                                                    title="pdf"></a>
                                             </li>
                                             <li>
                                                 <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    title="excel"><img src="assets/img/icons/excel.svg"
-                                                        alt="img"></a>
+                                                    title="excel"></a>
                                             </li>
                                             <li>
                                                 <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    title="print"><img src="assets/img/icons/printer.svg"
-                                                        alt="img"></a>
+                                                    title="print"></a>
                                             </li>
                                         </ul>
                                     </div>
@@ -1171,7 +1283,8 @@
                                             <tr>
                                                 <th>code</th>
                                                 <th>pourcentage</th>
-                                                <th class="text-end">Action</th>
+                                                <th class="">detail</th>
+                                                <th class="text-end">confirmation</th>
                                         </thead>
                                         <tbody>
 
@@ -1180,20 +1293,20 @@
                                                     <td>{{ $item->precommande->code }}</td>
                                                     <td>{{ $item->pourcentage }} %</td>
                                                     <td>
-                                                        <a class="me-3" data-bs-toggle="modal"
+                                                        <button class="me-3" data-bs-toggle="modal"
                                                             data-bs-target="#commandeFacture"
-                                                            wire:click="facture({{ $item->precommande->id }})">
+                                                            wire:click="reduction_facture({{ $item->precommande->id }})">
                                                             <img src="assets/img/icons/eye.svg" alt="img">
-                                                        </a>
-                                                        <a class="me-3 "
-                                                            onclick="Swal.fire(
-                                                            'bon boulot!',
-                                                            'reduction confirmée avec succés!',
-                                                            'success'
-                                                          )"
-                                                            wire:click="confirm_reduction({{ $item->id }})">
-                                                            <img src="assets/img/icons/delete.svg" alt="img">
-                                                        </a>
+                                                        </button>
+                                                           
+                                                
+                                                    </td>
+                                                    <td>
+                                                    
+                                                           
+                                                        <button  class="btn btn-warning btn-sm"
+                                                        wire:click="confirm_reduction({{$item->id}})">confirmer</button>
+                                                        
                                                     </td>
                                                 </tr>
                                             @endforeach

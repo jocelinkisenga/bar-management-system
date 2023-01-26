@@ -206,27 +206,27 @@
                     <thead>
                         <tr>
                             </th>
-                            <th>N°</th>
-                            <th>produit</th>
+                            <th>code</th>
                             <th>quantité</th>
-                            <th>montant</th>
+                            <th>sous-total</th>
+                            <th>date</th>
                         </tr>
                     </thead>
                     <tbody>
+                       
                         @foreach ($precommandes as $key => $item)
                         <tr>
                             <td>
-                                {{$key+1}}
+                                {{$item->code}}
                             </td>
-                            <td >
-                                {{$item->name}}
-                            </td>
+                            
                             <td>
                                 {{$item->quantity_commande}}
                             </td>
                             <td>
-                                {{$item->price * $item->quantity_commande}} $
+                                {{ $item->quantity_commande * $item->produit->price }} $
                             </td>
+                            <td>{{$item->precommande->created_at}}</td>
                         </tr>
                         @endforeach
                     </tbody>

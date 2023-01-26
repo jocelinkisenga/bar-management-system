@@ -1,5 +1,6 @@
 @php
   use App\Models\Reduction;
+  use App\Enums\RoleEnum;
 @endphp
 
 
@@ -7,10 +8,10 @@
 			
     <!-- Logo -->
      <div class="header-left active">
-      <a href="index.html" class="logo">
+      <a href="{{route("dashboard")}}" class="logo">
         <img src="{{asset('assets/img/logo.png')}}"  alt="">
       </a>
-      <a href="index.html" class="logo-small">
+      <a href="{{route('dashboard')}}" class="logo-small">
         <img src="{{asset('assets/img/logo-small.png')}}"  alt="">
       </a>
       <a id="toggle_btn" href="javascript:void(0);">
@@ -56,7 +57,7 @@
       <!-- Notifications -->
       <li class="nav-item dropdown">
         <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-          <img src="{{asset('assets/img/icons/notification-bing.svg')}}"   alt="img"> <span class="badge rounded-pill">{{Reduction::whereStatus(false)->count()}}</span>
+          <img src="{{asset('assets/img/icons/notification-bing.svg')}}"   alt="img"> <span class="badge rounded-pill">@if(Auth::user()->role_id == RoleEnum::ADMIN){{Reduction::whereStatus(false)->count()}}@endif</span>
         </a>
         <div class="dropdown-menu notifications">
           <div class="topnav-dropdown-header">
@@ -67,7 +68,7 @@
             <ul class="notification-list">
               @foreach (Reduction::whereStatus(false)->get() as $item )
               <li class="notification-message">
-                <a href="activities.html">
+                <a href="{{route('reduction-detail',['id'=>$item->id])}}">
                   <div class="media d-flex">
                     <div class="media-body flex-grow-1">
                       <p class="noti-details"><span class="noti-title">{{$item->precommande->code}}</span></p>

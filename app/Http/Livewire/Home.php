@@ -32,6 +32,8 @@ class Home extends Component
     public  $todays;
     protected $commande_repo, $reduction_repo;
 
+    protected $listeners = ["reduced" => 'render', 'reduction-confirmed'=>'render'];
+
 
     public function __construct()
     {
@@ -119,9 +121,9 @@ class Home extends Component
         $result = $this->commande_repo->delete_commande($commandId, $produitId, $quantity);
     }
 
-    public function facture($commandeId)
+    public function reduction_facture($commandeId)
     {
-        $this->facture = $this->commande_repo->facture($commandeId);
+       return $this->facture = $this->commande_repo->facture($commandeId);
     }
 
     public function edit($id)
@@ -141,6 +143,15 @@ class Home extends Component
     }
 
     public function confirm_reduction(int $id){
-        $this->reduction_repo->confirm($id);
+    
+        
+    $this->reduction_repo->confirm($id);
+        
+        
+        
+           $this->emit("reduction-confirmed");
+        
+        
     }
+
 }

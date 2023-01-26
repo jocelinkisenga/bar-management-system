@@ -32,16 +32,15 @@ class UserController extends Controller
     
     /**
      * Summary of show
-     * @param mixed $id
+     * @param int $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return ['data'=>user-detail','precommande']
      */
-    public function show($id){
+    public function show(int $id){
         $data = User::find($id);
-       // $precommandes = $this->user_repo->serveur_commandes($id);
-       
        DB::statement("SET SQL_MODE=''");
        $precommandes = Commande::latest('commandes.created_at')->join('precommandes','precommandes.id','commandes.precommande_id')->with('reduction')->where('precommandes.server_id',$id)->groupBy('commandes.precommande_id')->get();
-        dd($precommandes);
+   
         return view('pages.userdetail',compact('data','precommandes'));
     }
 }

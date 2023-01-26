@@ -29,7 +29,11 @@ class ReductionComponent extends Component
 
     public function update($id){
        
-        $this->reduction_repo->modifier($id, $this->percent);
+       $reduction_modifier = $this->reduction_repo->modifier($id, $this->percent);
         $this->reset_field();
+        if($reduction_modifier){
+            $this->emit("reduced");
+        }
+       
     }
 }
