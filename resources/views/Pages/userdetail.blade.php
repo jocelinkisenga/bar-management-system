@@ -1,5 +1,8 @@
 @extends("layouts.app")
 @section("content")
+@php
+    use \App\Models\Role;
+@endphp
 {{-- <div class="main-panel">
     <div class="content-wrapper">
 
@@ -107,13 +110,89 @@
             <div class="page-title">
                 <h4>utilisateur detail</h4>
             </div>
-            
-            {{-- <div class="page-btn">
-                <a data-bs-toggle="modal" data-bs-target="#quantity" class="btn btn-success"><img src="{{asset('assets/img/icons/plus.svg')}}" alt="img" class="me-1">MàJ de la quantité</a>
-            </div>
+
             <div class="page-btn">
-                <a data-bs-toggle="modal" data-bs-target="#price" class="btn btn-added"><img src="{{asset('assets/img/icons/plus.svg')}}" alt="img" class="me-1">Màj du prix de vente</a>
-            </div> --}}
+                <a data-bs-toggle="modal" data-bs-target="#detail" class="btn btn-success"><img src="{{asset('assets/img/icons/plus.svg')}}" alt="img" class="me-1">modifier les détails</a>
+            </div>
+            <div wire:ignore.self class="modal fade" id="detail" tabindex="-1" aria-labelledby="detail" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Ajouter un personnel</h5>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{route('update.user')}}" method="POST">
+                            @csrf
+                        
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-12 col-12">
+                                    <div class="form-group">
+                                        <label>nom</label>
+                                        <input type="text" name="name" value="{{$data->name}}">
+                                    </div>
+                                </div>
+        
+                            
+                            <div class="col-lg-6 col-sm-12 col-12">
+                                <div class="form-group">
+                                    <label for="">un role <span class="text-danger">*</span>:</label>
+                                    <select class="form-control" name="role_id" value="{{$data->role_id}}">
+                                        <option selected>selectionner un role</option>
+                                        @foreach (Role::all() as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
+        
+        
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-12 col-12">
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">telephone <span
+                                            class="text-danger">*</span>
+                                        :</label>
+                                    <input type="number" name="phone" class="form-control" value="{{$data->phone}}" id="recipient-name">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-12 col-12">
+                                <div class="form-group">
+                                    <label for="">sexe <span class="text-danger">*</span>:</label>
+                                    <select class="form-control" name="sexe" id="">
+                                        <option selected>{{$data->sexe}}</option>
+                                        <option value="homme">Homme</option>
+                                        <option value="femme">Femme</option>
+        
+                                    </select>
+                                </div>
+                            </div>
+                            <input type="hidden" name="user_id"  value="{{$data->id}}">
+                            <div class="col-lg-6 col-sm-12 col-12">
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">mot de passe
+                                        :</label>
+                                    <input type="text" name="password" class="form-control" id="recipient-name">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-12 col-12">
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">email
+                                        :</label>
+                                    <input type="text" name="email" value="{{$data->email}}" class="form-control" id="recipient-name">
+                                </div>
+                            </div>
+                        </div>
+                            <div class="col-lg-12">
+                                <button type="submit" class="btn btn-submit me-2">enregistrer </button>
+                                <a class="btn btn-cancel" data-bs-dismiss="modal">annuler</a>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- /add -->
         <div class="row">

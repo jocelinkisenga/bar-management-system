@@ -1,5 +1,8 @@
 @extends('layouts.new')
+@if (isset($data["from"]) and isset($data['to']))
 @section("title", 'rapport du '.$data['from'] .' au '.$data['to'])
+@endif
+
 @section('content')
 
     <div class="page-wrapper">
@@ -166,50 +169,53 @@
                           <th>vente total</th>
                       </tr>
                         </thead>
+                        @isset($data['results'])
                         <tbody>
-                          @foreach ($data['results'] as $key => $item)
-                          <tr>
-                              <td>
-                                  {{ $key + 1 }}
-                              </td>
-                              <td>
-                                  {{ $item->name }}
-                              </td>
-                              <td>
-                                  @if (!empty($item->entries))
-                                      {{ $item->entries }}
-                                  @else
-                                      --
-                                  @endif
-      
-                              </td>
-                              <td>
-                                  @if (!empty($item->outputs))
-                                      {{ $item->outputs }}
-                                  @else
-                                      --
-                                  @endif
-      
-                              </td>
-                              <td>
-                                  @if ($item->solde + $item->entries - $item->outputs > 0)
-                                      {{ $item->solde + $item->entries - $item->outputs }}
-                                  @else
-                                      --
-                                  @endif
-                              </td>
-                              <td>{{ $item->vente }} $</td>
-                              <td>
-                                  @if ($item->vente * $item->outputs > 0)
-                                      {{ $item->vente * $item->outputs }} $
-                                  @else
-                                      --
-                                  @endif
-                              </td>
-                          </tr>
-                      @endforeach
-      
-                        </tbody>
+                            @foreach ($data['results'] as $key => $item)
+                            <tr>
+                                <td>
+                                    {{ $key + 1 }}
+                                </td>
+                                <td>
+                                    {{ $item->name }}
+                                </td>
+                                <td>
+                                    @if (!empty($item->entries))
+                                        {{ $item->entries }}
+                                    @else
+                                        --
+                                    @endif
+        
+                                </td>
+                                <td>
+                                    @if (!empty($item->outputs))
+                                        {{ $item->outputs }}
+                                    @else
+                                        --
+                                    @endif
+        
+                                </td>
+                                <td>
+                                    @if ($item->solde + $item->entries - $item->outputs > 0)
+                                        {{ $item->solde + $item->entries - $item->outputs }}
+                                    @else
+                                        --
+                                    @endif
+                                </td>
+                                <td>{{ $item->vente }} $</td>
+                                <td>
+                                    @if ($item->vente * $item->outputs > 0)
+                                        {{ $item->vente * $item->outputs }} $
+                                    @else
+                                        --
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+        
+                          </tbody>
+                        @endisset
+
                       </table>
                     </div>
                     <!-- /.card-body -->

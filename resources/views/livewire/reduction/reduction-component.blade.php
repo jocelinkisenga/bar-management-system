@@ -87,13 +87,7 @@ use App\Enums\PercentEnum;
                             
                                 <div class="form-group">
                                     <label for="">pourcentage </label>
-                                    <select class="form-control" wire:model="percent">
-                                      <option selected> selectionner un pourcentage</option>
-                                      @foreach (PercentEnum::PERCENT as $percent)
-                                      <option value="{{$percent}}">{{$percent}} %</option>
-                                      @endforeach
-                                     
-                                    </select>
+                                    <input  wire:model="percent" type="text" class="form-control">
                                   
                             </div>
                         </div>

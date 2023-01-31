@@ -34,10 +34,12 @@ class ReductionRepositorie
     public function confirm(int $id){
     
         $reduction = Reduction::findOrFail($id);
+        $reduced = $reduction->precommande_id;
         $reduction->update([
             'status'=>true
         ]);
-    
+
+        return $reduced;
     }
 
     private function reduction_commande($id,$reduction){

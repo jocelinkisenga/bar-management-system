@@ -68,11 +68,12 @@ class Home extends Component
 
         $code = '#' . date('Y-m-d') . rand(1, 1000);
 
-        Precommande::create([
+       $precommande =  Precommande::create([
             'server_id' => $this->server_id,
             'user_id' => Auth::user()->id,
             'code' => $code
         ]);
+         $this->facture = $this->commande_repo->facture($precommande->id);
         session()->flash('message','commande créer  avec succès');
         $this->dispatchBrowserEvent('close-modal');
     }
@@ -124,13 +125,16 @@ class Home extends Component
     public function reduction_facture($commandeId)
     {
        return $this->facture = $this->commande_repo->facture($commandeId);
+        $this->emit('reduced');
     }
 
     public function edit($id)
     {
 
+        $this->facture = $this->commande_repo->facture($id);
 
         return $this->last_commande =  $this->commande_repo->last_commande($id);
+        
        // $this->emit('categorieStore');
        $this->dispatchBrowserEvent('close-modal');
          
@@ -148,18 +152,20 @@ class Home extends Component
 
     public function confirmer(int $id)
     {
+         $this->facture = $this->commande_repo->facture($id);
 
         $this->commande_repo->confirm($id);
+        $this->dispatchBrowserEvent('close-modal');
     }
 
     public function confirm_reduction(int $id){
     
         
-    $this->reduction_repo->confirm($id);
+  $precommande_id =  $this->reduction_repo->confirm($id);
+       
+   return $this->facture = $this->commande_repo->facture($precommande_id); 
         
-        
-        
-           $this->emit("reduction-confirmed");
+    $this->emit("reduction-confirmed");
         
         
     }

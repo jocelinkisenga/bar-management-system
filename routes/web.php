@@ -77,6 +77,7 @@ Route::middleware(['admin','auth','gerant'])->group(function(){
     Route::get('/roles',[RoleController::class,'index'])->name('roles');
     Route::get('/users',[UserController::class,'index'])->name('users');
     Route::get('/users-detail/{id}',[UserController::class,'show'])->name('user-detail');
+    Route::post('/updateUser', [UserController::class, 'update'])->name('update.user');
 
 });
 require __DIR__.'/auth.php';
