@@ -5,10 +5,7 @@
 @section('script')
    <script>
          window.addEventListener('close-modal', event => {
-         
-         $("#create").modal('hide');
-         $("recents").modal('hide');
-         
+        $("#recents").modal('hide'); 
      })
 
      

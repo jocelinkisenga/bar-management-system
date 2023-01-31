@@ -37,8 +37,9 @@
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
+
                   <tr>
-                </th>
+                
                
                 <th>code</th>
 
@@ -51,6 +52,7 @@
                   </tr>
                   </thead>
                   <tbody>
+                    
                     @foreach ($commandes as $item)
                     <tr>
                         <td>{{$item->precommande->code}}</td>

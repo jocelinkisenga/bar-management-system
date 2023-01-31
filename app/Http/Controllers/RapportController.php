@@ -29,11 +29,12 @@ class RapportController extends Controller
     }
 
     public function search(Request $request){
+       
         $stock = new StockRepositorie;
         $data = $stock->stock($request->date_from, $request->date_to);
-        $from = $request->from;
-        $to = $request->to;
-        return view("pages.rapports",compact('data','from','to'));
+
+    
+    return view("pages.rapports",compact('data'));
 
     }
 

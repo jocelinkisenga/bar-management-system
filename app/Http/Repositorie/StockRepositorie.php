@@ -28,9 +28,13 @@ class StockRepositorie {
 
 
 
-
+        $data = [
+            "results" => $result,
+            "from" => $from,
+            "to" => $to
+        ];
 //$result = HystoryProduct::with('produit')->groupBy("hystory_products.product_id")->get();
-return $result;
+return $data;
     }
 
 public function commandes(){

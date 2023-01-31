@@ -132,8 +132,18 @@ class Home extends Component
 
         return $this->last_commande =  $this->commande_repo->last_commande($id);
        // $this->emit('categorieStore');
-        $this->dispatchBrowserEvent('close-modal');
+       $this->dispatchBrowserEvent('close-modal');
          
+    }
+
+    public function invoice($id){
+       
+       
+        $precommande = Precommande::find($id);
+    
+        $precommande->update([
+            "invoiced" => 1
+        ]);
     }
 
     public function confirmer(int $id)
@@ -153,5 +163,7 @@ class Home extends Component
         
         
     }
+
+
 
 }

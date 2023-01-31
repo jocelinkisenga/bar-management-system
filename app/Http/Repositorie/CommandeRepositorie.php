@@ -152,7 +152,7 @@ class CommandeRepositorie
         {
 
                 return  DB::select("SELECT commandes.quantity_commande as qty,reductions.pourcentage,
-                produits.name, produits.price, precommandes.created_at, precommandes.id as pId, precommandes.code 
+                produits.name, produits.price, precommandes.created_at, precommandes.id as pId,precommandes.invoiced, precommandes.code 
                 FROM precommandes,commandes,produits 
                 LEFT JOIN reductions on reductions.precommande_id = $commandId
                 WHERE commandes.precommande_id = '$commandId' 

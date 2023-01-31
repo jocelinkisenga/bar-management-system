@@ -64,8 +64,9 @@
                                         <a>
                                             <div class="media d-flex">
                                                 <div class="media-body flex-grow-1">
-                                                    <p class="noti-details"><span
-                                                            class="noti-title">{{ $item->precommande->code }}</span>
+                                                    <p class="noti-details">{{ $item->precommande->code }} <span
+                                                            class="noti-title">      </span>
+                                                            {{--  --}}
                                                         <span class="noti-title"> <strong>{{ $item->pourcentage }}
                                                                 %</strong> reduction
                                                             <button class="btn btn-success btn-sm"
@@ -661,7 +662,8 @@
 
     {{-- Recent commande --}}
 
-    <div wire:ignore.self class="modal fade" id="recents" tabindex="-1" aria-hidden="true">
+    <div wire:ignore.self class="modal fade" id="recents"aria-labelledby="recents"
+    aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -706,6 +708,7 @@
 
                                                 <th>commande</th>
                                                 <th>serveur</th>
+                                                <th>status</th>
                                                 <th>confirmer</th>
                                             </tr>
                                         </thead>
@@ -721,6 +724,13 @@
                                                         </form>
                                                     </td>
                                                     <td>{{ $item->server->name }}</td>
+                                                    <td>
+                                                        @if ($item->invoiced == false)
+                                                            <span class="text-warning"> non facturé</span>
+                                                        @else
+                                                        <span class="text-success">  facturé</span>
+                                                        @endif
+                                                    </td>
                                                     <td><button class="btn btn-warning btn-sm"
                                                             wire:click="confirmer({{ $item->id }})">confirmer</button>
                                                     </td>
@@ -831,12 +841,20 @@
                 </div>
                 <div class="modal-body">
                     <ul class="nav nav-tabs" id="myTabs" role="tablist">
+                        @if (!empty($invoce))
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link "
-                                onclick="printDiv()"
-                                id="purchase-tab" data-bs-toggle="tab" data-bs-target="#purchase" type="button"
+                           
+                            <button class="nav-link " class="btn btn-primary" style="background-color: blue; color:white"
+                              onclick="printDiv()" 
+                                id="purchase-tab" data-bs-toggle="tab" data-bs-target="#purchase" 
                                 aria-controls="purchase" aria-selected="true" role="tab">imprimer</button>
+                               
                         </li>
+                        @if ($invoce[0]->invoiced == 0)
+                        <li class="nav-item" style="margin-left: 16px"><button wire:click="invoice({{$invoce[0]->pId}})" class="ml-4 btn btn-success">facturer</button></li>
+                        @endif
+                       
+                        @endif
                     </ul>
                     <div class="justify-center row" id="printDiv">
                         <div class="mt-4 wrapper ml-9 col-12">
@@ -1137,7 +1155,7 @@ aria-hidden="true">
         <div class="modal-body">
             <ul class="nav nav-tabs" id="myTabs" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link "
+                    <button class="nav-link " class="btn btn-primary"
                         onclick="printDiv()"
                         id="purchase-tab" data-bs-toggle="tab" data-bs-target="#purchase" type="button"
                         aria-controls="purchase" aria-selected="true" role="tab">imprimer</button>

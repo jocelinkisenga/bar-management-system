@@ -1,5 +1,7 @@
 @extends('layouts.new')
+@section("title", 'rapport du '.$data['from'] .' au '.$data['to'])
 @section('content')
+
     <div class="page-wrapper">
         <div class="content">
             <div class="page-header">
@@ -23,26 +25,26 @@
                     </div>
                     <!-- /Filter -->
                     <div class="card" id="">
-                        <div class="card-body pb-0">
+                        <div class="pb-0 card-body">
                             <form action="{{ route('search') }}" method="POST">
                                 @csrf
                                 <div class="row">
 
-                                    <div class="col-lg-2 col-sm-6 col-12">
+                                    <div class="mr-3 col-lg-2 col-sm-6 col-12">
 
                                         <div class="form-group">
                                             <div class="input-groupicon">
-                                                <input type="date" name="date_from" placeholder="From Date">
+                                                <input type="date" name="date_from" >
                                                 {{-- <div class="addonset">
                                                 <img src="assets/img/icons/calendars.svg" alt="img">
                                             </div> --}}
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-2 col-sm-6 col-12">
+                                    <div class="mr-3 col-lg-2 col-sm-6 col-12">
                                         <div class="form-group">
                                             <div class="input-groupicon">
-                                                <input type="date" name="date_to" placeholder="To Date">
+                                                <input type="date" name="date_to">
                                                 {{-- <div class="addonset">
                                                 <img src="assets/img/icons/calendars.svg" alt="img">
                                             </div> --}}
@@ -165,7 +167,7 @@
                       </tr>
                         </thead>
                         <tbody>
-                          @foreach ($data as $key => $item)
+                          @foreach ($data['results'] as $key => $item)
                           <tr>
                               <td>
                                   {{ $key + 1 }}
