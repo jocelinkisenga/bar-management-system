@@ -6,12 +6,12 @@ namespace App\Enums;
 
 enum RoleEnum : int
 {
-    const int ADMIN = 1;
+    const  ADMIN = 1;
 
-    const int GERANT = 2;
+    const  GERANT = 2;
 
-    const int RECEPTEUR = 3;
+    const  RECEPTEUR = 3;
 
-    const int SERVER = 4;
+    const  SERVER = 4;
 
 }
