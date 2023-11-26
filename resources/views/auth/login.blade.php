@@ -8,7 +8,7 @@
           <div class="mx-auto col-lg-4">
             <div class="px-4 py-5 text-left auth-form-light px-sm-5">
 
-              <h4 class="center">se connecter</h4>
+              <h4 class="center">Bon retour</h4>
               <form class="pt-3" method="POST" action="{{route('login')}}">
                 @csrf
                 <div class="form-group">

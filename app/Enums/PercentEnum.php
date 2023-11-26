@@ -6,5 +6,5 @@ namespace App\Enums;
 
 enum PercentEnum: int
 {
-    const PERCENT = [1,5,10,15,20,25,30];
+    const int PERCENT = [1,5,10,15,20,25,30];
 }

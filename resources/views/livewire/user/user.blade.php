@@ -1,4 +1,6 @@
-
+@php
+    use \App\Enums\RoleEnum;
+@endphp
 <div class="page-wrapper">
     <div class="content">
         <div class="page-header">
@@ -91,16 +93,15 @@
                             </div>
                         </div>
 
-                    
+
                     <div class="col-lg-6 col-sm-12 col-12">
                         <div class="form-group">
                             <label for="">un role <span class="text-danger">*</span>:</label>
                             <select class="form-control" wire:model="role_id" id="">
                                 <option selected>selectionner un role</option>
-                                @foreach ($roles as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                @endforeach
 
+                                    <option value="{{ RoleEnum::SERVER }}">SERVANT</option>
+                                    <option value="{{ RoleEnum::GERANT }}">GERANT</option>
 
                             </select>
                         </div>

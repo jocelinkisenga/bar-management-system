@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
-enum RoleEnum: int
+enum RoleEnum : int
 {
-    const ADMIN = 1;
+    const int ADMIN = 1;
 
-    const GERANT = 2;
+    const int GERANT = 2;
 
-    const RECEPTEUR = 3;
+    const int RECEPTEUR = 3;
 
-    const SERVER = 4;
-    
+    const int SERVER = 4;
+
 }
