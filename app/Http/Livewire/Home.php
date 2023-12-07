@@ -2,18 +2,18 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\User;
 use App\Enums\RoleEnum;
-use App\Http\Repositorie\CommandeRepositorie;
-use App\Http\Repositorie\ReductionRepositorie;
-use App\Models\Categorie;
-use App\Models\Commande;
-use App\Models\Precommande;
 use App\Models\Produit;
 use App\Models\Serveur;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use App\Models\Commande;
+use App\Models\Categorie;
+use App\Models\Precommande;
+use Illuminate\Support\Facades\Auth;
 use SebastianBergmann\Type\NullType;
+use App\Http\Repositorie\CommandeRepositorie;
+use App\Http\Repositorie\ReductionRepositorie;
 
 class Home extends Component
 
@@ -101,7 +101,7 @@ class Home extends Component
 
                 $this->commande_repo->store_command($this->last_commande->id, $this->produit_id, $this->quantity_commande);
             } else {
-
+                
                 $this->commande_repo->update_quantity($this->last_commande->id, $this->produit_id, $this->quantity_commande);
                 $this->invoce = $this->commande_repo->facture($this->last_commande->id);
             }
@@ -129,7 +129,7 @@ class Home extends Component
         $this->emit('reduced');
     }
 
-    public function edit($id)
+    public function edit(int $id)
     {
 
         $this->facture = $this->commande_repo->facture($id);

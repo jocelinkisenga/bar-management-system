@@ -3,27 +3,34 @@
 namespace App\Http\Livewire\User;
 
 use App\Models\Role;
+use Livewire\Component;
 use App\Models\User as ModelsUser;
 use Illuminate\Support\Facades\Hash;
-use Livewire\Component;
 
 class User extends Component
 {
-    public $role_name, $roles, $name, $sexe, $role_id, $phone, $password, $email, $users;
+    public $role_name;
+    public $roles;
+    public $name;
+    public  $sexe;
+    public  $role_id;
+    public  $phone;
+    public $password;
+    public  $email;
+    public $users;
+
     public function render()
     {
         $this->roles = Role::all();
-        $this->users = ModelsUser::join('roles','roles.id','=','users.role_id')->get(['users.*','roles.name as role']);
-        
-       
+        $this->users = ModelsUser::all();
+
+
         return view('livewire.user.user');
     }
 
 
     public function store_role()
     {
-
-
         $valide = $this->validate([
             'role_name' => ['required', 'unique:roles,name']
         ]);

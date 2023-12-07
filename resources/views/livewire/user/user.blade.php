@@ -58,7 +58,7 @@
                                         {{ $item->name }}
                                     </td>
                                     <td>{{ $item->email ?? $item->phone }}</td>
-                                    <td>{{ $item->role }}</td>
+                                    <td>{{ ($item->role_id == RoleEnum::SERVER) ? "server" : "gerant" }}</td>
                                     <td>
                                         <a class="me-3" href="{{route('user-detail',['id'=>$item->id])}}">
                                             <img src="assets/img/icons/eye.svg" alt="img">

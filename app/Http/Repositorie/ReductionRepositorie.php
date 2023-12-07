@@ -11,41 +11,46 @@ use Illuminate\Support\Facades\DB;
 
 class ReductionRepositorie
 {
-    public function reductions(){
+    public function reductions()
+    {
         return Reduction::whereReduit(true)->whereStatus(false)->get();
     }
-    public function modifier($id,$percent){
+    public function modifier($id, $percent)
+    {
         $reduction = Reduction::wherePrecommande_id($id)->first();
-       
+
         $reduction->update([
-            'pourcentage'=>$percent,
-            'reduit'=>true
+            'pourcentage' => $percent,
+            'reduit' => true
         ]);
-       
-       // $this->reduction_commande($reduction->precommande_id, $percent);
+
+        // $this->reduction_commande($reduction->precommande_id, $percent);
     }
 
-    public function store(int $commandeId){
+    public function store(int $commandeId)
+    {
         Reduction::create([
             'precommande_id' => $commandeId
-    ]);
+        ]);
     }
 
-    public function confirm(int $id){
-    
+    public function confirm(int $id)
+    {
+
         $reduction = Reduction::findOrFail($id);
         $reduced = $reduction->precommande_id;
         $reduction->update([
-            'status'=>true
+            'status' => true
         ]);
 
         return $reduced;
     }
 
-    private function reduction_commande($id,$reduction){
+    private function reduction_commande($id, $reduction)
+    {
         $commande = Commande::wherePrecommande_id($id)->first();
         $commande->update([
-            'reduction'=>$reduction
+            'reduction' => $reduction
         ]);
     }
 }

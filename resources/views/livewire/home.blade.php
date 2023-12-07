@@ -49,7 +49,9 @@
                 <li class="nav-item dropdown">
                     <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                         <img src="assets/img/icons/notification-bing.svg" alt="img"> <span
-                            class="badge rounded-pill"><livewire:components.reduced></span>
+                            class="badge rounded-pill">
+                            <livewire:components.reduced>
+                        </span>
                     </a>
                     <div class="dropdown-menu notifications">
                         <div class="topnav-dropdown-header">
@@ -65,8 +67,8 @@
                                             <div class="media d-flex">
                                                 <div class="media-body flex-grow-1">
                                                     <p class="noti-details">{{ $item->precommande->code }} <span
-                                                            class="noti-title">      </span>
-                                                            {{--  --}}
+                                                            class="noti-title"> </span>
+                                                        {{--  --}}
                                                         <span class="noti-title"> <strong>{{ $item->pourcentage }}
                                                                 %</strong> reduction
                                                             <button class="btn btn-success btn-sm"
@@ -182,14 +184,12 @@
                                     <div class="row ">
                                         @foreach (Produit::whereCategorie_id($item->id)->get() as $produit)
                                             <div class="col-lg-3 col-sm-6 d-flex"
-
                                                 wire:click.prevent="ajouter( {{ $produit->id }})"
-                                                    @if ($produit->quantity <= 0) onClick="Swal.fire(
+                                                @if ($produit->quantity <= 0) onClick="Swal.fire(
                                                     'oups !!',
                                                     'la quantité ne suffit pas pour ajouter à la commande!',
                                                     'danger'
-                                                  )"
-                                                   @endif>
+                                                  )" @endif>
                                                 <div class="productset flex-fill ">
                                                     <div class="productsetimg">
                                                         <img src="{{ asset('storage/uploads/' . $produit->path) }}"
@@ -320,7 +320,8 @@
 
                                     </h5>
                                 @else
-                                    <h3 class="text-lg font-bold text-red font-size-8">veuillez créer une commande ou selectionnez une</h3>
+                                    <h3 class="text-lg font-bold text-red font-size-8">veuillez créer une commande ou
+                                        selectionnez une</h3>
                                 @endif
                             </div>
                             <div class="actionproducts">
@@ -361,7 +362,8 @@
                                                             </div>
                                                             <div class="increment-decrement">
                                                                 <div class="input-groups">
-                                                                    <input type="button" value="-" wire:click="reduire({{ $last_commande->id }},{{ $commande->produit->id }})"
+                                                                    <input type="button" value="-"
+                                                                        wire:click="reduire({{ $last_commande->id }},{{ $commande->produit->id }})"
                                                                         class="button-minus dec button">
                                                                     <input type="text" name="child"
                                                                         value="{{ $commande->quantity_commande }}"
@@ -384,7 +386,7 @@
                                                 </li>
                                                 @if (!empty($last_commande))
                                                     <li><a class="confirm"
-                                                        wire:click="annuler({{ $last_commande->id }},{{ $commande->produit->id }}, {{ $commande->quantity_commande }})"><img
+                                                            wire:click="annuler({{ $last_commande->id }},{{ $commande->produit->id }}, {{ $commande->quantity_commande }})"><img
                                                                 src="assets/img/icons/delete-2.svg"
                                                                 alt="img"></a>
                                                     </li>
@@ -613,7 +615,7 @@
                                     <label for="">selectionner un serveur :</label>
                                     <select class="form-control" wire:model="server_id" id="">
                                         <option selected>selectionner un serveur</option>
-                                        @foreach ($serveurs as $item)
+                                        @foreach ($servers as $item)
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>
@@ -662,8 +664,7 @@
 
     {{-- Recent commande --}}
 
-    <div wire:ignore.self class="modal fade" id="recents"aria-labelledby="recents"
-    aria-hidden="true">
+    <div wire:ignore.self class="modal fade" id="recents"aria-labelledby="recents" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -675,12 +676,12 @@
                 <div class="modal-body">
                     <div class="tabs-sets">
                         <div class="tab-content">
-                            <div class="tab-pane fade show active"  role="tabpanel"
-                                aria-labelledby="purchase-tab">
-                                <div   class="table-top">
+                            <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="purchase-tab">
+                                <div class="table-top">
                                     <div wire:ignore class="search-set">
                                         <div class="">
-                                            <input id="myInput" placeholder="entrer le code de la commande" class=" search-input form-control" onkeyup="commande_search()">
+                                            <input id="myInput" placeholder="entrer le code de la commande"
+                                                class=" search-input form-control" onkeyup="commande_search()">
                                         </div>
                                     </div>
 
@@ -697,29 +698,30 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if(!empty($precommandes))
-                                            @foreach ($precommandes as $item)
-                                            <tr>
+                                            @if (!empty($precommandes))
+                                                @foreach ($precommandes as $item)
+                                                    <tr>
 
-                                                <td>
-                                                    <form>
-                                                    <button  class="btn btn-success"
-                                                      wire:click.prevent="edit({{ $item->id }})" >{{ $item->code }}</button>
-                                                    </form>
-                                                </td>
-                                                <td>{{ $item->server->name }}</td>
-                                                <td>
-                                                    @if ($item->invoiced == false)
-                                                        <span class="text-white p-2 tex-bold bg-warning"> non facturé</span>
-                                                    @else
-                                                    <span class="text-success">  facturé</span>
-                                                    @endif
-                                                </td>
-                                                <td><button class="btn btn-danger btn-sm"
-                                                        wire:click="confirmer({{ $item->id }})">confirmer</button>
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                                        <td>
+                                                            <form>
+                                                                <button class="btn btn-success"
+                                                                    wire:click.prevent="edit({{ $item->id }})">{{ $item->code }}</button>
+                                                            </form>
+                                                        </td>
+                                                        <td>{{ $item->server->name }}</td>
+                                                        <td>
+                                                            @if ($item->invoiced == false)
+                                                                <span class="text-white p-2 tex-bold bg-warning"> non
+                                                                    facturé</span>
+                                                            @else
+                                                                <span class="text-success"> facturé</span>
+                                                            @endif
+                                                        </td>
+                                                        <td><button class="btn btn-danger btn-sm"
+                                                                wire:click="confirmer({{ $item->id }})">confirmer</button>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
                                             @endif
 
                                         </tbody>
@@ -828,17 +830,19 @@
                 <div class="modal-body">
                     <ul class="nav nav-tabs" id="myTabs" role="tablist">
                         @if (!empty($invoce))
-                        <li class="nav-item" role="presentation">
+                            <li class="nav-item" role="presentation">
 
-                            <button class="nav-link " class="btn btn-primary" style="background-color: blue; color:white"
-                              onclick="printDiv()"
-                                id="purchase-tab" data-bs-toggle="tab" data-bs-target="#purchase"
-                                aria-controls="purchase" aria-selected="true" role="tab">imprimer</button>
+                                <button class="nav-link " class="btn btn-primary"
+                                    style="background-color: blue; color:white" onclick="printDiv()"
+                                    id="purchase-tab" data-bs-toggle="tab" data-bs-target="#purchase"
+                                    aria-controls="purchase" aria-selected="true" role="tab">imprimer</button>
 
-                        </li>
-                        @if ($invoce[0]->invoiced == 0)
-                        <li class="nav-item" style="margin-left: 16px"><button wire:click="invoice({{$invoce[0]->pId}})" class="ml-4 btn btn-success">facturer</button></li>
-                        @endif
+                            </li>
+                            @if ($invoce[0]->invoiced == 0)
+                                <li class="nav-item" style="margin-left: 16px"><button
+                                        wire:click="invoice({{ $invoce[0]->pId }})"
+                                        class="ml-4 btn btn-success">facturer</button></li>
+                            @endif
 
                         @endif
                     </ul>
@@ -907,25 +911,23 @@
                                     </div>
                                 </div>
                                 @if ($invoce != null and $invoce[0]->pourcentage > 0)
-                                <div class="bg-white card-footer">
-                                    <p class="mb-0"><span class="text-uppercase font-weight-bold">reduction :
+                                    <div class="bg-white card-footer">
+                                        <p class="mb-0"><span class="text-uppercase font-weight-bold">reduction :
 
-                                              {{ ($facture_total / 100) * $invoce[0]->pourcentage }} $
+                                                {{ ($facture_total / 100) * $invoce[0]->pourcentage }} $
 
-                                        </span></p>
-                                </div>
+                                            </span></p>
+                                    </div>
                                 @endif
                                 <div class="bg-white card-footer">
                                     <p class="mb-0"><span class="text-uppercase font-weight-bold">Total :
-                                        @if ($invoce != null and $invoce[0]->pourcentage != 0)
-
-
-                                             <?= $facture_total - ($facture_total / 100) * $invoce[0]->pourcentage; ?> $
-
-                                        @else
-                                            {{$facture_total }} $
-                                        @endif
-                                            </span></p>
+                                            @if ($invoce != null and $invoce[0]->pourcentage != 0)
+                                                <?= $facture_total - ($facture_total / 100) * $invoce[0]->pourcentage ?>
+                                                $
+                                            @else
+                                                {{ $facture_total }} $
+                                            @endif
+                                        </span></p>
                                 </div>
 
                             </div>
@@ -1029,125 +1031,117 @@
 
 
 
-<div wire:ignore.self class="modal fade" id="commandeFacture" tabindex="-1" aria-labelledby="facture" role="dialog"
-aria-hidden="true">
-<div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title">Facture</h5>
-            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <ul class="nav nav-tabs" id="myTabs" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link " class="btn btn-primary"
-                        onclick="printDiv()"
-                        id="purchase-tab" data-bs-toggle="tab" data-bs-target="#purchase" type="button"
-                        aria-controls="purchase" aria-selected="true" role="tab">imprimer</button>
-                </li>
-            </ul>
-            <div class="justify-center row" id="printDiv">
-                <div class="mt-4 wrapper ml-9 col-12">
-                    <div id="printdivcontent">
-                        <div class="card">
-                            <div class="card-header ">
-                                <a class="pt-2 ">The king</a>
-                                <div class="float-right">
-                                    <strong> Fax:</strong> 2233455 <br>
-                                    <strong>avenue :</strong> square 23,67 <br>
-                                    <strong>contact :</strong> +243 994 445 56 <br>
-                                    <strong>code :</strong>
+    <div wire:ignore.self class="modal fade" id="commandeFacture" tabindex="-1" aria-labelledby="facture"
+        role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Facture</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul class="nav nav-tabs" id="myTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link " class="btn btn-primary" onclick="printDiv()" id="purchase-tab"
+                                data-bs-toggle="tab" data-bs-target="#purchase" type="button"
+                                aria-controls="purchase" aria-selected="true" role="tab">imprimer</button>
+                        </li>
+                    </ul>
+                    <div class="justify-center row" id="printDiv">
+                        <div class="mt-4 wrapper ml-9 col-12">
+                            <div id="printdivcontent">
+                                <div class="card">
+                                    <div class="card-header ">
+                                        <a class="pt-2 ">The king</a>
+                                        <div class="float-right">
+                                            <strong> Fax:</strong> 2233455 <br>
+                                            <strong>avenue :</strong> square 23,67 <br>
+                                            <strong>contact :</strong> +243 994 445 56 <br>
+                                            <strong>code :</strong>
 
-                                    @if (empty($facture))
-
-
-                                    @elseif (isset($invoce[0]->code))
-
-                                        @dd($invoce[0]->code)
-
-                                    @endif
-                                    <br>
-                                    <h3 class="mb-0"></h3>
+                                            @if (empty($facture))
+                                            @elseif (isset($invoce[0]->code))
+                                            @endif
+                                            <br>
+                                            <h3 class="mb-0"></h3>
 
 
-                                </div>
-                                <div class="float-right">
-                                    <strong>Date:</strong> <?= date('Y/m/d') ?>
-                                </div>
-                            </div>
-                            <div class="card-body" id="elem">
-                                <div class="mb-4 row">
-                                </div>
-                                <div class="table-responsive-sm">
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <tr>
-
-                                                <th>produit</th>
-                                                <th class="right">quantité</th>
-                                                <th class="right">sous-total</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @if (!empty($facture))
-                                                @foreach ($facture as $item)
+                                        </div>
+                                        <div class="float-right">
+                                            <strong>Date:</strong> <?= date('Y/m/d') ?>
+                                        </div>
+                                    </div>
+                                    <div class="card-body" id="elem">
+                                        <div class="mb-4 row">
+                                        </div>
+                                        <div class="table-responsive-sm">
+                                            <table class="table table-striped">
+                                                <thead>
                                                     <tr>
 
-                                                        <td class="left strong text-uppercase">
-                                                            {{ $item->name }}
-                                                        </td>
-                                                        <td class="right">{{ $item->qty }}</td>
-                                                        <td class="right">{{ $item->qty * $item->price }} $
-                                                        </td>
-                                                        <?php $facture_total += $item->qty * $item->price; ?>
-                                                        @php
-                                                            // $pourcentage = $item->reduction;
-                                                        @endphp
-
+                                                        <th>produit</th>
+                                                        <th class="right">quantité</th>
+                                                        <th class="right">sous-total</th>
                                                     </tr>
-                                                @endforeach
+                                                </thead>
+                                                <tbody>
+                                                    @if (!empty($facture))
+                                                        @foreach ($facture as $item)
+                                                            <tr>
+
+                                                                <td class="left strong text-uppercase">
+                                                                    {{ $item->name }}
+                                                                </td>
+                                                                <td class="right">{{ $item->qty }}</td>
+                                                                <td class="right">{{ $item->qty * $item->price }} $
+                                                                </td>
+                                                                <?php $facture_total += $item->qty * $item->price; ?>
+                                                                @php
+                                                                    // $pourcentage = $item->reduction;
+                                                                @endphp
+
+                                                            </tr>
+                                                        @endforeach
 
 
-                                            @endif
+                                                    @endif
 
 
-                                        </tbody>
-                                    </table>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
+
+                                <div class="bg-white card-footer">
+                                    <p class="mb-0"><span class="text-uppercase font-weight-bold">reduction :
+                                            @if ($facture != null)
+                                                {{ ($facture_total / 100) * $facture[0]->pourcentage }} $
+                                            @endif
+                                        </span></p>
+                                </div>
+                                <div class="bg-white card-footer">
+                                    <p class="mb-0"><span class="text-uppercase font-weight-bold">Total :
+                                            @if ($facture != null and $facture[0]->pourcentage != 0)
+                                                <?= $facture_total - ($facture_total / 100) * $facture[0]->pourcentage ?>
+                                                $
+                                            @else
+                                                {{ $facture_total }} $
+                                            @endif
+                                        </span></p>
+                                </div>
+
                             </div>
                         </div>
-
-                        <div class="bg-white card-footer">
-                            <p class="mb-0"><span class="text-uppercase font-weight-bold">reduction :
-                                    @if ($facture != null)
-                                      {{ ($facture_total / 100) * $facture[0]->pourcentage }} $
-                                    @endif
-                                </span></p>
-                        </div>
-                        <div class="bg-white card-footer">
-                            <p class="mb-0"><span class="text-uppercase font-weight-bold">Total :
-                                @if ($facture != null and $facture[0]->pourcentage != 0)
-
-
-                                     <?= $facture_total - ($facture_total / 100) * $facture[0]->pourcentage; ?> $
-
-                                @else
-                                    {{$facture_total }} $
-                                @endif
-                                    </span></p>
-                        </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-</div>
 
-{{-- end reduction facture  --}}
+    {{-- end reduction facture  --}}
 
     {{-- reduction component --}}
     <div wire:ignore.self class="modal fade" id="reductions" tabindex="-1" aria-hidden="true">
@@ -1215,8 +1209,8 @@ aria-hidden="true">
                                                     <td>
 
 
-                                                        <button  class="btn btn-warning btn-sm"
-                                                        wire:click="confirm_reduction({{$item->id}})">confirmer</button>
+                                                        <button class="btn btn-warning btn-sm"
+                                                            wire:click="confirm_reduction({{ $item->id }})">confirmer</button>
 
                                                     </td>
                                                 </tr>

@@ -8,13 +8,13 @@ use App\Utilities\FormatDate;
 
 class Categorie extends Model
 {
-   private $created_at, $updated_at;
+    private $created_at, $updated_at;
     use HasFactory;
-    
+
     protected $fillable = ['name'];
 
-    public function produits(){
+    public function produits()
+    {
         return $this->hasMany(Produit::class);
     }
-
 }
