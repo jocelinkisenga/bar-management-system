@@ -30,7 +30,8 @@ class Home extends Component
     public  $facture;
     public  $invoce, $reductions;
     public  $todays;
-    protected $commande_repo, $reduction_repo;
+    protected $commande_repo;
+    protected $reduction_repo;
 
     protected $listeners = ["reduced" => 'render', 'reduction-confirmed' => 'render'];
 
@@ -52,11 +53,10 @@ class Home extends Component
 
         $this->categories = Categorie::with('produits')->get();
         $this->produits = Produit::all();
+
         $this->precommandes = $this->commande_repo->all_precommandes();
         $this->reductions = $this->reduction_repo->reductions();
         $this->todays = $this->commande_repo->todays();
-
-
 
         $this->servers = User::whereRole_id(RoleEnum::SERVER)->get();
 
@@ -66,15 +66,16 @@ class Home extends Component
     public function store()
     {
 
-        $code = '#' . date('Y-m-d') . rand(1, 1000);
-
-        $precommande =  Precommande::create([
+        $precommande = Precommande::create([
             'server_id' => $this->server_id,
             'user_id' => Auth::user()->id,
-            'code' => $code
+            'code' => $this->commande_repo->code_format(),
         ]);
+
         $this->facture = $this->commande_repo->facture($precommande->id);
+
         session()->flash('message', 'commande créer  avec succès');
+
         $this->dispatchBrowserEvent('close-modal');
     }
 
@@ -83,11 +84,8 @@ class Home extends Component
         $this->reduction_repo->store($commandeId);
     }
 
-
-
     public function ajouter(int $produitId)
     {
-
 
         $this->produit_id = $produitId;
 
@@ -95,35 +93,51 @@ class Home extends Component
 
         if ($produit and $this->last_commande != null) {
 
-            $comm = $this->commande_repo->commande_by_id($this->last_commande->id, $this->produit_id);
+            $homeCommande = $this->commande_repo->commande_by_id(
+                $this->last_commande->id,
+                $this->produit_id
+            );
+        }
 
-            if (empty($comm)) {
+        if (empty($homeCommande)) {
 
-                $this->commande_repo->store_command($this->last_commande->id, $this->produit_id, $this->quantity_commande);
-            } else {
-                
-                $this->commande_repo->update_quantity($this->last_commande->id, $this->produit_id, $this->quantity_commande);
-                $this->invoce = $this->commande_repo->facture($this->last_commande->id);
-            }
+            $this->commande_repo->store_command(
+                $this->last_commande->id,
+                $this->produit_id,
+                $this->quantity_commande
+            );
+        } else {
+
+            $this->commande_repo->update_quantity(
+                $this->last_commande->id,
+                $this->produit_id,
+                $this->quantity_commande
+            );
+
+            $this->invoce = $this->commande_repo->facture($this->last_commande->id);
+            $this->facture = $this->commande_repo->facture($this->last_commande->id);
         }
     }
 
-    public function reduire($commandId, $produitId)
+    public function reduire(int $commandId, integerValue $produitId)
     {
 
 
         $result = $this->commande_repo->reduire_quantity($commandId, $produitId);
+
+        $this->facture = $this->commande_repo->facture($commandId);
     }
 
 
-    public function annuler($commandId, $produitId, $quantity)
+    public function annuler(int $commandId, int $produitId, int $quantity)
     {
 
-
         $result = $this->commande_repo->delete_commande($commandId, $produitId, $quantity);
+
+        $this->facture = $this->commande_repo->facture($commandId);
     }
 
-    public function reduction_facture($commandeId)
+    public function reduction_facture(int $commandeId)
     {
         return $this->facture = $this->commande_repo->facture($commandeId);
         $this->emit('reduced');
@@ -139,6 +153,10 @@ class Home extends Component
         // $this->emit('categorieStore');
         $this->dispatchBrowserEvent('close-modal');
     }
+
+    // public function facture_retur(){
+
+    // }
 
     public function invoice($id)
     {

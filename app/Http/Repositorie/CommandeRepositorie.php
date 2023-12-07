@@ -115,7 +115,7 @@ class CommandeRepositorie
     }
 
     //annule une commande
-    public function delete_commande(int $commandId, int $produitId, $qty)
+    public function delete_commande(int $commandId, int $produitId, int $qty)
     {
         $result =  Commande::where('precommande_id', '=', $commandId)->where('produit_id', '=', $produitId)->first();
         if (!empty($result)) {
@@ -125,7 +125,7 @@ class CommandeRepositorie
     }
 
     // mets à jour la quantité des produits après reduction ou annulation de la commande
-    public function  restore_product($productId, $quantity)
+    private function  restore_product($productId, $quantity)
     {
         $result =  Produit::where('id', '=', $productId)->first();
         if (!empty($result)) {
@@ -189,4 +189,10 @@ class CommandeRepositorie
           AND precommandes.id = precommande_id
          GROUP BY produit_id");
     }
+
+
+public function code_format(){
+   return $code = '#' . date('Y-m-d') . rand(1, 1000);
+}
+
 }
