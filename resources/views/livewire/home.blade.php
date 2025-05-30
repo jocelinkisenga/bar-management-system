@@ -148,6 +148,9 @@
         <div class="page-wrapper ms-0">
             <div class="content">
                 <div class="row">
+                    
+                </div>
+                <div class="row">
                     <div class="col-lg-8 col-sm-12 tabs_wrapper">
                         <div class="page-header ">
                             <div class="page-title">
@@ -737,80 +740,6 @@
 
     {{-- end recent commande --}}
 
-
-    {{-- toutes les commandes --}}
-    {{-- <div wire:ignore class="modal fade" id="allcommandes" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">les commandes du jour</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="tabs-sets">
-                        <div class="tab-content">
-                            <div class="tab-pane fade show active" id="purchase" role="tabpanel"
-                                aria-labelledby="purchase-tab">
-                                <div class="table-top">
-                                    <div class="search-set">
-                                        <div class="search-input">
-                                            <a onkeyup="myFunction()" id="myinput" class="btn btn-searchset"><img
-                                                    src="assets/img/icons/search-white.svg" alt="img"></a>
-                                        </div>
-                                    </div>
-                                    <div class="wordset">
-                                        <ul>
-                                            <li>
-                                                <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    title="pdf"><img src="assets/img/icons/pdf.svg"
-                                                        alt="img"></a>
-                                            </li>
-                                            <li>
-                                                <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    title="excel"><img src="assets/img/icons/excel.svg"
-                                                        alt="img"></a>
-                                            </li>
-                                            <li>
-                                                <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    title="print"><img src="assets/img/icons/printer.svg"
-                                                        alt="img"></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="table-responsive">
-                                    <table class="table datanew" id="myTable">
-                                        <thead>
-                                            <tr>
-                                                <th>N°</th>
-                                                <th>produit</th>
-                                                <th>quantité</th>
-                                                <th>prix unitaire</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                            @foreach ($todays as $key => $item)
-                                                <tr>
-                                                    <td>{{ $key + 1 }}</td>
-                                                    <td>{{ $item->name }}</td>
-                                                    <td>{{ $item->quantity_commande }}</td>
-                                                    <td>{{ $item->price }} $</td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-    {{-- end toutes les commandes --}}
 
 
     {{-- facture component --}}
