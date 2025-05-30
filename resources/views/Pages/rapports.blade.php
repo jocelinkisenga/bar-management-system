@@ -33,7 +33,7 @@
                                 @csrf
                                 <div class="row">
 
-                                    <div class="mr-3 col-lg-2 col-sm-6 col-12">
+                                    <div class="mr-3 col-lg-2 col-md-6 col-sm-6">
 
                                         <div class="form-group">
                                             <div class="input-groupicon">
@@ -44,7 +44,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="mr-3 col-lg-2 col-sm-6 col-12">
+                                    <div class="mr-3 col-lg-2 col-sm-6 col-md-6">
                                         <div class="form-group">
                                             <div class="input-groupicon">
                                                 <input type="date" name="date_to">

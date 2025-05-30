@@ -13,8 +13,8 @@ class User extends Component
     public function render()
     {
         $this->roles = Role::all();
-        $this->users = ModelsUser::join('roles','roles.id','=','users.role_id')->get(['users.*','roles.name as role']);
-        
+        //$this->users = ModelsUser::join('roles','roles.id','=','users.role_id')->get(['users.*','roles.name as role']);
+    $this->users = ModelsUser::all();
        
         return view('livewire.user.user');
     }

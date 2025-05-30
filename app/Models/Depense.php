@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Depense extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'motif', 'montant'];
+    protected $fillable = ['uder_id', 'motif', 'montant'];
 
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'uder_id');
     }
     
 }

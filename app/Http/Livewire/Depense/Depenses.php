@@ -8,7 +8,7 @@ use Livewire\Component;
 
 class Depenses extends Component
 {
-    public $depenses, $user_id, $motif, $montant;
+    public $depenses, $uder_id, $motif, $montant, $user_name;
 
 
     /**
@@ -18,6 +18,7 @@ class Depenses extends Component
     public function render()
     {
         $this->depenses = ModelsDepense::all();
+      
         return view('livewire.depense.depenses');
     }
 
@@ -28,7 +29,7 @@ class Depenses extends Component
      */
     public function store(){
             $valide = $this->validate([
-                "user_id"=>"required",
+                "uder_id"=>"required",
                 "motif"=>"required",
                 "montant"=>"required"
             ]);

@@ -1,5 +1,7 @@
-
 <div class="page-wrapper">
+    @php
+
+    @endphp
     <div class="content">
         <div class="page-header">
             <div class="page-title">
@@ -25,8 +27,7 @@
                             </a>
                         </div>
                         <div class="search-input">
-                            <a class="btn btn-searchset"><img src="assets/img/icons/search-white.svg"
-                                    alt="img"></a>
+                            <a class="btn btn-searchset"><img src="assets/img/icons/search-white.svg" alt="img"></a>
                         </div>
                     </div>
                     <div class="wordset">
@@ -58,7 +59,7 @@
                                     <td>{{ $item->email ?? $item->phone }}</td>
                                     <td>{{ $item->role }}</td>
                                     <td>
-                                        <a class="me-3" href="{{route('user-detail',['id'=>$item->id])}}">
+                                        <a class="me-3" href="{{route('user-detail', ['id' => $item->id])}}">
                                             <img src="assets/img/icons/eye.svg" alt="img">
                                         </a>
                                     </td>
@@ -91,56 +92,58 @@
                             </div>
                         </div>
 
-                    
-                    <div class="col-lg-6 col-sm-12 col-12">
-                        <div class="form-group">
-                            <label for="">un role <span class="text-danger">*</span>:</label>
-                            <select class="form-control" wire:model="role_id" id="">
-                                <option selected>selectionner un role</option>
-                                @foreach ($roles as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                @endforeach
+
+                        <div class="col-lg-6 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label for="">un role <span class="text-danger">*</span>:</label>
+                                <select class="form-control" wire:model="role_id" id="">
+                                    <option selected>selectionner un role</option>
+
+                                    <option value="{{ \App\Enums\RoleEnum::GERANT }}">COMPTOIRISTE</option>
+                                    <option value="{{\App\Enums\RoleEnum::RECEPTEUR }}">GERANT</option>
+                                    <option value="{{ \App\Enums\RoleEnum::SERVER }}">SERVER</option>
 
 
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-12">
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">telephone <span
-                                    class="text-danger">*</span>
-                                :</label>
-                            <input type="number" wire:model="phone" class="form-control" id="recipient-name">
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-12">
-                        <div class="form-group">
-                            <label for="">sexe <span class="text-danger">*</span>:</label>
-                            <select class="form-control" wire:model="sexe" id="">
-                                <option selected>selectionner le sexe</option>
-                                <option value="homme">Homme</option>
-                                <option value="femme">Femme</option>
 
-                            </select>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">telephone <span
+                                        class="text-danger">*</span>
+                                    :</label>
+                                <input type="tel" wire:model="phone" class="form-control" id="recipient-name">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label for="">sexe <span class="text-danger">*</span>:</label>
+                                <select class="form-control" wire:model="sexe" id="">
+                                    <option selected>selectionner le sexe</option>
+                                    <option value="homme">Homme</option>
+                                    <option value="femme">Femme</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">mot de passe
+                                    :</label>
+                                <input type="text" wire:model="password" class="form-control" id="recipient-name">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">email
+                                    :</label>
+                                <input type="text" wire:model="email" class="form-control" id="recipient-name">
+                            </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-sm-12 col-12">
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">mot de passe
-                                :</label>
-                            <input type="text" wire:model="password" class="form-control" id="recipient-name">
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-12">
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">email
-                                :</label>
-                            <input type="text" wire:model="email" class="form-control" id="recipient-name">
-                        </div>
-                    </div>
-                </div>
                     <div class="col-lg-12">
-                        <a class="btn btn-submit me-2"wire:click.prevent="ajouter()" onclick="Swal.fire(
+                        <a class="btn btn-submit me-2" wire:click.prevent="ajouter()" onclick="Swal.fire(
                             'Good job!',
                             'produit créé avec succès',
                             'success'

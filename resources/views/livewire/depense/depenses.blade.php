@@ -1,5 +1,3 @@
-
-
 <div class="page-wrapper">
     <div class="content">
         <div class="page-header">
@@ -8,11 +6,12 @@
                 <h6></h6>
             </div>
             <div class="page-btn">
-                <a data-bs-toggle="modal" data-bs-target="#create" class="btn btn-added"><img src="assets/img/icons/plus.svg" alt="img" class="me-1">Ajouter une depense</a>
+                <a data-bs-toggle="modal" data-bs-target="#create" class="btn btn-added"><img
+                        src="assets/img/icons/plus.svg" alt="img" class="me-1">Ajouter une depense</a>
             </div>
 
         </div>
-        
+
 
         <!-- /product list -->
         <div class="card">
@@ -83,7 +82,8 @@
                                     </div>
                                     <div class="col-lg-1 col-sm-6 col-12">
                                         <div class="form-group">
-                                            <a class="btn btn-filters ms-auto"><img src="assets/img/icons/search-whites.svg" alt="img"></a>
+                                            <a class="btn btn-filters ms-auto"><img
+                                                    src="assets/img/icons/search-whites.svg" alt="img"></a>
                                         </div>
                                     </div>
                                 </div>
@@ -104,18 +104,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($depenses as $key => $item)
-                            <tr>
-                                <td>
-                                    {{$key+1}}
-                                </td>
-                                <td >
-                                    {{$item->user->name}}
-                                </td>
-                                <td>{{$item->montant}} $</td>
-                                <td>{{$item->motif}}</td>
-                            </tr>
-                            @endforeach
+
+                             @foreach ($depenses as $key => $item)
+                             <tr>
+                                 <td>
+                                     {{$key + 1}}
+                                 </td>
+                                 <td>
+                                     {{$item->user->name}}
+                                 </td>
+                                 <td>{{$item->montant}} $</td>
+                                 <td>{{$item->motif}}</td>
+                             </tr>
+                         @endforeach
+                            
                         </tbody>
                     </table>
                 </div>
@@ -125,11 +127,11 @@
     </div>
 
     {{-- modal create --}}
-  <div wire:ignore.self class="modal fade" id="create" tabindex="-1" aria-labelledby="create"  aria-hidden="true">
+    <div wire:ignore.self class="modal fade" id="create" tabindex="-1" aria-labelledby="create" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                     <h5 class="modal-title" >Ajouter un produit</h5>
+                    <h5 class="modal-title">Ajouter un produit</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -144,19 +146,21 @@
                         </div>
 
                         <div class="col-lg-6 col-sm-12 col-12">
-                          
-                               
-                                <div class="form-group">
-                                    <label for="my-select">béneficiaire</label>
-                                    <select id="my-select" class="form-control" wire:model="user_id">
-                                        <option selected>selectionner un béneficiaire</option>
-                                        @foreach (App\Models\User::all() as $item )
-                                        <option value="{{$item->id}}">{{$item->name}} ({{$item->role->name}})</option>
-                                        @endforeach
-                                        
-                                    </select>
-                                </div>
-                           
+
+
+                            <div class="form-group">
+                                <label for="my-select">béneficiaire</label>
+                                <select id="my-select" class="form-control" wire:model="uder_id">
+                                    <option selected>selectionner un béneficiaire</option>
+                                    @forelse (App\Models\User::all() as $item)
+                                        <option value="{{$item->id}}">{{$item->name}}</option>
+                                   @empty
+                                   aucun utilisateur
+                                    @endforelse
+
+                                </select>
+                            </div>
+
                         </div>
                         <div class="col-lg-6 col-sm-12 col-12">
                             <div class="form-group">
@@ -166,7 +170,7 @@
                         </div>
                     </div>
                     <div class="col-lg-12">
-                        <a class="btn btn-submit me-2" wire:click.prevent="store()"     onclick="Swal.fire(
+                        <a class="btn btn-submit me-2" wire:click.prevent="store()" onclick="Swal.fire(
                             'Good job!',
                             'depense créé avec succès',
                             'success'
@@ -176,6 +180,6 @@
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
     {{-- end modal create --}}
 </div>
