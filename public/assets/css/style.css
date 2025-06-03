@@ -6578,7 +6578,7 @@ span.select2-container.select2-container--default.select2-container--open {
 }
 .productset .productsetimg {
   position: relative;
-  height: 12rem;
+  height: 5rem;
   object-fit: cover !important;
   overflow: hidden;
 }

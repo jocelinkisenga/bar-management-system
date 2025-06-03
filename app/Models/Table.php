@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Table extends Model
 {
     use HasFactory;
-    protected $fillable = ['name','places'];
+    protected $fillable = ['name','places','status'];
 
-    public function precommandes(){
-        return $this->hasMany(Precommande::class);
+
+
+    public function precommande(){ 
+        return $this->HasOne(Precommande::class);
     }
 }

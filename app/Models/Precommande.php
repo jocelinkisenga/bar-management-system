@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Precommande extends Model
 {
     use HasFactory;
-    protected $fillable = ['status','server_id','user_id','code','invoiced'];
+    protected $fillable = ['status','server_id','user_id','code','invoiced', 'table_id'];
 
 public function server(){
     return $this->belongsTo(User::class,'server_id');
@@ -20,6 +20,10 @@ public function commandes(){
 
 public function reductions(){
     return $this->hasMany(Reduction::class);
+}
+
+public function table () {
+    return $this->belongsTo(Table::class,'table_id');
 }
 
 }

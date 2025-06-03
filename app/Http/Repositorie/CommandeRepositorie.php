@@ -6,6 +6,8 @@ use App\Models\Produit;
 use App\Models\Precommande;
 use App\Models\Commande;
 use App\Models\Reduction;
+use App\Models\Table;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -172,9 +174,17 @@ class CommandeRepositorie
         public function confirm(int $id)
         {
                 $precommande = Precommande::where('id', '=', $id)->first();
+                $table = Table::findOrFail($precommande->table_id);
+
+
                 $precommande->update([
                         'status' => true
                 ]);
+
+                $table->update([
+                        "status" => false
+                ]);
+                session()->forget($table->name);
         }
 
 

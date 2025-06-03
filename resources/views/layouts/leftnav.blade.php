@@ -23,6 +23,12 @@
           </ul>
         </li>
         <li class="submenu">
+          <a ><img src="{{asset('assets/img/icons/product.svg')}}" alt="img"><span> Tables</span> <span class="menu-arrow"></span></a>
+          <ul>
+            <li><a href="{{route('tables')}}">des tables </a></li>
+          </ul>
+        </li>
+        <li class="submenu">
           <a ><img src="{{asset('assets/img/icons/product.svg')}}" alt="img"><span> commandes</span> <span class="menu-arrow"></span></a>
           <ul>
             <li><a href="{{route('admin-commande')}}">liste des commandes </a></li>
