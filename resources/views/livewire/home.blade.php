@@ -149,10 +149,9 @@
 
         <div class="page-wrapper ms-0">
             <div class="content">
-
                 <div class="row justify-content-center">
                     <div class="row ml-4">
-                        <div class="d-flex gap-4 ml-4">
+                        <div class="d-flex gap-4 ml-4 mt-2">
                             @if (!empty($precommandes))
                                 @foreach ($tables as $table)
                                     <form>
@@ -160,7 +159,7 @@
                                             class="btn @if ($table->status == true) btn-danger
                                             @else
                                             btn-success @endif"
-                                            wire:click.prevent="edit({{ $table->precommande->id ?? 0 }})">{{ $table->name }}</button>
+                                            wire:click.prevent="edit({{ $table->id }})">{{ $table->name }}</button>
                                     </form>
                                 @endforeach
                             @endif
@@ -171,20 +170,10 @@
                         <div class="page-header ">
                             <div class="page-title">
                                 <h4></h4>
-                                @if (session('message'))
-                                    <h6
-                                        class="Swal.fire(
-                                    'bon boulot!',
-                                    'reduction confirmée avec succés!',
-                                    'success'
-                                  )">
-                                    </h6>
-                                @endif
-
                             </div>
                         </div>
 
-                        <ul class="border-0 tabs owl-carousel owl-theme owl-product" wire:ignore>
+                        <ul class="border-0 mt-0 tabs owl-carousel owl-theme owl-product" wire:ignore>
                             @foreach ($categories as $item)
                                 <li class="" id="{{ $item->id }}">
                                     <div class="product-details ">
@@ -255,7 +244,7 @@
 
                                     </a>
                                 </li>
-                                @if (!empty($last_commande))
+                                @if (!empty($last_commande) and $last_commande->status == false)
                                     <li>
                                         <a class="paymentmethod btn btn-danger text-bold text-white"
                                             wire:click="confirmer({{ $last_commande->id }})">
@@ -274,7 +263,7 @@
                             </div>
 
                             <ul>
-                                @if (!empty($last_commande))
+                                @if (!empty($last_commande) and $last_commande->status == false)
                                     <li>
                                         <a class="" data-bs-toggle="modal" data-bs-target="#facture">
                                             {{-- <img src="assets/img/icons/purchase1.svg" alt="img" class="me-2"> --}}
@@ -312,126 +301,124 @@
                                     @endif
 
                                 @endif
-
-
-
-
-
                             </ul>
-
-
                         </div>
-                        <div class="order-list">
-                            <div class="orderid">
-                                @if (!empty($last_commande))
-                                    <h4>votre commande</h4>
-                                    <h5>Code:
+                        @if (!empty($last_commande) and $last_commande->status == false)
+                            <div class="order-list">
+                                <div class="orderid">
+                                    @if (!empty($last_commande) and $last_commande->status == false)
+                                        <h4>votre commande</h4>
+                                        <h5>Code:
 
-                                        <span class="text-strong"> {{ $last_commande->code }} </span>
+                                            <span class="text-strong"> {{ $last_commande->code }} </span>
 
-                                    </h5>
-                                @else
-                                    <h3 class="text-lg font-bold text-red font-size-8">veuillez créer une commande ou
-                                        selectionnez une</h3>
-                                @endif
+                                        </h5>
+                                    @else
+                                        <h3 class="text-lg font-bold text-success font-size-8">veuillez créer une
+                                            commande
+                                            ou
+                                            Selectionnez une</h3>
+                                    @endif
+                                </div>
+                                <div class="actionproducts">
+
+                                </div>
                             </div>
-                            <div class="actionproducts">
+                            <div class="card card-order">
+                                <div class="card-body">
 
-                            </div>
-                        </div>
-                        <div class="card card-order">
-                            <div class="card-body">
+                                </div>
+                                <div class="split-card">
+                                </div>
+                                <div class="pt-0 card-body">
 
-                            </div>
-                            <div class="split-card">
-                            </div>
-                            <div class="pt-0 card-body">
-
-                                @if (!empty($commandes))
-                                    <div class="totalitem">
-                                        <h4>Total items : {{ $commandes->count() }}</h4>
-                                        <a href="javascript:void(0);">Clear all</a>
-                                    </div>
-                                    <div class="product-table">
-                                        @foreach ($commandes as $commande)
-                                            <ul class="product-lists">
-                                                <li>
-                                                    <div class="productimg">
-                                                        <div class="productimgs">
-                                                            <img src="{{ asset('storage/uploads/' . $commande->produit->path) }}"
-                                                                alt="img">
-                                                        </div>
-                                                        <div class="productcontet">
-                                                            <h4>{{ $commande->produit->name }}
-                                                                <a href="javascript:void(0);" class="ms-2"
-                                                                    data-bs-toggle="modal" data-bs-target="#edit"><img
-                                                                        src="assets/img/icons/edit-5.svg"
-                                                                        alt="img"></a>
-                                                            </h4>
-                                                            <div class="productlinkset">
-                                                                <h5>PT001</h5>
+                                    @if (!empty($commandes))
+                                        <div class="totalitem">
+                                            <h4>Total items : {{ $commandes->count() }}</h4>
+                                            <a href="javascript:void(0);">Clear all</a>
+                                        </div>
+                                        <div class="product-table">
+                                            @foreach ($commandes as $commande)
+                                                <ul class="product-lists">
+                                                    <li>
+                                                        <div class="productimg">
+                                                            <div class="productimgs">
+                                                                <img src="{{ asset('storage/uploads/' . $commande->produit->path) }}"
+                                                                    alt="img">
                                                             </div>
-                                                            <div class="increment-decrement">
-                                                                <div class="input-groups">
-                                                                    <input type="button" value="-"
-                                                                        wire:click="reduire({{ $last_commande->id }},{{ $commande->produit->id }})"
-                                                                        class="button-minus dec button">
-                                                                    <input type="text" name="child"
-                                                                        value="{{ $commande->quantity_commande }}"
-                                                                        class="quantity-field">
-                                                                    <input type="button" value="+"
-                                                                        class="button-plus inc button "
-                                                                        wire:click.prevent="ajouter( {{ $commande->produit->id }})"
-                                                                        @if ($commande->produit->quantity <= 0) onClick="Swal.fire(
+                                                            <div class="productcontet">
+                                                                <h4>{{ $commande->produit->name }}
+                                                                    <a href="javascript:void(0);" class="ms-2"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#edit"><img
+                                                                            src="assets/img/icons/edit-5.svg"
+                                                                            alt="img"></a>
+                                                                </h4>
+                                                                <div class="productlinkset">
+                                                                    <h5>PT001</h5>
+                                                                </div>
+                                                                <div class="increment-decrement">
+                                                                    <div class="input-groups">
+                                                                        <input type="button" value="-"
+                                                                            wire:click="reduire({{ $last_commande->id }},{{ $commande->produit->id }})"
+                                                                            class="button-minus dec button">
+                                                                        <input type="text" name="child"
+                                                                            value="{{ $commande->quantity_commande }}"
+                                                                            class="quantity-field">
+                                                                        <input type="button" value="+"
+                                                                            class="button-plus inc button "
+                                                                            wire:click.prevent="ajouter( {{ $commande->produit->id }})"
+                                                                            @if ($commande->produit->quantity <= 0) onClick="Swal.fire(
                                                                             'oups !!',
                                                                             'la quantité ne suffit pas pour ajouter à la commande!',
                                                                             'danger'
                                                                           )" @endif>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </li>
-                                                <?php $total_item += $commande->quantity_commande * $commande->produit->price; ?>
-                                                <li>{{ $commande->quantity_commande * $commande->produit->price }} $
-                                                </li>
-                                                @if (!empty($last_commande))
-                                                    <li><a class="confirm"
-                                                            wire:click="annuler({{ $last_commande->id }},{{ $commande->produit->id }}, {{ $commande->quantity_commande }})"><img
-                                                                src="assets/img/icons/delete-2.svg"
-                                                                alt="img"></a>
                                                     </li>
-                                                @endif
+                                                    <?php $total_item += $commande->quantity_commande * $commande->produit->price; ?>
+                                                    <li>{{ $commande->quantity_commande * $commande->produit->price }}
+                                                        $
+                                                    </li>
+                                                    @if (!empty($last_commande))
+                                                        <li><a class="confirm"
+                                                                wire:click="annuler({{ $last_commande->id }},{{ $commande->produit->id }}, {{ $commande->quantity_commande }})"><img
+                                                                    src="assets/img/icons/delete-2.svg"
+                                                                    alt="img"></a>
+                                                        </li>
+                                                    @endif
 
-                                            </ul>
-                                        @endforeach
+                                                </ul>
+                                            @endforeach
 
+                                        </div>
+                                    @endif
+
+
+                                </div>
+                                <div class="split-card">
+                                </div>
+                                <div class="pt-0 pb-2 card-body">
+                                    <div class="setvalue">
+                                        <ul>
+                                            @if (!empty($last_commande))
+                                                <li class="total-value">
+                                                    <h5>sous total </h5>
+                                                    <h6><?= $total_item ?> $</h6>
+                                                </li>
+                                                <li class="total-value">
+                                                    <h5>TVA </h5>
+                                                    <h6>{{ ($total_item / 100) * 16 }} $</h6>
+                                                </li>
+                                                <li class="total-value">
+                                                    <h5>Total </h5>
+                                                    <h6><?= $total_item + ($total_item / 100) * 16 ?> $</h6>
+                                                </li>
+                                            @endif
+                                        </ul>
                                     </div>
-                                @endif
-
-
-                            </div>
-                            <div class="split-card">
-                            </div>
-                            <div class="pt-0 pb-2 card-body">
-                                <div class="setvalue">
-                                    <ul>
-                                        @if (!empty($last_commande))
-                                            <li class="total-value">
-                                                <h5>sous total </h5>
-                                                <h6><?= $total_item ?> $</h6>
-                                            </li>
-                                            <li class="total-value">
-                                                <h5>TVA </h5>
-                                                <h6>{{ ($total_item / 100) * 16 }} $</h6>
-                                            </li>
-                                            <li class="total-value">
-                                                <h5>Total </h5>
-                                                <h6><?= $total_item + ($total_item / 100) * 16 ?> $</h6>
-                                            </li>
-                                        @endif
-                                    </ul>
-                                </div>
 
 
 
@@ -439,12 +426,14 @@
 
 
 
-                                <div class="col-12">
-                                    <a href="/home" class="btn btn-adds text-red"><i class="fa fa-backward"></i>
-                                        rentrer à l'acceuil</a>
+                                    <div class="col-12">
+                                        <a href="/home" class="btn btn-adds text-red"><i
+                                                class="fa fa-backward"></i>
+                                            rentrer à l'acceuil</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -646,13 +635,14 @@
                     </div>
                     <div class="col-lg-12">
                         <a class="btn btn-submit me-2 "
-                            onclick="Swal.fire(
+                      
+                            wire:click.prevent="store()">créer la commande</a>
+                    </div>
+                          {{-- onclick="Swal.fire(
                             'Good job!',
                             'commande créée  avec succés! clicker sur le bouton commandes pour ajouter vos produits',
                             'success'
-                          )"
-                            wire:click.prevent="store()">créer la commande</a>
-                    </div>
+                          )" --}}
                 </div>
             </div>
         </div>
@@ -804,7 +794,7 @@
                                             <strong>contact :</strong> +243 994 445 56 <br>
                                             <strong>code :</strong>
                                             @if (!empty($invoce))
-                                                {{ $invoce[0]->code }}
+                                                {{ $invoce[0]->code ?? 'aucun' }}
                                             @endif
                                             <br>
                                             <h3 class="mb-0"></h3>
@@ -1009,7 +999,7 @@
 
                                             @if (empty($facture))
                                             @else
-                                                {{ $facture[0]->code }}
+                                                {{ $facture[0]->code ?? 'Aucun' }}
                                             @endif
                                             <br>
                                             <h3 class="mb-0"></h3>

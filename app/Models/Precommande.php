@@ -23,7 +23,7 @@ public function reductions(){
 }
 
 public function table () {
-    return $this->belongsTo(Table::class,'table_id');
+    return $this->belongsTo(Table::class,'table_id')->withDefault();
 }
 
 }

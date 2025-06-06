@@ -164,10 +164,10 @@ class CommandeRepositorie
 
 
         // retourne la dernière commande
-        public function last_commande($id)
+        public function last_commande($tableId)
         {
-
-                return   Precommande::whereId($id)->whereStatus(false)->with('reductions')->first();
+         
+                return   Precommande::where("table_id", "=",$tableId)->whereStatus(false)->with('reductions')->first();
         }
 
         // confirme la commande

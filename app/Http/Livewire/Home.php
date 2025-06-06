@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Enums\RoleEnum;
 use App\Http\Repositorie\CommandeRepositorie;
+use App\Http\Repositorie\ProduitRepository;
 use App\Http\Repositorie\ReductionRepositorie;
 use App\Models\Categorie;
 use App\Models\Commande;
@@ -34,7 +35,7 @@ class Home extends Component
     public $todays;
     public $tables;
     public $table_id;
-    protected $commande_repo, $reduction_repo;
+    protected $commande_repo, $reduction_repo, $produit_repo;
 
 
     protected $listeners = ["reduced" => 'render', 'reduction-confirmed' => 'render'];
@@ -44,6 +45,7 @@ class Home extends Component
     {
         $this->commande_repo = new CommandeRepositorie;
         $this->reduction_repo = new ReductionRepositorie;
+        $this->produit_repo = new ProduitRepository;
     }
 
     public function render()
@@ -68,6 +70,8 @@ class Home extends Component
         return view('livewire.home');
     }
 
+
+    //cree une commande
     public function store()
     {
 
@@ -89,25 +93,31 @@ class Home extends Component
             //mise a jour du status de la table
             $this->update_table($this->table_id);
 
+           
+
             $this->facture = $this->commande_repo->facture($precommande->id);
-            session()->flash('message', 'commande créer  avec succès');
+            $this->last_commande = $this->commande_repo->last_commande($this->table_id);
+             $this->vider_commande_form();
+            flash()->success('Commande cree avec success');
+            // session()->flash('message', 'commande créer  avec succès');
             $this->dispatchBrowserEvent('close-modal');
         }
 
 
     }
 
+    // reduction des donnees
     public function reduction($commandeId)
     {
         $this->reduction_repo->store($commandeId);
     }
 
 
-
-    public function ajouter($produitId)
+    //Ajout des produits a la commande
+    public function ajouter(int $produitId)
     {
-
-
+        
+   // $this->produit_repo->store($produitId); 
         $this->produit_id = $produitId;
 
         $produit = $this->commande_repo->produit_by_id($this->produit_id);
@@ -118,36 +128,47 @@ class Home extends Component
 
             if (empty($comm)) {
 
-                $this->commande_repo->store_command($this->last_commande->id, $this->produit_id, $this->quantity_commande);
+                $this->commande_repo->store_command(
+                    $this->last_commande->id,
+                    $this->produit_id,
+                    $this->quantity_commande
+                );
+                    $this->facture = $this->commande_repo->facture($this->last_commande->id);
             } else {
 
-                $this->commande_repo->update_quantity($this->last_commande->id, $this->produit_id, $this->quantity_commande);
+                $this->commande_repo->update_quantity(
+                    $this->last_commande->id,
+                    $this->produit_id,
+                    $this->quantity_commande
+                );
+                 $this->facture = $this->commande_repo->facture($this->last_commande->id);
             }
         }
     }
 
+    //retranche la quantite des produits de la commande
     public function reduire($commandId, $produitId)
     {
-
-
-        $result = $this->commande_repo->reduire_quantity($commandId, $produitId);
+    $this->produit_repo->store($commandId, $result = $this->commande_repo->reduire_quantity($commandId, $produitId));
+                      $this->facture = $this->commande_repo->facture($commandId);
     }
 
-
+    //annule efface le produit de la commande
     public function annuler($commandId, $produitId, $quantity)
     {
-
-
         $result = $this->commande_repo->delete_commande($commandId, $produitId, $quantity);
+                          $this->facture = $this->commande_repo->facture($commandId);
     }
 
+    //confirme la reduction de la facture
     public function reduction_facture($commandeId)
     {
         return $this->facture = $this->commande_repo->facture($commandeId);
         $this->emit('reduced');
     }
 
-    public function edit($id)
+    //selectionne la commande pour y ajouter des produits
+    public function edit(int $id)
     {
         if ($id !== 0) {
 
@@ -165,10 +186,9 @@ class Home extends Component
 
     }
 
+    //confirme la commande et genere une facture
     public function invoice($id)
     {
-
-
         $precommande = Precommande::find($id);
 
         $precommande->update([
@@ -176,18 +196,20 @@ class Home extends Component
         ]);
     }
 
+
+    //confirme la commande
     public function confirmer(int $id)
     {
         $this->facture = $this->commande_repo->facture($id);
 
         $this->commande_repo->confirm($id);
-        
+
         $this->dispatchBrowserEvent('close-modal');
     }
 
+    //confirme la reduction
     public function confirm_reduction(int $id)
     {
-
 
         $precommande_id = $this->reduction_repo->confirm($id);
 
@@ -198,6 +220,7 @@ class Home extends Component
 
     }
 
+    //mise a jour du status de la table
     private function update_table(int $tableId)
     {
         $table = Table::findOrFail(intval($tableId));
@@ -207,6 +230,11 @@ class Home extends Component
             $table->update(["status" => false]);
         }
 
+    }
+
+    private function vider_commande_form () {
+        $this->server_id = "";
+        $this->table_id = "";
     }
 
 
