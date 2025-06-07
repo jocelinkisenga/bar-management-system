@@ -752,8 +752,8 @@
 
 
     {{-- facture component --}}
-
-    <div wire:ignore.self class="modal fade" id="facture" tabindex="-1" aria-labelledby="facture" role="dialog"
+@if (!empty($last_commande) and $last_commande->status == false)
+        <div wire:ignore.self class="modal fade" id="facture" tabindex="-1" aria-labelledby="facture" role="dialog"
         aria-hidden="true">
         <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -873,6 +873,8 @@
             </div>
         </div>
     </div>
+@endif
+
 
     {{-- end facture component --}}
 
@@ -962,11 +964,8 @@
     </div>
 
     {{-- end coupon --}}
+    @if (!empty($last_commande) and $last_commande->status == false)
 
-
-
-
-if
     <div wire:ignore.self class="modal fade" id="commandeFacture" tabindex="-1" aria-labelledby="facture"
         role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
@@ -1077,7 +1076,7 @@ if
             </div>
         </div>
     </div>
-
+@endif
     {{-- end reduction facture  --}}
 
     {{-- reduction component --}}

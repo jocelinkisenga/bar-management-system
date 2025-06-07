@@ -98,7 +98,7 @@ class Home extends Component
 
             $this->facture = $this->commande_repo->facture($precommande->id);
             $this->last_commande = $this->commande_repo->last_commande($this->table_id);
-            Flasher::addSuccess('Commande cree avec success');
+            flash('Commande cree avec success');
                 //  flash()->addSuccess('');
              $this->vider_commande_form();
        

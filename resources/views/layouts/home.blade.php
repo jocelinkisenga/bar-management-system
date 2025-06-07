@@ -44,6 +44,7 @@
 </head>
 
 <body style="background-color: hsl(0, 8%, 47%);">
+    @include('flash::message')
 
 
 @yield('content')
@@ -110,7 +111,9 @@
                     });
                 });    
     </script>
-    
+    <script>
+        $('#flash-overlay-modal')
+    </script>
 
 </body>
 
