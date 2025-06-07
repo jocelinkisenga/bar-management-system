@@ -13,6 +13,7 @@ use App\Models\Produit;
 use App\Models\Serveur;
 use App\Models\Table;
 use App\Models\User;
+use Flasher\Laravel\Facade\Flasher;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
@@ -97,8 +98,10 @@ class Home extends Component
 
             $this->facture = $this->commande_repo->facture($precommande->id);
             $this->last_commande = $this->commande_repo->last_commande($this->table_id);
+            Flasher::addSuccess('Commande cree avec success');
+                //  flash()->addSuccess('');
              $this->vider_commande_form();
-            flash()->success('Commande cree avec success');
+       
             // session()->flash('message', 'commande créer  avec succès');
             $this->dispatchBrowserEvent('close-modal');
         }
@@ -200,10 +203,10 @@ class Home extends Component
     //confirme la commande
     public function confirmer(int $id)
     {
-        $this->facture = $this->commande_repo->facture($id);
+        
 
         $this->commande_repo->confirm($id);
-
+        $this->facture = $this->commande_repo->facture($id);
         $this->dispatchBrowserEvent('close-modal');
     }
 

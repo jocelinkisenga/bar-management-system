@@ -966,7 +966,7 @@
 
 
 
-
+if
     <div wire:ignore.self class="modal fade" id="commandeFacture" tabindex="-1" aria-labelledby="facture"
         role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
