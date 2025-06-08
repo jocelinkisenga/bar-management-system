@@ -6,6 +6,7 @@ namespace App\Http\Livewire\Product;
 use App\Models\Categorie;
 use App\Models\HystoryProduct;
 use App\Models\Produit;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -22,8 +23,8 @@ class Products extends Component
      */
     public function render()
     {
-        $this->categories = Categorie::all();
-        $this->data = Produit::all();
+        $this->categories = Categorie::where("company_id", "=", Auth::user()->company_id);
+        $this->data = Produit::where("company_id", "=", Auth::user()->company_id);
         
         return view('livewire.product.products');
     }
@@ -66,6 +67,7 @@ class Products extends Component
 
         Produit::create([
             'categorie_id'=>$this->categorie_id,
+            'user_id' => Auth::user()->company_id,
             'name'=>$this->name,
             'price'=>$this->price,
             'path'=>$fileName

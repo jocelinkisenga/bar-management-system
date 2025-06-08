@@ -24,7 +24,8 @@ class User extends Authenticatable
         'password',
         'phone',
         'sexe',
-        'role_id'
+        'role_id',
+        "company_id"
     ];
 
     public function role(){

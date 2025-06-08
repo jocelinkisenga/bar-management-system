@@ -4,6 +4,7 @@ namespace App\Http\Livewire\User;
 
 use App\Models\Role;
 use App\Models\User as ModelsUser;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 
@@ -14,7 +15,7 @@ class User extends Component
     {
         $this->roles = Role::all();
         //$this->users = ModelsUser::join('roles','roles.id','=','users.role_id')->get(['users.*','roles.name as role']);
-    $this->users = ModelsUser::all();
+    $this->users = ModelsUser::where("company_id","=",Auth::user()->id)->get();
        
         return view('livewire.user.user');
     }
@@ -45,7 +46,8 @@ class User extends Component
                 "sexe" => $this->sexe,
                 "role_id" => $this->role_id,
                 "password" => $password,
-                "email" => $this->email
+                "email" => $this->email,
+                "company_id" => Auth::user()->id
             ]);
             $this->reset_fieds();
             $this->dispatchBrowserEvent("close-modal");

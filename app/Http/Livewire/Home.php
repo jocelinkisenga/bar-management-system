@@ -59,15 +59,15 @@ class Home extends Component
             $this->commandes = $this->commande_repo->all_commandes($this->last_commande->id);
         }
 
-        $this->categories = Categorie::with('produits')->get();
-        $this->produits = Produit::all();
+        $this->categories = Categorie::with('produits')->where("company_id", "=", Auth::user()->company_id)->get();
+        $this->produits = Produit::where("company_id", "=", Auth::user()->company_id);
         $this->precommandes = $this->commande_repo->all_precommandes();
         $this->reductions = $this->reduction_repo->reductions();
         $this->todays = $this->commande_repo->todays();
 
-        $this->tables = Table::with("precommande")->get();
+        $this->tables = Table::with("precommande")->where("company_id", "=", Auth::user()->company_id)->get();
 
-        $this->serveurs = User::whereRole_id(RoleEnum::SERVER)->get();
+        $this->serveurs = User::whereRole_id(RoleEnum::SERVER)->where("company_id", "=", Auth::user()->company_id)->get();
 
         return view('livewire.home');
     }

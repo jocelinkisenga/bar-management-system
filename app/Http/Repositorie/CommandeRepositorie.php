@@ -18,13 +18,13 @@ class CommandeRepositorie
         public function produit_by_id(int $produitId)
         {
 
-                return    Produit::whereId($produitId)->first();
+                return    Produit::whereId($produitId)->where("company_id", "=", Auth::user()->company_id)->first();
         }
 
         //returns all precommandes
         public function all_precommandes()
         {
-                return Precommande::latest()->whereStatus(false)->get();
+                return Precommande::latest()->whereStatus(false)->where("company_id", "=", Auth::user()->company_id)->get();
         }
 
         public function today_commandes()
@@ -35,12 +35,12 @@ class CommandeRepositorie
         //returns all 
         public function all_commandes($code)
         {
-                return Commande::wherePrecommande_id($code)->whereStatus(false)->with('produit')->get();
+                return Commande::wherePrecommande_id($code)->where("company_id", "=", Auth::user()->company_id)->whereStatus(false)->with('produit')->get();
         }
 
         public function commande_by_id(int $commandId, int $produitId)
         {
-                return  $result =  Commande::where('precommande_id', '=', $commandId)->where('produit_id', '=', $produitId)->first();
+                return  $result =  Commande::where('precommande_id', '=', $commandId)->where('produit_id', '=', $produitId)->where("company_id", "=", Auth::user()->company_id)->first();
         }
 
         //THIS FUNCTION UPDATES COMMANDES QUANTITY BY PRODUCT ID AND COMMAND ID
@@ -72,7 +72,8 @@ class CommandeRepositorie
                         Commande::create([
                                 'precommande_id' => $commande,
                                 "produit_id" => $produitId,
-                                "quantity_commande" => $quantity
+                                "quantity_commande" => $quantity,
+                                "company_id" => Auth::user()->company_id
                         ]);
                         $this->substract_quantity($produitId, $quantity);
                 } else {

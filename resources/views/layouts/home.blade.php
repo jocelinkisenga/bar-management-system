@@ -15,7 +15,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
 
     <!-- animation CSS -->
     <link rel="stylesheet" href="assets/css/animate.css">
@@ -34,28 +34,27 @@
     <!-- Fontawesome CSS -->
     <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
-<link rel="stylesheet" href="{{ asset("vendor/flasher/flasher.min.css") }}">
+    <link rel="stylesheet" href="{{ asset('vendor/flasher/flasher.min.css') }}">
 
-      
+
     <!-- Main CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
     @livewireStyles
 
 </head>
 
-<body style="background-color: hsl(0, 8%, 47%);">
+<body style="background-color: hsl(0, 47%, 41%));">
     @include('flash::message')
 
 
-@yield('content')
-   
-<script src="{{asset('assets/js/jquery-3.6.0.min.js')}}"></script>
+    @yield('content')
+
+    <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
     @livewireScripts
-@yield('script')
+    {{-- @yield('script') --}}
     <!-- jQuery -->
 
-  <script src="{{ asset("vendor/flasher/flasher.min.js") }}"></script>
-    <script src="{{asset('js/printThis.js')}}"></script>
+    <script src="{{ asset('js/printThis.js') }}"></script>
 
     <!-- Feather Icon JS -->
     <script src="assets/js/feather.min.js"></script>
@@ -83,33 +82,33 @@
     <!-- Custom JS -->
     <script src="assets/js/script.js"></script>
     <script>
-        Livewire.on('closeModal', () =>{
+        Livewire.on('closeModal', () => {
             // $("#recents").modal('hide');
             // console.log("ok")
             alert('jocelin');
         })
     </script>
     <script>
-        $("#facture-commande").click(function(){
-                    $("#fac").printThis({
-                        debug: false,             
-                        importCSS: true,            
-                        importStyle: false,         
-                        printContainer: true,      
-                        loadCSS: "", 
-                        pageTitle: "UTOPIAN PRINT",             
-                        removeInline: false,    
-                        printDelay: 1,      
-                        header: null,        
-                        footer: null,            
-                        base: false ,              
-                        formValues: true,          
-                        canvas: false,              
-                        doctypeString: "",      
-                        removeScripts: false,       
-                        copyTagClasses: false  
-                    });
-                });    
+        $("#facture-commande").click(function() {
+            $("#fac").printThis({
+                debug: false,
+                importCSS: true,
+                importStyle: false,
+                printContainer: true,
+                loadCSS: "",
+                pageTitle: "UTOPIAN PRINT",
+                removeInline: false,
+                printDelay: 1,
+                header: null,
+                footer: null,
+                base: false,
+                formValues: true,
+                canvas: false,
+                doctypeString: "",
+                removeScripts: false,
+                copyTagClasses: false
+            });
+        });
     </script>
     <script>
         $('#flash-overlay-modal')

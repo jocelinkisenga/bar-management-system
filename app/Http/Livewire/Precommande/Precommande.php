@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Precommande;
 use App\Models\Precommande as ModelsPrecommande;
 use App\Models\Table;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Precommande extends Component
@@ -25,11 +26,11 @@ class Precommande extends Component
      */
     public function render()
     {
-        $this->tables = Table::all();
-        $this->serveurs = User::whereRole_id(4)->get();
+        $this->tables = Table::where("company_id", "=", Auth::user()->company_id)->get();
+        $this->serveurs = User::whereRole_id(4)->where("company_id", "=", Auth::user()->company_id)->get();
         $this->precommande = ModelsPrecommande::join('tables','precommandes.table_id','=','tables.id')
         ->join('users','precommandes.user_id','=','users.id')
-        ->where('precommandes.status',false)->get(['precommandes.*','tables.name','users.name as user']);
+        ->where('precommandes.status',false)->where("precommandes.company_id", "=", Auth::user()->company_id)->get(['precommandes.*','tables.name','users.name as user']);
      
         return view('livewire.precommande.precommande');
     }
@@ -45,7 +46,11 @@ class Precommande extends Component
             'table_id'=>["required"],
             'user_id'=>'required'
         ]);
-        ModelsPrecommande::create($valide);
+        ModelsPrecommande::create( [
+            'table_id' =>$valide["table_id"],
+            'user_id' =>$valide["user_id"],
+            "company_id" => Auth::user()->company_id
+        ]);
         $this->reset_fields();
         session()->flash('message','commande crée avec succès');
 
