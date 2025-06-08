@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Precommande extends Model
 {
     use HasFactory;
-    protected $fillable = ['status','server_id','user_id','code','invoiced', 'table_id', 'user_id'];
+    protected $fillable = ['status','server_id','user_id','code','invoiced', 'table_id', 'gerant_id'];
 
 public function server(){
     return $this->belongsTo(User::class,'server_id');
