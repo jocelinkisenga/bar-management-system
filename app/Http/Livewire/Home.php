@@ -14,6 +14,7 @@ use App\Models\Serveur;
 use App\Models\Table;
 use App\Models\User;
 use Flasher\Laravel\Facade\Flasher;
+use Flasher\Noty\Prime\NotyInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
@@ -98,7 +99,10 @@ class Home extends Component
 
             $this->facture = $this->commande_repo->facture($precommande->id);
             $this->last_commande = $this->commande_repo->last_commande($this->table_id);
-            flash('Commande cree avec success');
+            noty()->success(
+                "commande creee avec succes", 
+                'success'
+            );
                 //  flash()->addSuccess('');
              $this->vider_commande_form();
        

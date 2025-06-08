@@ -16,6 +16,7 @@ class CreateTauxesTable extends Migration
         Schema::create('tauxes', function (Blueprint $table) {
             $table->id();
             $table->double('valeur');
+            $table->foreignId(    'user_id')->nullable();
             $table->timestamps();
         });
     }

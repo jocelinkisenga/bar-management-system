@@ -17,7 +17,8 @@ class CreateDepensesTable extends Migration
     {
         Schema::create('depenses', function (Blueprint $table) {
             $table->id();
-            $table->string('uder_id');
+            $table->string('user_id');
+            $table->foreignId('user_id')->nullable();
             $table->text('motif');
             $table->double('montant');
             $table->timestamps();

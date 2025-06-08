@@ -17,6 +17,7 @@ class CreatePrecommandesTable extends Migration
             $table->id();
             $table->foreignId('server_id')->nullable();
             $table->foreignId('gerant_id')->nullable();
+            $table->foreignId('user_id')->nullable();
             $table->string('code')->nullable();
             $table->timestamps();
         });
