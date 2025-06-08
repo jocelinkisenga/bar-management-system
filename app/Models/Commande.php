@@ -11,8 +11,8 @@ class Commande extends Model
 
     protected $fillable = ['user_id','precommande_id','produit_id','quantity_commande','status','reduction'];
     
-    public function user () {
-    return $this->belongsTo(User::class,'user_id','user_id');
+     public function user () {
+    return $this->belongsTo(User::class,'user_id','company_id');
     }
 
     public function produit(){

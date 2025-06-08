@@ -16,8 +16,8 @@ class Reduction extends Model
         return $this->belongsTo(Precommande::class);
     }
 
-        public function user () {
-    return $this->belongsTo(User::class,'user_id','user_id');
+    public function user_company () {
+    return $this->belongsTo(User::class,'user_id','company_id');
     }
 
     public function user(){

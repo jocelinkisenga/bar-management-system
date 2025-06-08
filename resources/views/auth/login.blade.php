@@ -31,6 +31,7 @@
 
               </form>
             </div>
+            <a href="{{ route("register") }}" class="text-success font-weight-medium" >Vous n'avez pas de  compte? Inscrivez-vous</a>
           </div>
         </div>
       </div>
