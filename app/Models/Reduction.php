@@ -10,10 +10,14 @@ class Reduction extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['precommande_id','prix_reduit','status','pourcentage','reduit'];
+    protected $fillable = ['user_id','precommande_id','prix_reduit','status','pourcentage','reduit'];
 
     public function precommande(){
         return $this->belongsTo(Precommande::class);
+    }
+
+        public function user () {
+    return $this->belongsTo(User::class,'user_id','user_id');
     }
 
     public function user(){

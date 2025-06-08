@@ -8,10 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Depense extends Model
 {
     use HasFactory;
-    protected $fillable = ['uder_id', 'motif', 'montant'];
+    protected $fillable = ['user_id', 'motif', 'montant', 'user_id'];
 
     public function user(){
         return $this->belongsTo(User::class, 'uder_id');
+    }
+
+        public function user () {
+    return $this->belongsTo(User::class,'user_id','user_id');
     }
     
 }

@@ -11,10 +11,14 @@ class Categorie extends Model
    private $created_at, $updated_at;
     use HasFactory;
     
-    protected $fillable = ['name'];
+    protected $fillable = ['name',"user_id"];
 
     public function produits(){
         return $this->hasMany(Produit::class);
+    }
+
+    public function user () {
+    return $this->belongsTo(User::class,'user_id','user_id');
     }
 
 }
