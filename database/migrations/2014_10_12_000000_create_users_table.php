@@ -25,15 +25,16 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->integer('role_id')->nullable();
             $table->bigInteger('company_id')->nullable();
+            $table->boolean('elligible')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });
 
         User::create([
-            'name'=>'the king',
-            'email'=>'theking@gmail.com',
-            'password'=>Hash::make("le roi de la ville"),
-            'role_id'=>RoleEnum::ADMIN
+            'name'=>'Stock',
+            'email'=>'stock@gmail.com',
+            'password'=>Hash::make("stock management"),
+            'role_id'=>RoleEnum::SUPERADMIN
         ]);
     }
 

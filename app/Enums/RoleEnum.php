@@ -6,6 +6,8 @@ namespace App\Enums;
 
 enum RoleEnum: int
 {
+    const SUPERADMIN = 0;
+    
     const ADMIN = 1;
 
     const GERANT = 2;
