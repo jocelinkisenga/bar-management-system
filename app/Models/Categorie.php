@@ -11,7 +11,7 @@ class Categorie extends Model
    private $created_at, $updated_at;
     use HasFactory;
     
-    protected $fillable = ['name',"user_id"];
+    protected $fillable = ['name',"company_id"];
 
     public function produits(){
         return $this->hasMany(Produit::class);

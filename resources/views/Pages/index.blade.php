@@ -43,9 +43,10 @@
 						<div class="col-lg-3 col-sm-6 col-12 d-flex">
 							<div class="dash-count das2">
 								<div class="dash-counts">
-									<h4>{{App\Models\user::count()}}</h4>
+									<h4>{{App\Models\user::whereCompany_id(Auth::user()->company_id)->count()}}</h4>
 									<h5>PERSONNEL</h5>
 								</div>
+							
 								<div class="dash-imgs">
 									<i data-feather="user-check"></i>
 								</div>

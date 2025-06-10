@@ -62,6 +62,8 @@
                                         <a class="me-3" href="{{route('user-detail', ['id' => $item->id])}}">
                                             <img src="assets/img/icons/eye.svg" alt="img">
                                         </a>
+                                     
+                                        <a wire:click.prevent="delete({{  $item->id }})" class="me-3">Effacer</a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -99,9 +101,9 @@
                                 <select class="form-control" wire:model="role_id" id="">
                                     <option selected>selectionner un role</option>
 
-                                    <option value="{{ \App\Enums\RoleEnum::GERANT }}">COMPTOIRISTE</option>
-                                    <option value="{{\App\Enums\RoleEnum::RECEPTEUR }}">GERANT</option>
-                                    <option value="{{ \App\Enums\RoleEnum::SERVER }}">SERVER</option>
+                                    <option value="{{ \App\Enums\RoleEnum::GERANT }}">GERANT</option>
+                                    <option value="{{\App\Enums\RoleEnum::RECEPTEUR }}">COMPTOIRISTE</option>
+                                    <option value="{{ \App\Enums\RoleEnum::SERVER }}">SERVEUR</option>
 
 
 

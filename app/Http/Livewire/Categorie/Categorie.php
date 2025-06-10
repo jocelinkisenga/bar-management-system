@@ -14,7 +14,7 @@ class Categorie extends Component
     public $data;
     public function render()
     {
-        $this->data = ModelsCategorie::latest()->whereUser_id(Auth::user()->company_id)->get();
+        $this->data = ModelsCategorie::latest()->whereCompany_id(Auth::user()->company_id)->get();
         return view('livewire.categorie.categorie');
     }
      
@@ -28,7 +28,7 @@ class Categorie extends Component
             ModelsCategorie::create(
                 [
                     "name" => $validate["name"],
-                    "user_id" => Auth::user()->company_id
+                    "company_id" => Auth::user()->company_id
                 ]);
             session()->flash('message','categorie created successfully');
             $this->reset_fields();

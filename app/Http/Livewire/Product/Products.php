@@ -68,7 +68,7 @@ class Products extends Component
 
         Produit::create([
             'categorie_id'=>$this->categorie_id,
-            'user_id' => Auth::user()->company_id,
+            'company_id' => Auth::user()->company_id,
             'name'=>$this->name,
             'price'=>$this->price,
             'path'=>$fileName

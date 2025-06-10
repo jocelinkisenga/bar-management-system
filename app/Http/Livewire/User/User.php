@@ -15,7 +15,7 @@ class User extends Component
     {
         $this->roles = Role::all();
         //$this->users = ModelsUser::join('roles','roles.id','=','users.role_id')->get(['users.*','roles.name as role']);
-    $this->users = ModelsUser::where("company_id","=",Auth::user()->id)->get();
+    $this->users = ModelsUser::where("company_id","=",Auth::user()->company_id)->get();
        
         return view('livewire.user.user');
     }
@@ -63,6 +63,11 @@ class User extends Component
         }
     }
 
+    public function delete (int $userId) {
+        $user = \App\Models\User::findOrFail($userId);
+        $user->delete();
+    }
+
     private function reset_fieds()
     {
         $this->role_name = "";
@@ -73,4 +78,6 @@ class User extends Component
         $this->password = "";
         $this->email = "";
     }
+
+    
 }

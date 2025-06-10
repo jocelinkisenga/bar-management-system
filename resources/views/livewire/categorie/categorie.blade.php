@@ -3,7 +3,6 @@
     @php
         use App\Enums\RoleEnum;
     @endphp
-  
     <div class="content">
     <div class="page-header">
             <div class="page-title">

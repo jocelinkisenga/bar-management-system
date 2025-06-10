@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
  protected $user_repo;
+ private $user;
+
 
     public function __construct()
     {
@@ -57,5 +59,10 @@ class UserController extends Controller
         ]);
 
         return redirect()->back();
+    }
+
+    public function destroy (Request $request) {
+        $this->user = User::findOrFail(intval($request->user_id));
+        dd($this->user);
     }
 }
