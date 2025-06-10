@@ -6,6 +6,7 @@ use App\Http\Repositorie\ProduitRepository;
 use App\Models\Produit;
 use Livewire\Component;
 use App\Models\HystoryProduct;
+use Illuminate\Support\Facades\Auth;
 
 class Productdetail extends Component
 {
@@ -44,7 +45,8 @@ class Productdetail extends Component
             'product_id' => $produitI,
             'new_quantity' => $this->produit_quantity,
             'old_quantity' => $old_quantity,
-            'prix_achat' => $this->prix_achat
+            'prix_achat' => $this->prix_achat,
+            'company_id' => Auth::user()->company_id
         ]);
         if ($history) {
             $updated_quantity = $old_quantity + $this->produit_quantity;

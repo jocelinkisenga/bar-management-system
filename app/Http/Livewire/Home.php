@@ -59,8 +59,8 @@ class Home extends Component
             $this->commandes = $this->commande_repo->all_commandes($this->last_commande->id);
         }
 
-        $this->categories = Categorie::with('produits')->where("company_id", "=", Auth::user()->company_id)->get();
-        $this->produits = Produit::where("company_id", "=", Auth::user()->company_id);
+        $this->categories = Categorie::with('produits')->whereCompany_id(Auth::user()->company_id)->get();
+        $this->produits = Produit::whereCompany_id(Auth::user()->company_id)->get();
         $this->precommandes = $this->commande_repo->all_precommandes();
         $this->reductions = $this->reduction_repo->reductions();
         $this->todays = $this->commande_repo->todays();
@@ -88,9 +88,10 @@ class Home extends Component
             //creation de la precommande
             $precommande = Precommande::create([
                 'server_id' => $this->server_id,
-                'user_id' => Auth::user()->id,
+                'gerant_id' => Auth::user()->id,
                 'code' => $code,
-                'table_id' => $this->table_id
+                'table_id' => $this->table_id,
+                'company_id' => Auth::user()->company_id
             ]);
             //mise a jour du status de la table
             $this->update_table($this->table_id);
@@ -128,12 +129,12 @@ class Home extends Component
         $this->produit_id = $produitId;
 
         $produit = $this->commande_repo->produit_by_id($this->produit_id);
-
+            
         if ($produit and $this->last_commande != null) {
+             
+            $commandeById = $this->commande_repo->commande_by_id($this->last_commande->id, $this->produit_id);
 
-            $comm = $this->commande_repo->commande_by_id($this->last_commande->id, $this->produit_id);
-
-            if (empty($comm)) {
+            if (empty($commandeById)) {
 
                 $this->commande_repo->store_command(
                     $this->last_commande->id,
@@ -154,10 +155,11 @@ class Home extends Component
     }
 
     //retranche la quantite des produits de la commande
-    public function reduire($commandId, $produitId)
+    public function reduire($orderId, $productId)
     {
-    $this->produit_repo->store($commandId, $result = $this->commande_repo->reduire_quantity($commandId, $produitId));
-                      $this->facture = $this->commande_repo->facture($commandId);
+       
+    $this->commande_repo->reduire_quantity($orderId, $productId);
+   $this->facture = $this->commande_repo->facture($orderId);
     }
 
     //annule efface le produit de la commande

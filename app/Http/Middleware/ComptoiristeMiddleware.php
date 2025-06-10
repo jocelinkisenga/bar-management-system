@@ -7,7 +7,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class GerantMiddleware
+class ComptoiristeMiddleware
 {
     /**
      * Handle an incoming request.
@@ -18,10 +18,11 @@ class GerantMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user()->role_id != RoleEnum::GERANT){
-            return redirect(back());
+            if(Auth::user()->role_id != RoleEnum::RECEPTEUR){
+           return  redirect()->back();
+            
+        } else{
+            return $next($request);
         }
-        return $next($request);
-
     }
 }

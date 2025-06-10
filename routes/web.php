@@ -39,8 +39,9 @@ Route::get('/', [AuthenticatedSessionController::class, 'create'])->middleware('
 //     return view('login');
 // });
 
-Route::middleware(['auth'])->group(function(){
-    Route::get('/dashboard',[HomeController::class,'index'])->name('dashboard');
+    Route::get('/dashboard',[HomeController::class,'index'])->middleware('auth')->name('dashboard');
+Route::middleware(['auth','gerant'])->group(function(){
+
     Route::get('/taux',[TauxController::class,'index'])->name('taux');
     Route::get('/reduction',[ReductionController::class,'index'])->name('reductions');
     Route::get('/detail-reduction/{id}',[ReductionController::class,'show'])->name('reduction-detail');
@@ -48,20 +49,20 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/produits',[ProductController::class,'index'])->name('products');
     Route::get('/categories',[CategorieController::class,'index'])->name('categories');
     Route::get('/depenses',[DepenseController::class,'index'])->name('depenses');
-});
-
-Route::middleware(['gerant','auth'])->group(function(){
-    Route::get('/tables',[TableController::class,'index'])->name('tables');
-    Route::get('/home',[PrecommandeController::class,'index'])->name('commandes');
-    Route::get('/commande/{id}',[CommandeController::class,'new'])->name('new_commande');
-    Route::get('/facture/{id}',[HomeController::class,'facture'])->name('facture');
+    
     Route::get('/produit-detail/{id}',[ProductController::class,'show'])->name('product-detail');
 });
 
+Route::middleware(['comptoiriste','auth'])->group(function(){
+
+    Route::get('/home',[PrecommandeController::class,'index'])->name('commandes');
+
+});
+
 Route::middleware(['admin','auth','gerant'])->group(function(){
-
-    
-
+    Route::get('/tables',[TableController::class,'index'])->name('tables');
+    Route::get('/commande/{id}',[CommandeController::class,'new'])->name('new_commande');
+    Route::get('/facture/{id}',[HomeController::class,'facture'])->name('facture');
     Route::get("/rapports",[RapportController::class,'index'])->name('rapports');
     Route::get("/dailyRapport",[RapportController::class,'daily'])->name('daily-rapport');
     Route::get("/weeklyRapport",[RapportController::class,'monthly'])->name('weekly-rapport');
