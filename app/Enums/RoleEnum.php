@@ -10,10 +10,10 @@ enum RoleEnum: int
     
     const ADMIN = 1;
 
-    const GERANT = 2;
+    const GERANT = 3;
 
-    const RECEPTEUR = 3;
+    const RECEPTEUR = 4;
 
-    const SERVER = 4;
+    const SERVER = 5;
     
 }

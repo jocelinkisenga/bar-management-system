@@ -16,7 +16,7 @@ class CreateServeursTable extends Migration
         Schema::create('serveurs', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('user_id')->nullable();
+            $table->foreignId('company_id')->nullable();
             $table->integer('phone');
             $table->string('sexe');
             $table->timestamps();

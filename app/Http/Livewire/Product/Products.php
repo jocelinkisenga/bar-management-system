@@ -15,7 +15,7 @@ class Products extends Component
     use WithFileUploads;
     
     public $data, $name,$categorie_id, $categories, $produit_id, $produit_quantity,$product_price, $price, $prix_achat,$prix_vente,$photo;
-
+    
 
     /**
      * Summary of render
@@ -23,7 +23,7 @@ class Products extends Component
      */
     public function render()
     {
-        $this->categories = Categorie::where("company_id", "=", Auth::user()->company_id);
+        $this->categories = Categorie::where("company_id", "=", Auth::user()->company_id)->get();
         $this->data = Produit::where("company_id", "=", Auth::user()->company_id)->get();
         
         return view('livewire.product.products');

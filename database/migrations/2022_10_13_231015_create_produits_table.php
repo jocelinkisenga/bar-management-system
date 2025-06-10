@@ -17,6 +17,7 @@ class CreateProduitsTable extends Migration
             $table->id();
             $table->foreignId('categorie_id');
             $table->foreignId('user_id')->nullable();
+            $table->foreignId("company_id")->nullable();
             $table->string('name');
             $table->double('price');
             $table->bigInteger('quantity')->default(0);
