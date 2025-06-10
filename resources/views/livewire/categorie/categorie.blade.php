@@ -1,14 +1,21 @@
 
 <div class="page-wrapper">
+    @php
+        use App\Enums\RoleEnum;
+    @endphp
     <div class="content">
         <div class="page-header">
             <div class="page-title">
                 <h4>Liste des categories</h4>
                 <h6></h6>
             </div>
-            <div class="page-btn">
+            @if (Auth::user()->role_id == RoleEnum::GERANT)
+           <div class="page-btn">
                 <a data-bs-toggle="modal" data-bs-target="#create" class="btn btn-added"><img src="assets/img/icons/plus.svg" alt="img" class="me-1">Ajouter une catégorie</a>
             </div>
+            @endif
+
+
         </div>
         
 

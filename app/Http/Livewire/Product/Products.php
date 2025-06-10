@@ -24,11 +24,12 @@ class Products extends Component
     public function render()
     {
         $this->categories = Categorie::where("company_id", "=", Auth::user()->company_id);
-        $this->data = Produit::where("company_id", "=", Auth::user()->company_id);
+        $this->data = Produit::where("company_id", "=", Auth::user()->company_id)->get();
         
         return view('livewire.product.products');
     }
 
+    
 
     /**
      * Summary of reset_fields

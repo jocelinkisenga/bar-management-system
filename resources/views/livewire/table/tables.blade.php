@@ -7,9 +7,11 @@
                 <h4>Liste des Tables</h4>
                 <h6></h6>
             </div>
+             @if (Auth::user()->role_id == \App\Enums\RoleEnum::GERANT)
             <div class="page-btn">
                 <a data-bs-toggle="modal" data-bs-target="#create" class="btn btn-added"><img src="assets/img/icons/plus.svg" alt="img" class="me-1">Ajouter un produit</a>
             </div>
+            @endif
         </div>
         
 

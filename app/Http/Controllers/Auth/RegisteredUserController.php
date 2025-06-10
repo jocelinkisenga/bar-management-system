@@ -49,6 +49,10 @@ class RegisteredUserController extends Controller
             'role_id' => RoleEnum::ADMIN
         ]);
 
+        $user->update([
+            "company_id" => $user->id
+        ]);
+
         
 
         event(new Registered($user));
