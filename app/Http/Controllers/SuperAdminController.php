@@ -8,11 +8,31 @@ use Illuminate\Http\Request;
 
 class SuperAdminController extends Controller
 {
-    public $clients ;
-    public function index() {
-        $this->clients = User::whereRole_id_(RoleEnum::ADMIN)->get();
+  public $clients;
+  public function index()
+  {
+    $this->clients = User::whereRole_id(RoleEnum::ADMIN)->get();
 
-        return view("superadmin.index", compact($this->clients));
-        
-    }
+    return view("superadmin.index", ['clients' => $this->clients]);
+
+  }
+
+  public function activate($user_id)
+  {
+    $user = User::findOrFail($user_id);
+    $user->update([
+      'elligible' => true
+    ]);
+    return redirect()->back();
+  }
+
+  public function deactivate($user_id)
+  {
+    $user = User::findOrFail($user_id);
+    $user->update([
+      'elligible' => false
+    ]);
+
+    return redirect()->back();
+  }
 }

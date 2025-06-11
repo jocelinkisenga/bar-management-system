@@ -87,5 +87,7 @@ Route::middleware(['admin','auth','gerant'])->group(function(){
 
 Route::middleware(['auth', 'superadmin'])->group(function () {
     Route::get("/superadmin", [SuperAdminController::class, "index"])->name('superadmin.index');
+        Route::get("/activate/{user_id}", [SuperAdminController::class, "activate"])->name('superadmin.activate');
+        Route::get("/deactivate/{user_id}", [SuperAdminController::class, "deactivate"])->name('superadmin.deactivate');
 });
 require __DIR__.'/auth.php';

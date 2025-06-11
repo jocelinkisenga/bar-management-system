@@ -74,15 +74,24 @@
 										@foreach ($clients as $key => $item )
 										<tr>
 											<td>{{$key+1}}</td>
-											<td class="productimgname">
-												<a class="product-img" href="productlist.html">
-													<img src="{{ asset('storage/uploads/' . $item->path) }}" alt="product">
-												</a>
-												<a href="productlist.html">{{$item->name}}</a>
+											<td>
+												<a >{{$item->company_name}}</a>
 											</td>
-											<td>{{$item->company_name}}</td>
-											<td>{{$item->quantity}}</td>
-											<th>{{$item->price}} $</th>
+											<td> {{$item->name}}</td>
+											<td>
+                                                @if ($item->elligible == false)
+                                                    Non elligible
+                                                @else
+                                                    Elligible
+                                                @endif
+                                            </td>
+											<td>
+                                                @if ($item->elligible == false)
+													<a href="{{ route("superadmin.activate", ['user_id' => $item->id]) }}" class="btn bg-primary btn-sm text-white">Activer</a>
+												@else
+													<a href="{{ route("superadmin.deactivate", ['user_id' => $item->id]) }}" class="btn btn-danger btn-sm text-white">Desactiver</a>
+												@endif
+                                            </td>
 										</tr>
 										@endforeach
 
