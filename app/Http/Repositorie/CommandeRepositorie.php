@@ -168,27 +168,24 @@ class CommandeRepositorie
                 INNER JOIN produits ON commandes.produit_id = produits.id 
                 LEFT JOIN reductions ON  reductions.precommande_id = precommandes.id
                 WHERE precommandes.id = ?
-                GROUP BY produit_id, produits.name, produits.price, reductions.pourcentage, precommandes.created_at, precommandes.id, precommandes.invoiced, precommandes.code
+                GROUP BY produit_id, produits.name,
+                 produits.price,
+                 reductions.pourcentage, 
+                 precommandes.created_at, 
+                 precommandes.id, 
+                 precommandes.invoiced, 
+                 precommandes.code
                 ", [$commandId]);
         }
-
-
-                //       return  DB::select("SELECT commandes.quantity_commande as qty,
-                // reductions.pourcentage,
-                // produits.name, produits.price, precommandes.created_at, precommandes.id as pId,
-                // precommandes.invoiced, precommandes.code 
-                // FROM precommandes,commandes,produits 
-                // LEFT JOIN reductions on reductions.precommande_id = $commandId
-                // WHERE commandes.precommande_id = '$commandId' 
-                // AND precommandes.id = '$commandId' 
-                // AND commandes.produit_id = produits.id ");
-
 
         // retourne la dernière commande
         public function last_commande($tableId)
         {
          
-                return   Precommande::whereTable_id($tableId)->whereStatus(false)->whereCompany_id(Auth::user()->company_id)->with('reductions')->first();
+                return   Precommande::whereTable_id($tableId)
+                                ->whereStatus(false)
+                                ->whereCompany_id(Auth::user()->company_id)
+                                ->with('reductions')->first();
         }
 
         // confirme la commande

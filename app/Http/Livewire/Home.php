@@ -151,6 +151,8 @@ class Home extends Component
                 );
                  $this->facture = $this->commande_repo->facture($this->last_commande->id);
             }
+        } else {
+            
         }
     }
 
