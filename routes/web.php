@@ -51,6 +51,7 @@ Route::middleware(['auth','gerant'])->group(function(){
     Route::get('/produits',[ProductController::class,'index'])->name('products');
     Route::get('/categories',[CategorieController::class,'index'])->name('categories');
     Route::get('/depenses',[DepenseController::class,'index'])->name('depenses');
+    Route::get('/tables',[TableController::class,'index'])->name('tables');
     
     Route::get('/produit-detail/{id}',[ProductController::class,'show'])->name('product-detail');
 });
@@ -61,8 +62,8 @@ Route::middleware(['comptoiriste','auth'])->group(function(){
 
 });
 
-Route::middleware(['admin','auth','gerant'])->group(function(){
-    Route::get('/tables',[TableController::class,'index'])->name('tables');
+Route::middleware(['admin','auth'])->group(function(){
+
     Route::get('/commande/{id}',[CommandeController::class,'new'])->name('new_commande');
     Route::get('/facture/{id}',[HomeController::class,'facture'])->name('facture');
     Route::get("/rapports",[RapportController::class,'index'])->name('rapports');

@@ -19,7 +19,7 @@ class GerantMiddleware
     public function handle(Request $request, Closure $next)
     {
         if (Auth::user()->role_id != RoleEnum::GERANT) {
-            return redirect(back());
+            return redirect()->back();
         }
         return $next($request);
 

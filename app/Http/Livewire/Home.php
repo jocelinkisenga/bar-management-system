@@ -6,6 +6,10 @@ use App\Enums\RoleEnum;
 use App\Http\Repositorie\CommandeRepositorie;
 use App\Http\Repositorie\ProduitRepository;
 use App\Http\Repositorie\ReductionRepositorie;
+use App\Http\Services\CategoryService;
+use App\Http\Services\ProductService;
+use App\Http\Services\TableService;
+use App\Http\Services\UserService;
 use App\Models\Categorie;
 use App\Models\Commande;
 use App\Models\Precommande;
@@ -38,6 +42,7 @@ class Home extends Component
     public $tables;
     public $table_id;
     protected $commande_repo, $reduction_repo, $produit_repo;
+    protected $tableService, $productService, $categoryService, $userService;
 
 
     protected $listeners = ["reduced" => 'render', 'reduction-confirmed' => 'render'];
@@ -48,26 +53,26 @@ class Home extends Component
         $this->commande_repo = new CommandeRepositorie;
         $this->reduction_repo = new ReductionRepositorie;
         $this->produit_repo = new ProduitRepository;
+        $this->tableService = new TableService;
+        $this->productService = new ProductService;
+        $this->categoryService = new CategoryService;
+        $this->userService = new UserService;
     }
 
     public function render()
     {
-
-
         if ($this->last_commande) {
             $this->invoce = $this->commande_repo->facture($this->last_commande->id);
             $this->commandes = $this->commande_repo->all_commandes($this->last_commande->id);
         }
 
-        $this->categories = Categorie::with('produits')->whereCompany_id(Auth::user()->company_id)->get();
-        $this->produits = Produit::whereCompany_id(Auth::user()->company_id)->get();
+        $this->categories = $this->categoryService->category_with_products();
+        $this->produits = $this->productService->product_by_company();
         $this->precommandes = $this->commande_repo->all_precommandes();
         $this->reductions = $this->reduction_repo->reductions();
         $this->todays = $this->commande_repo->todays();
-
-        $this->tables = Table::with("precommande")->where("company_id", "=", Auth::user()->company_id)->get();
-
-        $this->serveurs = User::whereRole_id(RoleEnum::SERVER)->where("company_id", "=", Auth::user()->company_id)->get();
+        $this->tables = $this->tableService->table_with_precommandes();
+        $this->serveurs = $this->userService->servers();
 
         return view('livewire.home');
     }
@@ -78,12 +83,9 @@ class Home extends Component
     {
 
         $code = '#' . date('Y-m-d') . rand(1, 1000);
+        $table = $this->tableService->table_by_id($this->table_id);
 
-        $table = Table::findOrFail($this->table_id);
-
-        if (session()->has($table->name)) {
-            dd("table occupee");
-        } else {
+        if (session()->has($table->name)) { } else {
             Session::put($table->name, $table->name);
             //creation de la precommande
             $precommande = Precommande::create([

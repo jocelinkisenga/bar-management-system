@@ -54,7 +54,16 @@
 					</div>
 					<!-- Button trigger modal -->
 
+					@if (Auth::user()->elligible == false and Auth::user()->role_id == \App\Enums\RoleEnum::ADMIN)
+						<div class="mt-4">
+						<h1 class="text-danger">VOUS N'ETES PAS ELLIGIBLE POUR AJOUTER DES CONTENUS</h1>
 
+						<p class="justify-content-center">
+							Veuillez contacter l'administration afin de proceder a differentes etapes --
+							<a href="mail:stock@gmail.com" target="_blank" rel="noopener noreferrer">stock@gmail.com</a>
+						</p>
+						</div>
+					@else
 					<div class="mb-0 card">
 						<div class="card-body">
 							<h4 class="card-title">listes des produits</h4>
@@ -91,6 +100,10 @@
 							</div>
 						</div>
 					</div>
+					@endif
+
+
+
 				</div>
 			</div>
 		</div>
