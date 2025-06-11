@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\CommandeController;
@@ -13,9 +12,12 @@ use App\Http\Controllers\ReductionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServerController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\TauxController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +41,7 @@ Route::get('/', [AuthenticatedSessionController::class, 'create'])->middleware('
 //     return view('login');
 // });
 
-    Route::get('/dashboard',[HomeController::class,'index'])->middleware('auth')->name('dashboard');
+Route::get('/dashboard',[HomeController::class,'index'])->middleware('auth')->name('dashboard');
 Route::middleware(['auth','gerant'])->group(function(){
 
     Route::get('/taux',[TauxController::class,'index'])->name('taux');
@@ -81,5 +83,9 @@ Route::middleware(['admin','auth','gerant'])->group(function(){
     Route::post('/updateUser', [UserController::class, 'update'])->name('update.user');
     Route::post('/users-delete',[UserController::class,'destroy'])->name('user-delete');
 
+});
+
+Route::middleware(['auth', 'superadmin'])->group(function () {
+    Route::get("/superadmin", [SuperAdminController::class, "index"])->name('superadmin.index');
 });
 require __DIR__.'/auth.php';

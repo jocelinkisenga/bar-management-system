@@ -64,14 +64,14 @@
 										<tr>
 											<th>SNo</th>
 											
-											<th>nom</th>
-											<th>categorie</th>
-											<th>quantité</th>
-											<th>prix</th>
+											<th>Societe</th>
+											<th>Administrateur</th>
+											<th>status</th>
+											<th>Actions</th>
 										</tr>
 									</thead>
 									<tbody>
-										@foreach ($produits as $key => $item )
+										@foreach ($clients as $key => $item )
 										<tr>
 											<td>{{$key+1}}</td>
 											<td class="productimgname">
@@ -80,7 +80,7 @@
 												</a>
 												<a href="productlist.html">{{$item->name}}</a>
 											</td>
-											<td>{{$item->categorie->name}}</td>
+											<td>{{$item->company_name}}</td>
 											<td>{{$item->quantity}}</td>
 											<th>{{$item->price}} $</th>
 										</tr>
