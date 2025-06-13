@@ -233,15 +233,9 @@
 
                             <ul>
                                 <li>
-                                    <a data-bs-toggle="modal" data-bs-target="#recents" class="paymentmethod">
+                                    <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#recents" class="paymentmethod">
                                         {{-- <img src="assets/img/icons/sales1.svg" alt="img" class="me-2"> --}}
-                                        Toutes les commandes
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="paymentmethod">
-
-
+                                        TOUTES LES COMMANDES
                                     </a>
                                 </li>
                                 @if (!empty($last_commande) and $last_commande->status == false)
@@ -249,7 +243,15 @@
                                         <a class="paymentmethod btn btn-danger text-bold text-white"
                                             wire:click="confirmer({{ $last_commande->id }})">
 
-                                            confirmer la commande
+                                            PAYER CASH
+                                        </a>
+                                    </li>
+                                @endif
+                                @if (!empty($last_commande) and $last_commande->status == false)
+                                    <li>
+                                        <a class="paymentmethod btn btn-success text-bold text-white" data-bs-toggle="modal" data-bs-target="#dette">
+
+                                            PAYER PAR DETTE
                                         </a>
                                     </li>
                                 @endif
@@ -267,13 +269,13 @@
                                     <li>
                                         <a class="" data-bs-toggle="modal" data-bs-target="#facture">
                                             {{-- <img src="assets/img/icons/purchase1.svg" alt="img" class="me-2"> --}}
-                                            generer la facture
+                                            FACTURE
                                         </a>
                                     </li>
                                     <li>
-                                        <a data-bs-toggle="modal" data-bs-target="#coupon"class="">
+                                        <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#coupon"class="">
                                             {{-- <img src="assets/img/icons/purchase.svg" alt="img" class="me-2"> --}}
-                                            Generer un coupon
+                                           COUPON
                                         </a>
                                     </li>
                                     @if (isset($last_commande->reductions[0]['precommande_id']))
@@ -439,7 +441,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="calculator" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="calculatrice" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -645,31 +647,68 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="delete" tabindex="-1" aria-hidden="true">
+    @if (!empty($last_commande) and $last_commande->status == false)
+    <div  class="modal fade" id="dette" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Annuler la commande</h5>
+                    <h5 class="modal-title">Paiement Par dette </h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="delete-order">
-                        <img src="assets/img/icons/close-circle1.svg" alt="img">
-                    </div>
-                    <div class="text-center para-set">
-                        <p>The current order will be deleted as no payment has been <br> made so far.</p>
-                    </div>
+                  
+                        
+
+                        <div class="mb-3">
+                            <label for="" class="form-label">Noms du client </label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                wire:model="clientName"
+                                id=""
+                                aria-describedby=""
+                                placeholder=""
+                            />
+                            
+                        </div>
+                         <div class="mb-3">
+                            <label for="" class="form-label">Numero de telephone </label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                wire:model="clientPhone"
+                                id=""
+                                aria-describedby=""
+                                placeholder=""
+                            />
+                            
+                        </div>
+                                                <div class="mb-3">
+                            <label for="" class="form-label">Montant d'avance (optionnel) </label>
+                            <input
+                                type="number"
+                                class="form-control"
+                                wire:model="advance"
+                                id=""
+                                aria-describedby=""
+                                placeholder=""
+                            />
+                            
+                        </div>
+                        
+                    
                     <div class="text-center col-lg-12">
-                        <a class="btn btn-danger me-2">Yes</a>
-                        <a class="btn btn-cancel" data-bs-dismiss="modal">No</a>
+                        <a class="btn btn-danger me-2" wire:click="storeDette({{ $last_commande->id }})">Confirmer</a>
+                        <a class="btn btn-cancel" data-bs-dismiss="modal">Annuler</a>
                     </div>
                 </div>
+      
             </div>
         </div>
     </div>
-
+      @endif
     {{-- Recent commande --}}
 
     <div wire:ignore.self class="modal fade" id="recents"aria-labelledby="recents" aria-hidden="true">
@@ -1025,6 +1064,7 @@
                                                     </thead>
                                                     <tbody>
                                                         @if (!empty($facture))
+                                                       
                                                             @foreach ($facture as $item)
                                                                 <tr>
 

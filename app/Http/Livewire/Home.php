@@ -7,6 +7,7 @@ use App\Http\Repositorie\CommandeRepositorie;
 use App\Http\Repositorie\ProduitRepository;
 use App\Http\Repositorie\ReductionRepositorie;
 use App\Http\Services\CategoryService;
+use App\Http\Services\DetteService;
 use App\Http\Services\PrecommandeService;
 use App\Http\Services\ProductService;
 use App\Http\Services\TableService;
@@ -40,10 +41,11 @@ class Home extends Component
     public $facture;
     public $invoce, $reductions;
     public $todays;
+    public $clientName, $clientPhone, $advance;
     public $tables;
     public $table_id;
     protected $commande_repo, $reduction_repo, $produit_repo;
-    protected $tableService, $productService, $categoryService, $userService, $precommandeService;
+    protected $tableService, $productService, $categoryService, $userService, $precommandeService, $detteService;
     protected $listeners = ["reduced" => 'render', 'reduction-confirmed' => 'render'];
     public function __construct()
     {
@@ -55,6 +57,7 @@ class Home extends Component
         $this->categoryService = new CategoryService;
         $this->userService = new UserService;
         $this->precommandeService = new PrecommandeService;
+        $this->detteService = new DetteService;
     }
 
     public function render()
@@ -86,7 +89,7 @@ class Home extends Component
             Session::put($table->name, $table->name);
             //creation de la precommande
             $precommande = $this->precommandeService->store_precommande($this->server_id, $code, $this->table_id);
-
+            $this->tableService->update_table($this->table_id);
             $this->facture = $this->commande_repo->facture($precommande->id);
             $this->last_commande = $this->commande_repo->last_commande($this->table_id);
 
@@ -180,6 +183,12 @@ class Home extends Component
         $precommande_id = $this->reduction_repo->confirm($id);
         return $this->facture = $this->commande_repo->facture($precommande_id);
         $this->emit("reduction-confirmed");
+    }
+
+    public function storeDette($precommandeId) {
+        $this->detteService->store_dette($this->clientName, $this->clientPhone, $this->advance, $precommandeId);
+        $this->facture = $this->commande_repo->facture($precommandeId);
+        $this->dispatchBrowserEvent('close-modal');
     }
 
     //mise a jour du status de la table
