@@ -7,7 +7,7 @@
     @endphp
 
     <div class="main-wrappers" style="background-color: #f6f1f1;">
-        <div class="header">
+        <div class="header border border-primary">
             <!-- Logo -->
             <div class="border-0 header-left ">
                 <a href="" class="logo">
@@ -151,7 +151,7 @@
             <div class="content">
                 <div class="row justify-content-center">
                     <div class="row ml-4">
-                        <div class="d-flex gap-4 ml-4 mt-2">
+                        <div class="d-flex gap-4 ml-4 mt-2 ">
                             @if (!empty($precommandes))
                                 @foreach ($tables as $table)
                                     <form>
@@ -166,7 +166,7 @@
 
                         </div>
                     </div>
-                    <div class="col-lg-8 col-sm-12 tabs_wrapper">
+                    <div class="col-lg-8 bg-white  col-sm-12 tabs_wrapper border  rounded-2xl mt-2">
                         <div class="page-header ">
                             <div class="page-title">
                                 <h4></h4>
@@ -222,37 +222,33 @@
 
                         </div>
                     </div>
-                    <div class="p-3 bg-white shadow-sm col-lg-4 col-sm-12 rounded-2xl ">
-
-
+                   
+                    <div class="p-3 ml-4  bg-white border border-primary shadow-sm col-lg-4 col-sm-12 rounded-2xl">
                         <div class="col-12">
                             <a href="javascript:void(0);" class="btn btn-adds" data-bs-toggle="modal"
                                 data-bs-target="#create"><i class="fa fa-plus me-2"></i>créer une commande</a>
                         </div>
                         <div class="setvaluecash">
-
-                            <ul>
+                            <ul class="m-1">
                                 <li>
-                                    <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#recents" class="paymentmethod">
-                                        {{-- <img src="assets/img/icons/sales1.svg" alt="img" class="me-2"> --}}
-                                        TOUTES LES COMMANDES
-                                    </a>
+                                    <button class="btn btn-success text-bold text-white" data-bs-toggle="modal" data-bs-target="#recents" >
+                                      COMMANDES
+                                    </button>
                                 </li>
                                 @if (!empty($last_commande) and $last_commande->status == false)
                                     <li>
-                                        <a class="paymentmethod btn btn-danger text-bold text-white"
+                                        <button class="paymentmethod btn btn-danger text-bold text-white"
                                             wire:click="confirmer({{ $last_commande->id }})">
 
                                             PAYER CASH
-                                        </a>
+                                        </button>
                                     </li>
                                 @endif
                                 @if (!empty($last_commande) and $last_commande->status == false)
                                     <li>
-                                        <a class="paymentmethod btn btn-success text-bold text-white" data-bs-toggle="modal" data-bs-target="#dette">
-
-                                            PAYER PAR DETTE
-                                        </a>
+                                        <button class=" btn btn-success text-bold text-white" data-bs-toggle="modal" data-bs-target="#dette">
+                                            PAR CREDIT
+                                        </button>
                                     </li>
                                 @endif
 
@@ -267,40 +263,36 @@
                             <ul>
                                 @if (!empty($last_commande) and $last_commande->status == false)
                                     <li>
-                                        <a class="" data-bs-toggle="modal" data-bs-target="#facture">
+                                        <button class="btn btn-sm btn-success text-bold text-white" data-bs-toggle="modal" data-bs-target="#facture">
                                             {{-- <img src="assets/img/icons/purchase1.svg" alt="img" class="me-2"> --}}
                                             FACTURE
-                                        </a>
+                                        </button>
                                     </li>
                                     <li>
-                                        <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#coupon"class="">
+                                        <button class="btn btn-sm" >
+                                           
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button class="btn btn-sm btn-primary text-bold text-white" data-bs-toggle="modal" data-bs-target="#coupon"class="">
                                             {{-- <img src="assets/img/icons/purchase.svg" alt="img" class="me-2"> --}}
                                            COUPON
-                                        </a>
+                                        </button>
                                     </li>
-                                    @if (isset($last_commande->reductions[0]['precommande_id']))
-                                        @if ($last_commande->reductions[0]['precommande_id'] != $last_commande->id)
-                                            <li>
-                                                <a wire:click="reduction({{ $last_commande->id }})" class="">
-                                                    {{-- <img src="assets/img/icons/return1.svg" alt="img" --}}
-                                                    {{-- class="me-2"> --}}
-                                                    REDUIRE
-                                                </a>
-                                            </li>
-                                        @endif
-                                    @else
+                                    {{-- @if (isset($last_commande->reductions[0]['precommande_id']))
+
+                                    @else 
                                         <li>
                                             @if ($last_commande)
-                                                <a wire:click="confirm({{ $last_commande->id }})"
-                                                    class="paymentmethod">
-                                                    {{-- <img src="assets/img/icons/return1.svg" alt="img"
-                                                        class="me-2"> --}}
-                                                    Confirmer la commande
+                                                <a 
+                                                    class="btn btn-sm">
+                                                 
+                                                    
                                                 </a>
                                             @endif
 
                                         </li>
-                                    @endif
+                                    @endif --}}
 
                                 @endif
                             </ul>
@@ -421,17 +413,10 @@
                                             @endif
                                         </ul>
                                     </div>
-
-
-
-
-
-
-
                                     <div class="col-12">
-                                        <a href="/home" class="btn btn-adds text-red"><i
+                                        {{-- <a href="/home" class="btn btn-adds text-red"><i
                                                 class="fa fa-backward"></i>
-                                            rentrer à l'acceuil</a>
+                                            rentrer à l'acceuil</a> --}}
                                     </div>
                                 </div>
                             </div>
@@ -604,7 +589,7 @@
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Create</h5>
+                    <h5 class="modal-title">CREER UNE COMMANDE</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -612,10 +597,10 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-6 col-sm-12 col-12">
-                            <form>
+                            <form wire:submit.prevent="store()">
                                 <div class="form-group">
-                                    <label for="">selectionner un serveur :</label>
-                                    <select class="form-control" wire:model="server_id" id="">
+                                    <label for="">SELECTIONNER UN SERVEUR :</label>
+                                    <select class="form-control" wire:model.defer="server_id" id="">
                                         <option selected>selectionner un serveur</option>
                                         @foreach ($serveurs as $item)
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -623,21 +608,22 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">selectionner un serveur :</label>
-                                    <select class="form-control" wire:model="table_id" id="">
+                                    <label for="">SELECTIONNER UNE TABLE :</label>
+                                    <select class="form-control" wire:model.defer="table_id" id="">
                                         <option selected>selectionner un serveur</option>
                                         @foreach ($tables as $item)
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                            </form>
+                            
                         </div>
 
                     </div>
                     <div class="col-lg-12">
-                        <a class="btn btn-submit me-2 " wire:click.prevent="store()">créer la commande</a>
+                        <button class="btn btn-submit me-2 ">créer la commande</button>
                     </div>
+                    </form>
                     {{-- onclick="Swal.fire(
                             'Good job!',
                             'commande créée  avec succés! clicker sur le bouton commandes pour ajouter vos produits',
@@ -648,7 +634,7 @@
         </div>
     </div>
     @if (!empty($last_commande) and $last_commande->status == false)
-    <div  class="modal fade" id="dette" tabindex="-1" aria-hidden="true">
+    <div wire:ignore  class="modal fade" id="dette" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -659,14 +645,14 @@
                 </div>
                 <div class="modal-body">
                   
-                        
+                        <form wire:submit.prevent="storeDette({{ $last_commande->id }})">
 
                         <div class="mb-3">
                             <label for="" class="form-label">Noms du client </label>
                             <input
                                 type="text"
                                 class="form-control"
-                                wire:model="clientName"
+                                wire:model.defer="clientName"
                                 id=""
                                 aria-describedby=""
                                 placeholder=""
@@ -678,7 +664,7 @@
                             <input
                                 type="text"
                                 class="form-control"
-                                wire:model="clientPhone"
+                                wire:model.defer="clientPhone"
                                 id=""
                                 aria-describedby=""
                                 placeholder=""
@@ -690,7 +676,7 @@
                             <input
                                 type="number"
                                 class="form-control"
-                                wire:model="advance"
+                                wire:model.defer="advance"
                                 id=""
                                 aria-describedby=""
                                 placeholder=""
@@ -700,9 +686,10 @@
                         
                     
                     <div class="text-center col-lg-12">
-                        <a class="btn btn-danger me-2" wire:click="storeDette({{ $last_commande->id }})">Confirmer</a>
+                        <button type="submit" class="btn btn-danger me-2" >Confirmer</button>
                         <a class="btn btn-cancel" data-bs-dismiss="modal">Annuler</a>
                     </div>
+                    </form>
                 </div>
       
             </div>
@@ -752,7 +739,7 @@
                                                         <td>
                                                             <form>
                                                                 <button class="btn btn-success"
-                                                                    wire:click.prevent="edit({{ $item->id }})">{{ $item->code }}</button>
+                                                                    wire:click.prevent="edit({{ $item->table_id }})">{{ $item->code }}</button>
                                                             </form>
                                                         </td>
                                                         <td>{{ $item->server->name }}</td>
@@ -781,12 +768,7 @@
             </div>
         </div>
     </div>
-
-
-
     {{-- end recent commande --}}
-
-
 
     {{-- facture component --}}
     @if (!empty($last_commande) and $last_commande->status == false)
@@ -858,9 +840,10 @@
                                                     </thead>
                                                     <tbody>
                                                         @if (!empty($invoce))
+                                                       
                                                             @foreach ($invoce as $item)
                                                                 <tr>
-
+                                                                    
                                                                     <td class="left strong text-uppercase">
                                                                         {{ $item->name }}
                                                                     </td>
@@ -914,8 +897,6 @@
             </div>
         </div>
     @endif
-
-
     {{-- end facture component --}}
 
     {{-- coupon  --}}

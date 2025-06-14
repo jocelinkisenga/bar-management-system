@@ -14,7 +14,7 @@ class DetteService {
         $this->precommande = new PrecommandeService;
     }
 
-    public function store_dette (string $clientName, $clientPhone, $advance, $precommandeId) {
+    public function store_dette (string $clientName, string $clientPhone, float $advance, int $precommandeId) {
         Dette::create(
             [
                 "company_id" => Auth::user()->company_id,
@@ -27,6 +27,7 @@ class DetteService {
             );
 
             $this->precommande->confirm($precommandeId);
+            return true;
 
     }
 }

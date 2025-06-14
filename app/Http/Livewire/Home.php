@@ -87,15 +87,17 @@ class Home extends Component
         if (session()->has($table->name)) {
         } else {
             Session::put($table->name, $table->name);
+            
             //creation de la precommande
             $precommande = $this->precommandeService->store_precommande($this->server_id, $code, $this->table_id);
             $this->tableService->update_table($this->table_id);
             $this->facture = $this->commande_repo->facture($precommande->id);
             $this->last_commande = $this->commande_repo->last_commande($this->table_id);
-
+            
+            Session::put($precommande->code, $precommande->code);
             $this->vider_commande_form();
 
-            $this->dispatchBrowserEvent('close-modal');
+            $this->dispatchBrowserEvent('closeModal');
         }
     }
 
@@ -108,13 +110,10 @@ class Home extends Component
     //Ajout des produits a la commande
     public function ajouter(int $produitId)
     {
-
-        // $this->produit_repo->store($produitId); 
         $this->produit_id = $produitId;
         $produit = $this->commande_repo->produit_by_id($this->produit_id);
 
         if ($produit and $this->last_commande != null) {
-
             $commandeById = $this->commande_repo->commande_by_id($this->last_commande->id, $this->produit_id);
 
             if (empty($commandeById)) {
@@ -186,9 +185,13 @@ class Home extends Component
     }
 
     public function storeDette($precommandeId) {
-        $this->detteService->store_dette($this->clientName, $this->clientPhone, $this->advance, $precommandeId);
+        
+       $detteOkay = $this->detteService->store_dette($this->clientName, $this->clientPhone, $this->advance, $precommandeId);
+        
+       if($detteOkay === true) {
         $this->facture = $this->commande_repo->facture($precommandeId);
-        $this->dispatchBrowserEvent('close-modal');
+       }
+        $this->dispatchBrowserEvent('closeModal');
     }
 
     //mise a jour du status de la table

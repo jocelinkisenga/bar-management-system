@@ -82,11 +82,11 @@
     <!-- Custom JS -->
     <script src="assets/js/script.js"></script>
     <script>
-        Livewire.on('closeModal', () => {
-            // $("#recents").modal('hide');
-            // console.log("ok")
-            alert('jocelin');
-        })
+        window.addEventListener('closeModal', event => {
+            $('#dette').modal('hide');
+             $('#create').modal('hide');
+        });
+
     </script>
     <script>
         $("#facture-commande").click(function() {

@@ -4,7 +4,7 @@
 @endphp
 
 
-  <div class="header">
+  <div class="header border border-primary">
 			
     <!-- Logo -->
      <div class="header-left active">
