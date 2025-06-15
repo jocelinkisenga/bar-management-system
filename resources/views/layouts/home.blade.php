@@ -39,6 +39,29 @@
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
+     <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .category {
+      background-color: #dff0d8;
+      border-radius: 0.5rem;
+      padding: 0.5rem 1rem;
+      margin-right: 0.5rem;
+      white-space: nowrap;
+    }
+    .product-card {
+      border-radius: 0.5rem;
+      padding: 1rem;
+      color: white;
+      height: 100%;
+    }
+    .product-1 { background-color: #6f42c1; }
+    .product-2 { background-color: #20c997; }
+    .product-3 { background-color: #fd7e14; }
+    .product-4 { background-color: #0d6efd; }
+    .product-5 { background-color: #dc3545; }
+  </style>
     @livewireStyles
 
 </head>
