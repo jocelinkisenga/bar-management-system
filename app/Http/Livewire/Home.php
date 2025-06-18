@@ -7,6 +7,7 @@ use App\Http\Repositorie\CommandeRepositorie;
 use App\Http\Repositorie\ProduitRepository;
 use App\Http\Repositorie\ReductionRepositorie;
 use App\Http\Services\CategoryService;
+use App\Http\Services\DetteService;
 use App\Http\Services\PrecommandeService;
 use App\Http\Services\ProductService;
 use App\Http\Services\TableService;
@@ -40,10 +41,11 @@ class Home extends Component
     public $facture;
     public $invoce, $reductions;
     public $todays;
+    public $clientName, $clientPhone, $advance;
     public $tables;
     public $table_id;
     protected $commande_repo, $reduction_repo, $produit_repo;
-    protected $tableService, $productService, $categoryService, $userService, $precommandeService;
+    protected $tableService, $productService, $categoryService, $userService, $precommandeService, $detteService;
     protected $listeners = ["reduced" => 'render', 'reduction-confirmed' => 'render'];
     public function __construct()
     {
@@ -55,6 +57,7 @@ class Home extends Component
         $this->categoryService = new CategoryService;
         $this->userService = new UserService;
         $this->precommandeService = new PrecommandeService;
+        $this->detteService = new DetteService;
     }
 
     public function render()
@@ -84,15 +87,17 @@ class Home extends Component
         if (session()->has($table->name)) {
         } else {
             Session::put($table->name, $table->name);
+            
             //creation de la precommande
             $precommande = $this->precommandeService->store_precommande($this->server_id, $code, $this->table_id);
-
+            $this->tableService->update_table($this->table_id);
             $this->facture = $this->commande_repo->facture($precommande->id);
             $this->last_commande = $this->commande_repo->last_commande($this->table_id);
-
+            
+            Session::put($precommande->code, $precommande->code);
             $this->vider_commande_form();
 
-            $this->dispatchBrowserEvent('close-modal');
+            $this->dispatchBrowserEvent('closeModal');
         }
     }
 
@@ -105,13 +110,10 @@ class Home extends Component
     //Ajout des produits a la commande
     public function ajouter(int $produitId)
     {
-
-        // $this->produit_repo->store($produitId); 
         $this->produit_id = $produitId;
         $produit = $this->commande_repo->produit_by_id($this->produit_id);
 
         if ($produit and $this->last_commande != null) {
-
             $commandeById = $this->commande_repo->commande_by_id($this->last_commande->id, $this->produit_id);
 
             if (empty($commandeById)) {
@@ -180,6 +182,16 @@ class Home extends Component
         $precommande_id = $this->reduction_repo->confirm($id);
         return $this->facture = $this->commande_repo->facture($precommande_id);
         $this->emit("reduction-confirmed");
+    }
+
+    public function storeDette($precommandeId) {
+        
+       $detteOkay = $this->detteService->store_dette($this->clientName, $this->clientPhone, $this->advance, $precommandeId);
+        
+       if($detteOkay === true) {
+        $this->facture = $this->commande_repo->facture($precommandeId);
+       }
+        $this->dispatchBrowserEvent('closeModal');
     }
 
     //mise a jour du status de la table

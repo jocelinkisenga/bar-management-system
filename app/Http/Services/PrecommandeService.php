@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Services; 
 
 use App\Models\Precommande;
+use App\Models\Table;
 use Illuminate\Support\Facades\Auth;
 
 class PrecommandeService {
@@ -32,4 +33,21 @@ class PrecommandeService {
             "invoiced" => 1
         ]);
     }
+
+            public function confirm(int $precommandeId)
+        {
+                $precommande = Precommande::where('id', '=', $precommandeId)->first();
+                $table = Table::findOrFail($precommande->table_id);
+
+
+                $precommande->update([
+                        'status' => true
+                ]);
+
+                $table->update([
+                        "status" => false
+                ]);
+                session()->forget($table->name);
+                
+        }
 }

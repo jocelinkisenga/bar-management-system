@@ -13,12 +13,10 @@ use Illuminate\Support\Facades\DB;
 
 class CommandeRepositorie
 {
-
         //returns commande by id
         public function produit_by_id(int $produitId)
         {
-
-                return    Produit::whereId($produitId)->where("company_id", "=", Auth::user()->company_id)->first();
+                return Produit::whereId($produitId)->where("company_id", "=", Auth::user()->company_id)->first();
         }
 
         //returns all precommandes
@@ -26,7 +24,6 @@ class CommandeRepositorie
         {
                 return Precommande::latest()->whereStatus(false)->where("company_id", "=", Auth::user()->company_id)->get();
         }
-
         public function today_commandes()
         {
                 return Precommande::where();
@@ -40,7 +37,7 @@ class CommandeRepositorie
 
         public function commande_by_id(int $commandId, int $produitId)
         {
-                return  $result =  Commande::wherePrecommande_id($commandId)->whereProduit_id($produitId)->whereCompany_id(Auth::user()->company_id)->first();
+                return $result = Commande::wherePrecommande_id($commandId)->whereProduit_id($produitId)->whereCompany_id(Auth::user()->company_id)->first();
         }
 
         //THIS FUNCTION UPDATES COMMANDES QUANTITY BY PRODUCT ID AND COMMAND ID
@@ -48,7 +45,7 @@ class CommandeRepositorie
         {
 
                 if ($quantity < $this->product_qty($produitId)) {
-                        $result =  Commande::wherePrecommande_id($commandId)->whereCompany_id(Auth::user()->company_id)->where('produit_id', '=', $produitId)->first();
+                        $result = Commande::wherePrecommande_id($commandId)->whereCompany_id(Auth::user()->company_id)->where('produit_id', '=', $produitId)->first();
                         if (!empty($result)) {
                                 $Oldqty = $result->quantity_commande;
                                 $new_qty = $Oldqty + $quantity;
@@ -91,7 +88,7 @@ class CommandeRepositorie
         //this function updates product quantity by substracting it 
         public function substract_quantity($productId, $quantity)
         {
-                $result =  Produit::where('id', '=', $productId)->first();
+                $result = Produit::where('id', '=', $productId)->first();
                 if (!empty($result)) {
                         $qty = $result->quantity;
                         if ($qty >= $quantity) {
@@ -107,7 +104,7 @@ class CommandeRepositorie
         // diminue la quatinté des produits d'une commande
         public function reduire_quantity(int $commandId, int $produitId)
         {
-                $result =  Commande::wherePrecommande_id($commandId)->whereCompany_id(Auth::user()->company_id)->whereProduit_id($produitId)->first();
+                $result = Commande::wherePrecommande_id($commandId)->whereCompany_id(Auth::user()->company_id)->whereProduit_id($produitId)->first();
                 if (!empty($result)) {
                         $new_qty = $result->quantity_commande - 1;
                         $this->restore_product($produitId, 1);
@@ -120,7 +117,7 @@ class CommandeRepositorie
         //annule une commande
         public function delete_commande(int $commandId, int $produitId, $qty)
         {
-                $result =  Commande::wherePrecommande_id($commandId)->whereCompany_id(Auth::user()->company_id)->where('produit_id', '=', $produitId)->first();
+                $result = Commande::wherePrecommande_id($commandId)->whereCompany_id(Auth::user()->company_id)->where('produit_id', '=', $produitId)->first();
                 if (!empty($result)) {
                         $this->restore_product($produitId, $qty);
                         $result->delete();
@@ -128,9 +125,9 @@ class CommandeRepositorie
         }
 
         // mets à jour la quantité des produits après reduction ou annulation de la commande
-        public function  restore_product($productId, $quantity)
+        public function restore_product($productId, $quantity)
         {
-                $result =  Produit::whereId($productId)->first();
+                $result = Produit::whereId($productId)->first();
                 if (!empty($result)) {
                         $qty = $result->quantity;
                         if ($qty >= $quantity) {
@@ -146,7 +143,7 @@ class CommandeRepositorie
         // retourne la quantité des produits
         public function product_qty($productId)
         {
-                $produit =  Produit::whereId($productId)->first();
+                $produit = Produit::whereId($productId)->first();
                 return $produit->quantity;
         }
 
@@ -154,7 +151,7 @@ class CommandeRepositorie
         public function facture($commandId)
         {
 
-                return  DB::select("SELECT SUM(commandes.quantity_commande) as qty,
+                return DB::select("SELECT SUM(commandes.quantity_commande) as qty,
                 reductions.pourcentage,
                 produits.name, 
                 produits.price,
@@ -181,11 +178,10 @@ class CommandeRepositorie
         // retourne la dernière commande
         public function last_commande($tableId)
         {
-         
-                return   Precommande::whereTable_id($tableId)
-                                ->whereStatus(false)
-                                ->whereCompany_id(Auth::user()->company_id)
-                                ->with('reductions')->first();
+                return Precommande::whereTable_id($tableId)
+                        ->whereStatus(false)
+                        ->whereCompany_id(Auth::user()->company_id)
+                        ->with('reductions')->first();
         }
 
         // confirme la commande
@@ -194,21 +190,17 @@ class CommandeRepositorie
                 $precommande = Precommande::where('id', '=', $id)->first();
                 $table = Table::findOrFail($precommande->table_id);
 
-
-                $precommande->update([
-                        'status' => true
-                ]);
-
                 $table->update([
                         "status" => false
+                ]);
+                $precommande->update([
+                        'status' => true
                 ]);
                 session()->forget($table->name);
         }
 
-
         public function todays()
         {
-                // commandes, quantity, produits, group by products
                 DB::statement("SET SQL_MODE=''");
                 return DB::select("SELECT commandes.*, precommandes.code, produits.name, produits.price
          FROM commandes,produits, precommandes
