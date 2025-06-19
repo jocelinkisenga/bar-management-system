@@ -96,7 +96,7 @@ class Home extends Component
             
             Session::put($precommande->code, $precommande->code);
             $this->vider_commande_form();
-
+            
             $this->dispatchBrowserEvent('closeModal');
         }
     }
