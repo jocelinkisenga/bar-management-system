@@ -111,8 +111,7 @@
                             <hr class="m-0">
                             <span class="dropdown-item"><a href="{{ route('dashboard') }}"
                                     class="text-white bg-success nav-link">tableau de bord</a></span>
-                            {{-- <span class="dropdown-item"><a data-bs-toggle="modal" data-bs-target="#allcommandes" class="text-white bg-success nav-link">rapport
-                                    des commandes</a></span> --}}
+                      
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
 
@@ -132,13 +131,13 @@
                 <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
                     aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="profile.html">Mon Profil</a>
-                    <a class="dropdown-item" href="generalsettings.html">Paramètres</a>
+                    <a class="dropdown-item" href="{{ route("dashboard") }}">Mon Profil</a>
+                    <a class="dropdown-item" href="">Paramètres</a>
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
 
-                        <span class="dropdown-item"> <input type="submit" value="se deconnecter"
-                                class="text-white bg-danger nav-link"></span>
+                        <span class="dropdown-item"> <input type="submit"  value="se deconnecter"
+                                class="text-white btn btn-danger btn-sm nav-link"></span>
 
 
                     </form>
@@ -168,7 +167,7 @@
                         </div>
                     </div>
                     <div class="col-lg-8 bg-white  col-sm-12 tabs_wrapper border  rounded-2xl mt-2">
-                        <div class="page-header ">
+                        <div class="page-header  mt-2">
                             <div class="page-title">
                                 <h4>LES CATEGORIES</h4>
                             </div>
@@ -227,7 +226,7 @@
                                 data-bs-target="#create"><i class="fa fa-plus me-2"></i>créer une commande</a>
                         </div>
                         <div class="setvaluecash">
-                            <div class="row ">
+                            <div class="row mb-2">
                                 <div class="col-4 m-0">
                                     <button class="btn btn-sm btn-outline-success text-bold " data-bs-toggle="modal"
                                         data-bs-target="#recents">
@@ -280,7 +279,7 @@
                                             data-bs-toggle="offcanvas" data-bs-target="#panierOffcanvas"
                                             aria-controls="panierOffcanvas">
                                             {{-- <img src="assets/img/icons/purchase.svg" alt="img" class="me-2"> --}}
-                                            PANIER 🛒
+                                            PANIER
                                             {{-- <span class="badge rounded bg-danger text-white m-0">{{ $commandes->count() }}</span> --}}
                                         </button>
                                     </div>
@@ -423,4 +422,5 @@
     {{-- reduction component --}}
     @include('livewire.modals.factureReduction')
     {{-- end reduction component --}}
+    
 </div>

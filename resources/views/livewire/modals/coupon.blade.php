@@ -11,7 +11,7 @@
                 <div class="modal-body">
                     <ul class="nav nav-tabs" id="myTabs" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="purchase-tab" data-bs-toggle="tab"
+                            <button class="btn btn-sm  btn-outline-info" id="purchase-tab" data-bs-toggle="tab"
                                 data-bs-target="#purchase" type="button" aria-controls="purchase"
                                 aria-selected="true" role="tab" onclick="printCoupon()">imprimer</button>
                         </li>
@@ -21,11 +21,11 @@
                             <div id="printdivcontent">
                                 <div class="card">
                                     <div class="card-header ">
-                                        <a class="pt-2 ">The king</a>
+                                        <a class="pt-2 "></a>
                                         <div class="float-right">
                                             <strong> Fax:</strong> 2233455 <br>
                                             <strong>avenue :</strong> square 23,67 <br>
-                                            <strong>contact :</strong> +243 994 445 56 <br>
+                                            <strong>contact :</strong> {{ auth()->user()->phone }} <br>
                                             <strong>code :</strong>
                                             @if (!empty($invoce))
                                                 {{ $invoce[0]->code }}

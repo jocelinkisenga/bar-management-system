@@ -14,8 +14,8 @@
                             @if (!empty($invoce))
                                 <li class="nav-item" role="presentation">
 
-                                    <button class="nav-link " class="btn btn-primary"
-                                        style="background-color: blue; color:white" onclick="printDiv()"
+                                    <button  
+                                        class="btn btn-sm btn-outline-info" onclick="printDiv()"
                                         id="purchase-tab" data-bs-toggle="tab" data-bs-target="#purchase"
                                         aria-controls="purchase" aria-selected="true"
                                         role="tab">imprimer</button>
@@ -24,7 +24,7 @@
                                 @if ($invoce[0]->invoiced == 0)
                                     <li class="nav-item" style="margin-left: 16px"><button
                                             wire:click="invoice({{ $invoce[0]->pId }})"
-                                            class="ml-4 btn btn-success">facturer</button></li>
+                                            class="ml-4 btn btn-sm btn-outline-danger">facturer</button></li>
                                 @endif
 
                             @endif
@@ -34,7 +34,8 @@
                                 <div id="printdivcontent">
                                     <div class="card">
                                         <div class="card-header ">
-                                            <a class="pt-2 ">The king</a>
+                                        
+                                            <a class="pt-2 font-weight-bold">{{ Str::upper($companyName[0]["company_name"]) }}</a>
                                             <div class="float-right">
                                                 <strong> Fax:</strong> 2233455 <br>
                                                 <strong>avenue :</strong> square 23,67 <br>
