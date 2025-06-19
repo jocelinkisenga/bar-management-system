@@ -7,6 +7,6 @@ use Illuminate\Http\Request;
 class TableController extends Controller
 {
     public function index(){
-        return view('Pages.tables');
+        return view('pages.tables');
     }
 }

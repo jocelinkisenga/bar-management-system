@@ -31,7 +31,7 @@ class CommandeController extends Controller
         DB::statement("SET SQL_MODE=''");
         $commandes = Commande::latest()->with('precommande')->with('reduction')->groupBy('precommande_id')->whereCompany_id(Auth::user()->company_id)->get();
        
-        return view('Pages.adminCommandes',compact('commandes'));
+        return view('pages.adminCommandes',compact('commandes'));
     }
 
     // public function show(int $id){

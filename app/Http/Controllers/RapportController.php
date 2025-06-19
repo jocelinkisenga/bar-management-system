@@ -17,11 +17,11 @@ class RapportController extends Controller
     }
 
     public function daily(){
-        return view("Pages.rapport.dailyRapport");
+        return view("pages.rapport.dailyRapport");
     }
     
     public function weekly(){
-       return view("Pages.rapport.weeklyRapport"); 
+       return view("pages.rapport.weeklyRapport"); 
     }
 
     public function monthly(){
