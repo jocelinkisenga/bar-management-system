@@ -16,17 +16,17 @@ class StockController extends Controller
     {
         $result = $this->stockRepo->daily_stock();
         dd($result);
-        return view("Pages.stock.dailyStock", compact('result'));
+        return view("pages.stock.dailyStock", compact('result'));
     }
 
     public function monthly()
     {
-        return view("Pages.stock.weeklyStock");
+        return view("pages.stock.weeklyStock");
     }
 
 
     public function weekly()
     {
-        return view("Pages.stock.monthly");
+        return view("pages.stock.monthly");
     }
 }

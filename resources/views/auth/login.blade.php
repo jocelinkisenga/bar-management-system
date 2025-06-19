@@ -8,7 +8,7 @@
           <div class="mx-auto col-lg-4">
             <div class="px-4 py-5 text-left auth-form-light px-sm-5">
 
-              <h4 class="center">se connecter</h4>
+              <h4 class="align-items-center center ">Connectez-vous a votre compte pour continuer les activites</h4>
               <form class="pt-3" method="POST" action="{{route('login')}}">
                 @csrf
                 <div class="form-group">
@@ -19,14 +19,14 @@
                  @enderror
                 
                 <div class="form-group mt-5">
-                  <input type="password" name="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">
+                  <input type="password" name="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Mot de passe">
                 </div>
                 @error('password')
                 <small class="ml-5 text-danger " id="passwordError">{{$message}}</small>
                 @enderror
                 
                 <div class="mt-3">
-                  <input class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit" name="login">
+                  <input class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit" value="s'authentifier" name="login">
                 </div>
 
               </form>

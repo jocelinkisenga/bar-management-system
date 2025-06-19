@@ -9,7 +9,7 @@
         content="admin, estimates, bootstrap, business, corporate, creative, invoice, html5, responsive, Projects">
     <meta name="author" content="Dreamguys - Bootstrap Admin Template">
     <meta name="robots" content="noindex, nofollow">
-    <title>the king</title>
+    <title>SELLIT</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
@@ -136,6 +136,32 @@
     <script>
         $('#flash-overlay-modal')
     </script>
+          <script type="text/javascript">  
+        function printDiv() {  
+           
+            var divContents = document.getElementById("printDiv").innerHTML;  
+            var printWindow = window.open('', '', 'height=200,width=400');  
+            printWindow.document.write('<html><head><title>Print DIV Content</title>');  
+            printWindow.document.write('</head><body >');  
+            printWindow.document.write(divContents);  
+            printWindow.document.write('</body></html>');  
+            printWindow.document.close();  
+            printWindow.print();  
+        }  
+        //printJS({printable:'fact', type: 'html', targetStyles: ['*']})
+
+        function printCoupon() {  
+           
+            var divContents = document.getElementById("printCoupon").innerHTML;  
+            var printWindow = window.open('', '', 'height=200,width=400');  
+            printWindow.document.write('<html><head><title>Print DIV Content</title>');  
+            printWindow.document.write('</head><body >');  
+            printWindow.document.write(divContents);  
+            printWindow.document.write('</body></html>');  
+            printWindow.document.close();  
+            printWindow.print();  
+        }  
+    </script> 
 
 </body>
 

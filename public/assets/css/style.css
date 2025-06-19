@@ -6554,7 +6554,7 @@ span.select2-container.select2-container--default.select2-container--open {
   overflow: hidden;
 }
 .productset:hover {
-  border: 1px solid #7367F0;
+  border: 1px solid yellow;
 }
 .productset .check-product {
   display: none;
@@ -6591,16 +6591,16 @@ span.select2-container.select2-container--default.select2-container--open {
     max-height: 100px;
   }
 }
-.productset .productsetimg h6 {
+.productset  .qty {
   position: absolute;
   background: #FF9F43;
-  color: #fff;
+  color: white ;
   font-size: 10px;
-  padding: 5px;
+  padding: 10px;
   border-radius: 5px;
-  top: 20px;
-  right: 20px;
-  transform: translatey(-60px);
+  top: 30px;
+  right: 10px;
+  transform: translatey(-40px);
   transition: all 0.5s;
 }
 .productset .productsetcontent {

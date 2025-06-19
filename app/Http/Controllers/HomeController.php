@@ -13,7 +13,7 @@ class HomeController extends Controller
     public function index(){
         $produits = Produit::all();
         $notifications = Reduction::whereStatus(false)->get();
-        return view('Pages.index',compact("produits","notifications"));
+        return view('pages.index',compact("produits","notifications"));
     }
 
     public function facture($commandId){
@@ -26,6 +26,6 @@ class HomeController extends Controller
                                 AND commandes.produit_id = produits.id 
                                 AND tables.id = precommandes.table_id");
         
-        return view('Pages.facture',compact('results'));
+        return view('pages.facture',compact('results'));
     }
 }

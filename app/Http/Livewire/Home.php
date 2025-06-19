@@ -43,6 +43,7 @@ class Home extends Component
     public $todays;
     public $clientName, $clientPhone, $advance;
     public $tables;
+    public $companyName;
     public $table_id;
     protected $commande_repo, $reduction_repo, $produit_repo;
     protected $tableService, $productService, $categoryService, $userService, $precommandeService, $detteService;
@@ -65,6 +66,7 @@ class Home extends Component
         if ($this->last_commande) {
             $this->invoce = $this->commande_repo->facture($this->last_commande->id);
             $this->commandes = $this->commande_repo->all_commandes($this->last_commande->id);
+            $this->companyName = User::where('id','=',Auth::user()->company_id)->get('company_name');
         }
 
         $this->categories = $this->categoryService->category_with_products();
@@ -74,6 +76,7 @@ class Home extends Component
         $this->todays = $this->commande_repo->todays();
         $this->tables = $this->tableService->table_with_precommandes();
         $this->serveurs = $this->userService->servers();
+
 
         return view('livewire.home');
     }
@@ -96,7 +99,7 @@ class Home extends Component
             
             Session::put($precommande->code, $precommande->code);
             $this->vider_commande_form();
-
+            
             $this->dispatchBrowserEvent('closeModal');
         }
     }

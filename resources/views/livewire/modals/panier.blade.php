@@ -4,7 +4,6 @@
           <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Fermer"></button>
       </div>
       <div class="offcanvas-body d-flex flex-column justify-content-between">
-
           <div class="row">
               @if (!empty($last_commande) and $last_commande->status == false)
                   <div class="order-list">

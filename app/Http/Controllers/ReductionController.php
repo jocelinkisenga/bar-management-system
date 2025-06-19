@@ -17,11 +17,11 @@ class ReductionController extends Controller
 
     public function index (){
         $reductions = Reduction::whereStatus(false)->get();
-        return view('Pages.reduction', compact('reductions'));
+        return view('pages.reduction', compact('reductions'));
     }
 
     public function show(int $id){
         //$reduction = $this->repo_commande->facture($id);
-        return view('Pages.ReductionDetail',compact('id'));
+        return view('pages.ReductionDetail',compact('id'));
     }
 }
